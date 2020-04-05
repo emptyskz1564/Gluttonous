@@ -41,7 +41,7 @@ create table if not exists card(
 	foreign key (res_id) references restaurant (res_id),
 	foreign key (card_id) references card_lable (card_id),
 	foreign key (wx_id) references user (wx_id),
-	foreign key (card_id) references card_userlike (card_id)
+	foreign key (card_id) references card_user_like (card_id)
 ) ENGINE=MyISAM default charset=utf8;
 
 
@@ -70,7 +70,7 @@ create table if not exists user(
 	primary key (id),
 	foreign key (id) references user_lable (user_id),
 	foreign key (id) references user_restaurant (user_id),
-	foreign key (id) references card_userlike (user_id),
+	foreign key (id) references card_user_like (user_id),
 	foreign key (id) references discuss_userlike (user_id)
 ) ENGINE=MyISAM default charset=utf8;
 
@@ -94,7 +94,7 @@ create table user_restaurant(
 
 
 -- 打卡点赞客户id与客户id（）
-create table card_userlike(
+create table card_user_like(
 	card_id int not null,
 	user_id int not null,
 	primary key (card_id,user_id)
