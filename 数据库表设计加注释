@@ -7,7 +7,7 @@ create table if not exists lable(
 	foreign key (id) references res_lable (lid),
 	foreign key (id) references card_lable(lable_id),
 	foreign key (id) references user_lable (lable_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -20,7 +20,7 @@ create table if not exists restaurant(
 	primary key (res_id),
 	foreign key (res_id) references res_lable (rid),
 	foreign key (res_id) references user_restaurant (res_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -29,19 +29,19 @@ create table if not exists restaurant(
 ）
 create table if not exists card(
 	card_id int not null auto_increment,
-	res_id int nut null,
+	res_id int not null,
 	content varchar(100),
 	title varchar(20) not null,
 	self_lable varchar(35),
 	picurl varchar(250),
-	wx_id vachar(15) not null,
-	bestfood vachar(10),
+	wx_id varchar(15) not null,
+	bestfood varchar(10),
 	primary key (card_id),
 	foreign key (res_id) references restaurant (res_id),
 	foreign key (card_id) references card_lable (card_id),
 	foreign key (wx_id) references user (wx_id),
 	foreign key (card_id) references card_userlike (card_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -56,7 +56,7 @@ create table if not exists discuss(
 	primary key (id),
 	foreign key (card_id) references card (card_id),
 	foreign key (id) references discuss_userlike (discuss_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -65,13 +65,13 @@ create table if not exists user(
 	id int not null auto_increment,
 	name varchar(10) not null,
 	viplevel int,
-	wx_id vachar(15) not null,
+	wx_id varchar(15) not null,
 	primary key (id),
 	foreign key (id) references user_lable (user_lable_id),
 	foreign key (id) references user_restaurant (user_res_id),
 	foreign key (id) references card_userlike (user_id),
 	foreign key (id) references discuss_userlike (user_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -80,7 +80,7 @@ create table user_lable(
 	lable_id int not null,
 	user_lable_id int not null,
 	primary key (lable_id,user_lable_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -89,7 +89,7 @@ create table user_restaurant(
 	user_res_id int not null,
 	res_id int not null,
 	primary key (user_res_id,res_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 打卡点赞客户id与客户id（）
@@ -97,7 +97,7 @@ create table card_userlike(
 	card_id int not null,
 	user_id int not null,
 	primary key (card_id,user_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 评论点赞客户id与用户表（）
@@ -105,7 +105,7 @@ create table discuss_userlike(
 	discuss_id int not null,
 	user_id int not null,
 	primary key (discuss_id,user_id)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 标签_餐厅表（）
@@ -113,7 +113,7 @@ create table res_lable(
 	lid int not null,
 	rid int not null,
 	primary key(lid,rid)
-)default charset=utf8;
+) ENGINE=MyISAM default charset=utf8;
 
 
 
@@ -121,5 +121,5 @@ create table res_lable(
 create table card_lable(
 	card_id int not null,
 	lable_id int not null,
-	primary key(card_id,lable_id)
-)default charset=utf8;
+	primary key(lable_id,card_id)
+) ENGINE=MyISAM default charset=utf8;
