@@ -1,8 +1,8 @@
 -- 标签表：(id为标签id（主键），content为标签内容，type为标签类型)
 create table if not exists lable(
 	lable_id int not null auto_increment,
-	content varchar(80) not null,
-	type int not null,
+	lable_content varchar(80) not null,
+	lable_type int not null,
 	primary key (lable_id),
 	foreign key (lable_id) references res_lable (lable_id),
 	foreign key (lable_id) references card_lable(lable_id),
@@ -15,8 +15,8 @@ create table if not exists lable(
 -- 餐厅表：（res_id为餐厅id，title为餐厅名，adress为餐厅地址，主键为res_id）
 create table if not exists restaurant(
 	res_id int not null auto_increment,
-	title varchar(80) not null,
-	adress varchar(150) not null,
+	res_title varchar(80) not null,
+	res_adress varchar(150) not null,
 	primary key (res_id),
 	foreign key (res_id) references res_lable (res_id),
 	foreign key (res_id) references user_restaurant (res_id)
@@ -28,8 +28,8 @@ create table if not exists restaurant(
 create table if not exists card(
 	card_id int not null auto_increment,
 	res_id int not null,
-	content varchar(255) not null,
-	title varchar(80) not null,
+	card_content varchar(255) not null,
+	card_title varchar(80) not null,
 	self_lable1 varchar(150),
 	self_lable2 varchar(150),
 	self_lable3 varchar(150),
@@ -49,29 +49,29 @@ create table if not exists card(
 
 -- 评论表（id为评论id，card_id为关联打卡id，comment为评论内容，userlike_id为点赞用户id，parent_id为父评论的id（没有的时候默认为-1），thread为1.2/这样的排序方便显示）
 create table if not exists discuss(
-	id int not null auto_increment,
+	dis_id int not null auto_increment,
 	card_id int not null,
-	comment varchar(255) not null,
+	dis_comment varchar(255) not null,
 	parent_id int,
-	thread varchar(100) not null,
-	primary key (id),
+	dis_thread varchar(100) not null,
+	primary key (dis_id),
 	foreign key (card_id) references card (card_id),
-	foreign key (id) references discuss_user_like (discuss_id)
+	foreign key (dis_id) references discuss_user_like (discuss_id)
 ) ENGINE=MyISAM default charset=utf8;
 
 
 
 -- 用户表（id为用户id，name为用户昵称，viplevle为用户vip等级，wx_id为用户微信id，主键为id）
 create table if not exists user(
-	id int not null auto_increment,
-	name varchar(80) not null,
+	user_id int not null auto_increment,
+	user_name varchar(80) not null,
 	vip int,
 	wx_id varchar(80) not null,
-	primary key (id),
-	foreign key (id) references user_lable (user_id),
-	foreign key (id) references user_restaurant (user_id),
-	foreign key (id) references card_user_like (user_id),
-	foreign key (id) references discuss_user_like (user_id)
+	primary key (user_id),
+	foreign key (user_id) references user_lable (user_id),
+	foreign key (user_id) references user_restaurant (user_id),
+	foreign key (user_id) references card_user_like (user_id),
+	foreign key (user_id) references discuss_user_like (user_id)
 ) ENGINE=MyISAM default charset=utf8;
 
 
