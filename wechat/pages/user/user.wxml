@@ -1,0 +1,3 @@
+<!--pages/user/user.wxml-->
+<text>{{userInfo.nickName}}</text>
+<button bindtap="login">点我登录</button>
