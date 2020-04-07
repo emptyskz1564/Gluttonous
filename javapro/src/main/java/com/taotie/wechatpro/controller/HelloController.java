@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.taotie.wechatpro.dao.*;
 import com.taotie.wechatpro.dao.view.*;
 import com.taotie.wechatpro.pojo.*;
-import com.taotie.wechatpro.pojo.view.VDiscussUserLike;
-import com.taotie.wechatpro.pojo.view.VUserLable;
-import com.taotie.wechatpro.pojo.view.VUserRestaurant;
+import com.taotie.wechatpro.pojo.view.*;
 import com.taotie.wechatpro.service.RedisService;
 import com.taotie.wechatpro.service.UserService;
 import com.taotie.wechatpro.service.impl.UserServiceImpl;
@@ -16,6 +14,8 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 创建时间: 2020/4/5 11:09
@@ -73,27 +73,27 @@ public class HelloController {
     @Autowired
     RedisTemplate<Object,Object> redisTemplate;
 
-    @RequestMapping(value = "/hello/{id}",method = RequestMethod.GET)
-    public String hello(@PathVariable String id) {//@PathVariable可以用来映射URL中的占位符到目标方法的参数中
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("test","测试");
-            //String text = redisServiceImpl.get("test",String.class);
-            //System.out.println(text);
-
-//            List<User> users = redisServiceImpl.get("test",List.class);
-//            for (User user : users) {
-//                System.out.println(user);
-//            }
-            //throw new MyException(200,"123s含");
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            return jsonObject.toJSONString();
-        }
-
-    }
+//    @RequestMapping(value = "/hello/{id}",method = RequestMethod.GET)
+//    public String hello(@PathVariable String id) {//@PathVariable可以用来映射URL中的占位符到目标方法的参数中
+//        JSONObject jsonObject = new JSONObject();
+//
+//        try {
+//            jsonObject.put("test","测试");
+//            //String text = redisServiceImpl.get("test",String.class);
+//            //System.out.println(text);
+//
+////            List<User> users = redisServiceImpl.get("test",List.class);
+////            for (User user : users) {
+////                System.out.println(user);
+////            }
+//            //throw new MyException(200,"123s含");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }finally {
+//            return jsonObject.toJSONString();
+//        }
+//
+//    }
 
     //根据id返回user表信息
     @ResponseBody
@@ -172,45 +172,88 @@ public class HelloController {
 
 
     //根据card_id返回v_card_lable表信息
+    //凡是在redis中存的是视图的实体类，key的格式为属性名_视图实体类名，例如card_lable视图用cardId当做key时key格式为cardLable_cardId:数字
     @ResponseBody
     @RequestMapping(value = "/vcardlable/{id}",method = RequestMethod.GET)
     public Object getvcardlable(@PathVariable String id){
-        return vCardLableDao.selectByCardId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VCardLable vCardLable = (VCardLable) redisTemplate.opsForValue().get("cardLable_cardId:"+id);
+        if(vCardLable==null){
+            vCardLable = vCardLableDao.selectByCardId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("cardLable_cardId:"+id,vCardLable);
+        }
+        return vCardLable;
     }
 
     //根据card_id返回v_card_user_like表信息
     @ResponseBody
     @RequestMapping(value = "/vcarduserlike/{id}",method = RequestMethod.GET)
     public Object getvcarduserlike(@PathVariable String id){
-        return vCardUserLikeDao.selectByCardId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VCardUserLike vCardUserLike = (VCardUserLike) redisTemplate.opsForValue().get("cardUserLike_cardId:"+id);
+        if(vCardUserLike==null){
+            vCardUserLike = vCardUserLikeDao.selectByCardId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("cardUserLike_cardId:"+id,vCardUserLike);
+        }
+        return vCardUserLike;
     }
 
-    //根据card_id返回v_discuss_user_like表信息
+    //根据user_id返回v_discuss_user_like表信息
     @ResponseBody
     @RequestMapping(value = "/vdiscussuserlike/{id}",method = RequestMethod.GET)
     public Object getvdiscussuserlike(@PathVariable String id){
-        return vDiscussUserLikeDao.selectByUserId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VDiscussUserLike vDiscussUserLike = (VDiscussUserLike) redisTemplate.opsForValue().get("discussUserLike_userId:"+id);
+        if(vDiscussUserLike==null){
+            vDiscussUserLike = vDiscussUserLikeDao.selectByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("discussUserLike_userId:"+id,vDiscussUserLike);
+        }
+        return vDiscussUserLike;
     }
 
-    //根据card_id返回v_res_lable表信息
+    //根据res_id返回v_res_lable表信息
     @ResponseBody
     @RequestMapping(value = "/vreslable/{id}",method = RequestMethod.GET)
     public Object getvreslable(@PathVariable String id){
-        return vResLableDao.selectByResId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VResLable vResLable = (VResLable) redisTemplate.opsForValue().get("resLable_resId:"+id);
+        if(vResLable==null){
+            vResLable = vResLableDao.selectByResId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("resLable_resId:"+id,vResLable);
+        }
+        return vResLable;
     }
 
-    //根据card_id返回v_user_lable表信息
+    //根据user_id返回v_user_lable表信息
     @ResponseBody
     @RequestMapping(value = "/vuserlable/{id}",method = RequestMethod.GET)
     public Object getvuserlable(@PathVariable String id){
-        return vUserLableDao.selectByUserId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VUserLable vUserLable = (VUserLable) redisTemplate.opsForValue().get("userLable_userId:"+id);
+        if(vUserLable==null){
+            vUserLable = vUserLableDao.selectByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("userLable_userId:"+id,vUserLable);
+        }
+        return vUserLable;
     }
 
-    //根据card_id返回v_user_restaurant表信息
+    //根据user_id返回v_user_restaurant表信息
     @ResponseBody
     @RequestMapping(value = "/vuserrestaurant/{id}",method = RequestMethod.GET)
     public Object getvuserrestaurant(@PathVariable String id){
-        return vUserRestaurantDao.selectByUserId(Integer.valueOf(id));
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VUserRestaurant vUserRestaurant = (VUserRestaurant) redisTemplate.opsForValue().get("userRestaurant_userId:"+id);
+        if(vUserRestaurant==null){
+            vUserRestaurant = vUserRestaurantDao.selectByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("userRestaurant_userId:"+id,vUserRestaurant);
+        }
+        return vUserRestaurant;
     }
 
 
@@ -222,6 +265,7 @@ public class HelloController {
     @ResponseBody
     @RequestMapping(value = "/users",method = RequestMethod.GET)
     public Object getUsers(){
+        //redis操作在UserServiceImpl中做了
         return userService.getUserList();
     }
 }

@@ -3,6 +3,8 @@ package com.taotie.wechatpro.pojo.view;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * 创建时间: 2020/4/6 14:42
  * 文件备注:
@@ -17,7 +19,7 @@ import lombok.*;
 @Setter
 @ToString
 @TableName("v_res_lable")
-public class VResLable {
+public class VResLable implements Serializable {
 
     private Integer resId;
     private String resTitle;

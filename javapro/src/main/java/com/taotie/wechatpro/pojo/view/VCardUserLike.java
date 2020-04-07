@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * 创建时间: 2020/4/6 14:20
  * 文件备注:
@@ -17,7 +19,7 @@ import lombok.*;
 @Setter
 @ToString
 @TableName("v_card_user_like")
-public class VCardUserLike {
+public class VCardUserLike implements Serializable {
 
     private Integer cardId;
     private Integer resId;

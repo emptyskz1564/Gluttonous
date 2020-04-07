@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.taotie.wechatpro.pojo.User;
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * 创建时间: 2020/4/6 14:51
  * 文件备注:
@@ -17,7 +19,7 @@ import lombok.*;
 @Setter
 @ToString
 @TableName("v_user_restaurant")
-public class VUserRestaurant {
+public class VUserRestaurant  implements Serializable {
 
     private Integer userId;
     private String userName;
