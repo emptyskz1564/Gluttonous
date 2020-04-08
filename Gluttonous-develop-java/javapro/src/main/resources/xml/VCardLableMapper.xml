@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace写接口包名+接口-->
+<mapper namespace="com.taotie.wechatpro.dao.view.VCardLableDao" >
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.taotie.wechatpro.pojo.view.VCardLable">
+            select * from v_card_lable where card_id=#{cardId}
+    </select>
+</mapper>
