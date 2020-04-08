@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/restaurant/restaurant",
+    "pages/card/card"
+  ],
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "pages/icons/home.png",
+        "selectedIconPath": "pages/icons/home-s.png"
+      },
+      {
+        "pagePath": "pages/restaurant/restaurant",
+        "text": "餐厅",
+        "iconPath": "pages/icons/restaurant.png",
+        "selectedIconPath": "pages/icons/restaurant-s.png"
+      },
+      {
+        "pagePath": "pages/card/card",
+        "text": "打卡",
+        "iconPath": "pages/icons/card.png",
+        "selectedIconPath": "pages/icons/card-s.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "pages/icons/user.png",
+        "selectedIconPath": "pages/icons/user-s.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
