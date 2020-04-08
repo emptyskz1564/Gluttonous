@@ -1,14 +1,11 @@
 package com.taotie.wechatpro.pojo.view;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-import java.io.Serializable;
-
 /**
- * 创建时间: 2020/4/6 9:53
- * 文件备注:
+ * 创建时间: 2020/4/8 19:18
+ * 文件备注: 许祁实验用
  * 编写人员:
  */
 
@@ -18,10 +15,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@TableName("v_card_lable")
-public class VCardLable implements Serializable {
+@TableName("v_card_detail")
+public class VCardDetail {
 
-    //@TableField("card_id")
     private Integer cardId;
     private Integer resId;
     private String cardContent;
@@ -33,7 +29,11 @@ public class VCardLable implements Serializable {
     private String videoUrl;
     private String wxId;
     private String bestFood;
-    private Integer lableId;
-    private String lableContent;
-    private Integer lableType;
+    private String resTitle;
+    private String resAdress;
+    private String userName;
+    private Integer disId;
+    private String disComment;
+    private Integer parentId;
+    private Integer disThread;
 }

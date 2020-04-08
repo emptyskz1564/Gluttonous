@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 创建时间: 2020/4/8 16:31
- * 文件备注:
- * 编写人员:
+ * 文件备注: 还没写完，没准备好
+ * 编写人员: 杨伯益
  */
 
 @Controller
@@ -38,7 +38,7 @@ public class associateTableController {
     public void insertCardLable(/**大致意思是收到前台的json，不知道怎么表述*/){
         //从json拿出CardLable的内容
 
-        cardLableDao.insert(new CardLable(/*具体内容*/));
+        //cardLableDao.insert(new CardLable(/*具体内容*/));
 
 
     }

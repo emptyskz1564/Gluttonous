@@ -4,6 +4,7 @@ import com.taotie.wechatpro.dao.UserDao;
 import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
@@ -18,6 +19,7 @@ import java.util.List;
  * 编写人员:
  */
 
+@Configuration
 @Service("UserServiceImpl")
 public class UserServiceImpl implements UserService {
     @Autowired

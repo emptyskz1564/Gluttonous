@@ -2,6 +2,7 @@ package com.taotie.wechatpro.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 

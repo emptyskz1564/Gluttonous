@@ -4,6 +4,7 @@ import com.taotie.wechatpro.dao.DiscussDao;
 import com.taotie.wechatpro.pojo.Discuss;
 import com.taotie.wechatpro.utils.pojo2json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Configuration
 @Service("DiscussServiceImpl")
 public class DiscussServiceImpl {
 

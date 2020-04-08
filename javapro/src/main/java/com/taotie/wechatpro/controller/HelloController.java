@@ -172,16 +172,16 @@ public class HelloController {
 
 
     //根据card_id返回v_card_lable表信息
-    //凡是在redis中存的是视图的实体类，key的格式为属性名_视图实体类名，例如card_lable视图用cardId当做key时key格式为cardLable_cardId:数字
+    //凡是在redis中存的是视图的实体类，key的格式为属性名_视图实体类名，例如card_lable视图用cardId当做key时key格式为vCardLable_cardId:数字
     @ResponseBody
     @RequestMapping(value = "/vcardlable/{id}",method = RequestMethod.GET)
     public Object getvcardlable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VCardLable vCardLable = (VCardLable) redisTemplate.opsForValue().get("cardLable_cardId:"+id);
+        VCardLable vCardLable = (VCardLable) redisTemplate.opsForValue().get("vCardLable_cardId:"+id);
         if(vCardLable==null){
             vCardLable = vCardLableDao.selectByCardId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("cardLable_cardId:"+id,vCardLable);
+            redisTemplate.opsForValue().set("vCardLable_cardId:"+id,vCardLable);
         }
         return vCardLable;
     }
@@ -192,10 +192,10 @@ public class HelloController {
     public Object getvcarduserlike(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VCardUserLike vCardUserLike = (VCardUserLike) redisTemplate.opsForValue().get("cardUserLike_cardId:"+id);
+        VCardUserLike vCardUserLike = (VCardUserLike) redisTemplate.opsForValue().get("vCardUserLike_cardId:"+id);
         if(vCardUserLike==null){
             vCardUserLike = vCardUserLikeDao.selectByCardId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("cardUserLike_cardId:"+id,vCardUserLike);
+            redisTemplate.opsForValue().set("vCardUserLike_cardId:"+id,vCardUserLike);
         }
         return vCardUserLike;
     }
@@ -206,10 +206,10 @@ public class HelloController {
     public Object getvdiscussuserlike(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VDiscussUserLike vDiscussUserLike = (VDiscussUserLike) redisTemplate.opsForValue().get("discussUserLike_userId:"+id);
+        VDiscussUserLike vDiscussUserLike = (VDiscussUserLike) redisTemplate.opsForValue().get("vDiscussUserLike_userId:"+id);
         if(vDiscussUserLike==null){
             vDiscussUserLike = vDiscussUserLikeDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("discussUserLike_userId:"+id,vDiscussUserLike);
+            redisTemplate.opsForValue().set("vDiscussUserLike_userId:"+id,vDiscussUserLike);
         }
         return vDiscussUserLike;
     }
@@ -220,10 +220,10 @@ public class HelloController {
     public Object getvreslable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VResLable vResLable = (VResLable) redisTemplate.opsForValue().get("resLable_resId:"+id);
+        VResLable vResLable = (VResLable) redisTemplate.opsForValue().get("vResLable_resId:"+id);
         if(vResLable==null){
             vResLable = vResLableDao.selectByResId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("resLable_resId:"+id,vResLable);
+            redisTemplate.opsForValue().set("vResLable_resId:"+id,vResLable);
         }
         return vResLable;
     }
@@ -234,10 +234,10 @@ public class HelloController {
     public Object getvuserlable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VUserLable vUserLable = (VUserLable) redisTemplate.opsForValue().get("userLable_userId:"+id);
+        VUserLable vUserLable = (VUserLable) redisTemplate.opsForValue().get("vUserLable_userId:"+id);
         if(vUserLable==null){
             vUserLable = vUserLableDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("userLable_userId:"+id,vUserLable);
+            redisTemplate.opsForValue().set("vUserLable_userId:"+id,vUserLable);
         }
         return vUserLable;
     }
@@ -248,10 +248,10 @@ public class HelloController {
     public Object getvuserrestaurant(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VUserRestaurant vUserRestaurant = (VUserRestaurant) redisTemplate.opsForValue().get("userRestaurant_userId:"+id);
+        VUserRestaurant vUserRestaurant = (VUserRestaurant) redisTemplate.opsForValue().get("vUserRestaurant_userId:"+id);
         if(vUserRestaurant==null){
             vUserRestaurant = vUserRestaurantDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("userRestaurant_userId:"+id,vUserRestaurant);
+            redisTemplate.opsForValue().set("vUserRestaurant_userId:"+id,vUserRestaurant);
         }
         return vUserRestaurant;
     }
