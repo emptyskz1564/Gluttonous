@@ -1,0 +1,17 @@
+/* pages/user/user.wxss */
+/* 用户头像 */
+.user-image {
+  width: 30%;
+  margin: 0 auto;
+  padding: 30rpx;
+}
+/* 昵称 */
+.user-name {
+  text-align: center;
+}
+/* 用户标签 */
+.tabs {
+  width: 90%;
+  margin: 0 auto;
+  border:solid 1rpx rgba(0, 0, 0, 0.1) ;
+}

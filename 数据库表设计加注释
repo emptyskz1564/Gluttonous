@@ -1,0 +1,133 @@
+视图说明：
+所有视图名称都是"v_关联表名称"
+对应调用即可
+
+
+
+-- 标签表：(id为标签id（主键），content为标签内容，type为标签类型)
+create table if not exists lable(
+	lable_id int not null auto_increment,
+	lable_content varchar(80) not null,
+	lable_type int not null,
+	primary key (lable_id),
+	foreign key (lable_id) references res_lable (lable_id),
+	foreign key (lable_id) references card_lable(lable_id),
+	foreign key (lable_id) references user_lable (lable_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+
+-- 餐厅表：（res_id为餐厅id，title为餐厅名，adress为餐厅地址，主键为res_id）
+create table if not exists restaurant(
+	res_id int not null auto_increment,
+	res_title varchar(80) not null,
+	res_adress varchar(150) not null,
+	primary key (res_id),
+	foreign key (res_id) references res_lable (res_id),
+	foreign key (res_id) references user_restaurant (res_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+-- 打卡表（card_id为打卡id，res_id为餐厅id（外键于restaurant），content为打卡内容，title为打卡标题，self_lable为自定义打卡内容，picurl为图片链接，exist_lable_id为标签库中现存标签id（外键），wx_id为用户微信id（外键于用户微信id），bestfood为最好菜品，主键为card_id）
+create table if not exists card(
+	card_id int not null auto_increment,
+	res_id int not null,
+	card_content varchar(255) not null,
+	card_title varchar(80) not null,
+	self_lable1 varchar(150),
+	self_lable2 varchar(150),
+	self_lable3 varchar(150),
+	pic_url varchar(255),
+	video_url varchar(255),
+	wx_id varchar(80) not null,
+	best_food varchar(80) not null,
+	primary key (card_id),
+	foreign key (res_id) references restaurant (res_id),
+	foreign key (card_id) references card_lable (card_id),
+	foreign key (wx_id) references user (wx_id),
+	foreign key (card_id) references card_user_like (card_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+
+-- 评论表（id为评论id，card_id为关联打卡id，comment为评论内容，userlike_id为点赞用户id，parent_id为父评论的id（没有的时候默认为-1），thread为1.2/这样的排序方便显示）
+create table if not exists discuss(
+	dis_id int not null auto_increment,
+	card_id int not null,
+	dis_comment varchar(255) not null,
+	parent_id int,
+	dis_thread varchar(100) not null,
+	primary key (dis_id),
+	foreign key (card_id) references card (card_id),
+	foreign key (dis_id) references discuss_user_like (discuss_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+-- 用户表（id为用户id，name为用户昵称，viplevle为用户vip等级，wx_id为用户微信id，主键为id）
+create table if not exists user(
+	user_id int not null auto_increment,
+	user_name varchar(80) not null,
+	vip int,
+	wx_id varchar(80) not null,
+	primary key (user_id),
+	foreign key (user_id) references user_lable (user_id),
+	foreign key (user_id) references user_restaurant (user_id),
+	foreign key (user_id) references card_user_like (user_id),
+	foreign key (user_id) references discuss_user_like (user_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+-- 用户标签与标签表（）
+create table user_lable(
+	lable_id int not null,
+	user_id int not null,
+	primary key (lable_id,user_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+-- 用户收藏与餐厅表（）
+create table user_restaurant(
+	user_id int not null,
+	res_id int not null,
+	primary key (user_id,res_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+-- 打卡点赞客户id与客户id（）
+create table card_user_like(
+	card_id int not null,
+	user_id int not null,
+	primary key (card_id,user_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+-- 评论点赞客户id与用户表（）
+create table discuss_user_like(
+	discuss_id int not null,
+	user_id int not null,
+	primary key (discuss_id,user_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+-- 标签_餐厅表（）
+create table res_lable(
+	lable_id int not null,
+	res_id int not null,
+	primary key(lable_id,res_id)
+) ENGINE=MyISAM default charset=utf8;
+
+
+
+-- 打卡选用标签库的标签和标签库（）
+create table card_lable(
+	card_id int not null,
+	lable_id int not null,
+	primary key(lable_id,card_id)
+) ENGINE=MyISAM default charset=utf8;
+
