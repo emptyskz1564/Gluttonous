@@ -1,5 +1,6 @@
 package com.taotie.wechatpro.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @ToString
 public class Discuss implements Serializable {
 
-    @TableId("dis_id")
+    @TableId(value = "dis_id", type = IdType.AUTO)
     private Integer disId;
     private Integer cardId;
     private String disComment;

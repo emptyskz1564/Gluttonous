@@ -5,7 +5,6 @@ import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.service.RedisService;
 import com.taotie.wechatpro.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -21,7 +20,7 @@ import static org.apache.naming.SelectorContext.prefix;
  * 编写人员:
  */
 
-@Configuration
+
 @Service("redisServiceImpl")
 public class RedisServiceImpl implements RedisService {
     @Autowired

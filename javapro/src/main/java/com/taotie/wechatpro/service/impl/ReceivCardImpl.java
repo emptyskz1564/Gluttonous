@@ -6,7 +6,7 @@ import com.taotie.wechatpro.pojo.Card;
 import com.taotie.wechatpro.service.ReceivCard;
 import com.taotie.wechatpro.utils.FileUpDownUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import java.util.List;
  * 编写人员:
  */
 
-@Configuration
+@Service("ReceivCardImpl")
 public class ReceivCardImpl implements ReceivCard {
 
     @Autowired

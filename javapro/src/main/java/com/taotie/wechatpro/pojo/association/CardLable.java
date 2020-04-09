@@ -1,9 +1,7 @@
 package com.taotie.wechatpro.pojo.association;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -25,9 +23,7 @@ import java.io.Serializable;
 @TableName("card_lable")
 public class CardLable implements Serializable {
 
-
     private Integer cardId;
-
     private Integer lableId;
 
 

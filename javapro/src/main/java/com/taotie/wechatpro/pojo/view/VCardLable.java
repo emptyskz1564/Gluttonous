@@ -21,7 +21,7 @@ import java.io.Serializable;
 @TableName("v_card_lable")
 public class VCardLable implements Serializable {
 
-    //@TableField("card_id")
+    @TableField("card_id")
     private Integer cardId;
     private Integer resId;
     private String cardContent;
