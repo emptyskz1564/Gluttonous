@@ -37,17 +37,15 @@ public class associateTableController {
     @Autowired
     CardServiceImpl cardservice;
 
+    //全部注释掉了，弃用
     //表达大致意思，后期具体再改
-    @ResponseBody
-    @RequestMapping(value = "/insertcardlable",method = RequestMethod.POST)
-    public void insertCardLable(/**大致意思是收到前台的json，不知道怎么表述*/){
-        //从json拿出CardLable的内容
-
-        //分成cardid和lableid分别作为参数存入cardlable表
-        cardLableDao.insert("","");
-
-
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/insertcardlable",method = RequestMethod.POST)
+//    public void insertCardLable(/**大致意思是收到前台的json，不知道怎么表述*/){
+//        //从json拿出CardLable的内容
+//        //分成cardid和lableid分别作为参数存入cardlable表
+//        cardLableDao.insert("","");
+//    }
 
 
     @ResponseBody
@@ -64,11 +62,7 @@ public class associateTableController {
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "/upDis",method = RequestMethod.GET)
-    public void upDis(@RequestBody String str){
-        discussService.upDis(str);
-    }
+
 
 
 }

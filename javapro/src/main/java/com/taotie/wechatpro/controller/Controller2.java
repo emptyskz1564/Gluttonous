@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 创建时间: 2020/4/8 19:42
@@ -77,6 +78,7 @@ public class Controller2 {
             redisTemplate.opsForValue().set("vCardUserDiscuss_cardId:"+id,vCardUserDiscussList);
         }
         return vCardUserDiscussList;
+
     }
 
 
@@ -93,4 +95,6 @@ public class Controller2 {
         }
         return vCardUserDiscussList;
     }
+
+
 }
