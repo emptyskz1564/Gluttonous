@@ -43,7 +43,8 @@ public class associateTableController {
     public void insertCardLable(/**大致意思是收到前台的json，不知道怎么表述*/){
         //从json拿出CardLable的内容
 
-        cardLableDao.insert(new CardLable(/*具体内容*/));
+        //分成cardid和lableid分别作为参数存入cardlable表
+        cardLableDao.insert("","");
 
 
     }
