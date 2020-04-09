@@ -132,7 +132,7 @@ public class FileUpDownUtil {
 
 
 
-    @Test
+    @Test//上传图片测试
     public  void upload(){
         //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Region.region0());
@@ -144,7 +144,7 @@ public class FileUpDownUtil {
         String secretKey = "9WCki9RQwgup0G2cNDKMd73uOfSlmi-2s9XFnQtp";
         String bucket = "xiaochengxuimg";
 //如果是Windows情况下，格式是 D:\\qiniu\\test.png
-        String localFilePath = "D:\\image\\常用照片\\volley.jpg";
+        String localFilePath = "D:\\image\\常用照片\\风景7680x4320.jpg";
 //默认不指定key的情况下，以文件内容的hash值作为文件名
         String key = null;
 
@@ -171,7 +171,7 @@ public class FileUpDownUtil {
     }
 
 
-    @Test
+    @Test//上传视频测试
     public void up2(){
         //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Region.region0());
@@ -185,7 +185,7 @@ public class FileUpDownUtil {
         String key = null;
         try {
             //File file = new File("D:\\image\\常用照片\\volley.jpg");
-            FileInputStream inputStream = new FileInputStream("D:\\videos\\看.mp4");
+            FileInputStream inputStream = new FileInputStream("D:\\videos\\娱乐\\华为.mp4");
             //byte[] uploadBytes = file.getBytes("utf-8");
             //ByteArrayInputStream byteInputStream=new ByteArrayInputStream(uploadBytes);
             Auth auth = Auth.create(accessKey, secretKey);

@@ -1,17 +1,23 @@
 package com.taotie.wechatpro.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.taotie.wechatpro.dao.CardDao;
 import com.taotie.wechatpro.dao.associateTable.CardLableDao;
 import com.taotie.wechatpro.dao.view.VCardUserDiscussDao;
+import com.taotie.wechatpro.pojo.Card;
 import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.pojo.association.CardLable;
+import com.taotie.wechatpro.pojo.someother.PicUrl;
 import com.taotie.wechatpro.pojo.view.VCardUserDiscuss;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -36,6 +42,12 @@ public class Controller2 {
 
     @Autowired
     VCardUserDiscussDao vCardUserDiscussDao;
+
+    @Autowired
+    CardDao cardDao;
+
+//    @Autowired
+//    PicUrl picUrl;
 
     //根据cardId取cardlable表的信息
     @RequestMapping("/cardlable1/{id}")
@@ -83,7 +95,7 @@ public class Controller2 {
 
 
     //根据userId取vcarduserdisucuss视图的信息
-    @RequestMapping("/vcarduserdisucuss2/{id}")
+    @RequestMapping(value = "/vcarduserdisucuss2/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Object getVCardUserDisucuss2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
@@ -95,6 +107,48 @@ public class Controller2 {
         }
         return vCardUserDiscussList;
     }
+
+
+    //根据cardId可以提取相应的图片url，通过json发给前端
+    @ResponseBody
+    @RequestMapping(value = "/picurl/{id}",method = RequestMethod.GET)
+    public Object getpicurl(@PathVariable String id){
+
+        PicUrl picUrl = new PicUrl();
+
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+         Card card = (Card)redisTemplate.opsForValue().get("cardId:"+id);
+        if(card==null){
+            card =cardDao.selectById(id);
+            redisTemplate.opsForValue().set("cardId:"+id,card);
+        }
+        String url[] = card.getPicUrl().split("-");
+        picUrl.setCount(url.length);
+        picUrl.setUrls(url);
+        return picUrl;
+    }
+
+    //根据cardId可以提取相应的视频url，通过json发给前端
+    @ResponseBody
+    @RequestMapping(value = "/videourl/{id}",method = RequestMethod.GET)
+    public Object getvideourl(@PathVariable String id){
+
+        PicUrl picUrl = new PicUrl();
+
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        Card card = (Card)redisTemplate.opsForValue().get("cardId:"+id);
+        if(card==null){
+            card =cardDao.selectById(id);
+            redisTemplate.opsForValue().set("cardId:"+id,card);
+        }
+        String url[] = card.getVideoUrl().split("-");
+        picUrl.setCount(url.length);
+        picUrl.setUrls(url);
+        return picUrl;
+    }
+
 
 
 }

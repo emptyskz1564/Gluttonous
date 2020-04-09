@@ -23,4 +23,12 @@ class WechatproApplicationTests {
         }
     }
 
+    @Test
+    public void test1(){
+        String url="http://q8ee90frk.bkt.clouddn.com/Fj7uXfOQeJWQfBQW_9D8BMVD60hG-http://q8ee90frk.bkt.clouddn.com/Fj7uXfOQeJWQfBQW_9D8BMVD60hG";
+        String urls[] = url.split("-");
+        System.out.println(urls[0]);
+
+    }
+
 }
