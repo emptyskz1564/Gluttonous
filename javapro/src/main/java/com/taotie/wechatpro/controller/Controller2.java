@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @Controller
-@ResponseBody//@ResponseBody的作用其实是将java对象转为json格式的数据
+@ResponseBody
 @RequestMapping("/v1")
 public class Controller2 {
 
@@ -36,7 +36,7 @@ public class Controller2 {
     @Autowired
     VCardUserDiscussDao vCardUserDiscussDao;
 
-    //根据cardId取
+    //根据cardId取cardlable表的信息
     @RequestMapping("/cardlable1/{id}")
     @ResponseBody
     public Object getCardLable1(@PathVariable String id){
@@ -51,7 +51,7 @@ public class Controller2 {
         return cardLable;
     }
 
-    //根据userId取
+    //根据userId取cardlable表的信息
     @RequestMapping("/cardlable2/{id}")
     @ResponseBody
     public Object getCardLable2(@PathVariable String id){
@@ -65,13 +65,12 @@ public class Controller2 {
         return cardLable;
     }
 
-    //根据cardId取
+    //根据cardId取vcarduserdisucuss视图的信息
     @RequestMapping("/vcarduserdisucuss1/{id}")
     @ResponseBody
     public Object getVCardUserDisucuss(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        //首先尝试从redis取出
         List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscuss_cardId:"+id);
         if(vCardUserDiscussList==null){
             vCardUserDiscussList = vCardUserDiscussDao.selectByCardId(id);
@@ -81,13 +80,12 @@ public class Controller2 {
     }
 
 
-    //根据userId取
+    //根据userId取vcarduserdisucuss视图的信息
     @RequestMapping("/vcarduserdisucuss2/{id}")
     @ResponseBody
     public Object getVCardUserDisucuss2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        //首先尝试从redis取出
         List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscussList_userId:"+id);
         if(vCardUserDiscussList==null){
             vCardUserDiscussList = vCardUserDiscussDao.selectByUserId(id);
