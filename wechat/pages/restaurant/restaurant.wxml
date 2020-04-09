@@ -1,2 +1,27 @@
-<!--pages/restaurant/restaurant.wxml-->
-<text>pages/restaurant/restaurant.wxml</text>
+<view class='page_row'>
+    <view class="search">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+      </view>
+    </view>
+    <view class='sousuo' bindtap="query">搜索</view>
+</view>
+
+<view class="restList" wx:for="{{list}}" wx:key="{{index}}">
+
+  <view class="rest">
+    <view class="restInfo">
+      <view class="restName">{{item.restName}}</view>
+      <view class="restTitle">
+        <view wx:for="{{item.restSign}}" wx:key="{{index}}">
+          <view>{{item}}</view>
+        </view>
+      </view>
+      <navigator style="margin:5rpx" url="../restDetail/restDetail">餐厅详情>></navigator>
+    </view>
+  
+    <view class="restPic">头像</view>
+  </view>
+</view>
+

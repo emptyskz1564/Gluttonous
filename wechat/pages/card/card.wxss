@@ -1,1 +1,61 @@
-/* pages/card/card.wxss */
+.head{
+  display: flex;
+  width: 100%;
+  justify-content:space-around;
+  margin-bottom: 18rpx;
+}
+
+.nomelUser{
+  border: 1px solid rgb(99, 91, 91);
+  padding: 2rpx 8rpx;
+}
+
+.vipUser{
+  border: 1px solid rgb(99, 91, 91);
+  padding: 2rpx 20rpx;
+}
+.page_row{
+  display: flex;
+  flex-direction: row
+}
+.search{
+  width: 80%;
+}
+.search_arr {
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+}
+.searchcion {
+  margin: 10rpx 10rpx 10rpx 10rpx;
+  position: absolute;
+  left:25rpx;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+} 
+.search_arr input{
+  margin-left: 60rpx;
+  height: 60rpx;
+  border-radius: 5px;
+}
+.sousuo {
+  margin-left: 15rpx;
+  width: 15%;
+  line-height: 150%;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardList .cards {
+  border:1rpx red solid;
+  margin: 5rpx;
+}
+

@@ -1,45 +1,28 @@
-// pages/card/card.js
-var app = getApp()
-var API = require('../../utils/api.js')
+// pages/login/login.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    inputValue:"",
-    searchList:[],
+
   },
-  inputBind: function(event) {
-    this.setData({
-        inputValue: event.detail.value
+
+  handleGetuserinfo(e){
+    const{userInfo} = e.detail;
+    console.log(userInfo);
+    wx.setStorageSync('userInfo', userInfo);
+    wx.navigateBack({
+      delta:1
     })
-    console.log(this.data.inputValue)
-
-},
-
-  query:function(e){
-    console.log("调用函数");
-    console.log(this.data.inputValue);
   },
-
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('onLoad')
-    var that = this
-    // 使用 Mock
-    API.ajax('', function (res) {
-        //这里既可以获取模拟的res
-        console.log(res)
-        that.setData({
-            list:res.data
-        })
-    });
 
-    console.log(this.data.list)
   },
 
   /**

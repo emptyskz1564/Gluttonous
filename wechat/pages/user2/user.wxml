@@ -1,0 +1,79 @@
+<view class="userInfo">
+
+  <view class="userImg" wx:if="{{userInfo.avatarUrl}}">
+    <image class="userBg" src="{{userInfo.avatarUrl}}"></image>
+    <view class="user">
+      <image class="userIcon" src="{{userInfo.avatarUrl}}"></image>
+      <view class="userName">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <navigator url="../login/login">登录</navigator>
+  </view>
+</view>
+
+<!-- 查看列表 -->
+<view class="userList">
+  <view class="userMain">
+    <view class="collection">
+      <navigator url="../collection/collection">
+        <view class="hisName">查看收藏</view>
+      </navigator>
+      <navigator url="../myCard/myCard">
+        <view class="hisName">查看打卡</view>
+      </navigator>
+      <navigator url="../history/history">
+        <view class="hisName">查看足迹</view>
+      </navigator>
+    </view>
+  </view>
+</view>
+
+<view class="main">
+  <!-- vip等级  以及标签 -->
+  <view class="userLabel">
+    <!-- 第一栏 -->
+    <view class="first">
+      <view class="vipLevel">会员等级</view>
+    </view>
+
+    <!-- 第二栏 -->
+    <view class="second">
+      <view class="label">标签1</view>
+      <view class="label">标签2</view>
+    </view>
+
+    <!-- 第三栏 -->
+    <view>
+      <view class="label">标签3</view>
+    </view>
+
+  </view>
+</view>
+
+<view class="appInfo">
+  <view class="appInfoContainer">
+    <!-- 联系客服 -->
+    <view class="appInfoItem appInfoContext">
+      <navigator>联系客服</navigator>
+      <text>xxx-xxx-xxx</text>
+    </view>
+
+    <!-- 意见反馈 -->
+    <view class="appInfoItem">
+      <navigator>意见反馈</navigator>
+    </view>
+
+    <!-- 关于我们 -->
+    <view class="appInfoItem">
+      <navigator>关于我们</navigator>
+    </view>
+  </view>
+</view>
+
+<view class="share">
+  <view class="shareContainer">
+    <view>把应用推荐给其他人</view>
+  </view>
+</view>

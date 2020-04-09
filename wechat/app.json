@@ -3,7 +3,13 @@
     "pages/index/index",
     "pages/user/user",
     "pages/restaurant/restaurant",
-    "pages/card/card"
+    "pages/card/card",
+    "pages/restDetail/restDetail",
+    "pages/login/login",
+    "pages/user2/user",
+    "pages/collection/collection",
+    "pages/myCard/myCard",
+    "pages/history/history"
   ],
   "tabBar": {
     "backgroundColor": "#fff",
@@ -27,7 +33,7 @@
         "selectedIconPath": "pages/icons/card-s.png"
       },
       {
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/user2/user",
         "text": "我的",
         "iconPath": "pages/icons/user.png",
         "selectedIconPath": "pages/icons/user-s.png"

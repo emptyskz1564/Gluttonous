@@ -1,0 +1,10 @@
+<view class="main">
+  <view class="restName">{{list.restName}}</view>
+  <navigator style="margin-left:40rpx">查看地理位置>></navigator>
+  <view class="restSigns">
+    <view class="restSign" wx:for="{{list.restSign}}" wx:key="{{index}}">
+      <view>{{item}}</view>
+    </view>
+  </view>
+  <view class="bestFood">最好的菜：{{list.bestFood}}</view>
+</view>

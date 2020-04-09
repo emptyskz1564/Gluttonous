@@ -1,28 +1,14 @@
-// pages/card/card.js
+// pages/restDetail/restDetail.js
 var app = getApp()
-var API = require('../../utils/api.js')
+var API = require('../../utils/restDtilapi.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    inputValue:"",
-    searchList:[],
+
   },
-  inputBind: function(event) {
-    this.setData({
-        inputValue: event.detail.value
-    })
-    console.log(this.data.inputValue)
-
-},
-
-  query:function(e){
-    console.log("调用函数");
-    console.log(this.data.inputValue);
-  },
-
 
   /**
    * 生命周期函数--监听页面加载

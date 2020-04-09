@@ -1,2 +1,30 @@
-<!--pages/card/card.wxml-->
-<text>pages/card/card.wxml</text>
+<view class="head">
+  <view class="nomelUser" id="nomelUser">
+    <text>普通用户</text>
+  </view>
+
+  <view class="vipUser" id="vipUser"> 
+    <text>vip用户</text>
+  </view>
+</view>
+<view class='page_row'>
+    <view class="search">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+      </view>
+    </view>
+    <view class='sousuo' bindtap="query">搜索</view>
+</view>
+
+<view class="cardList">
+  <view class="cards" wx:for="{{list}}" wx:key="{{index}}">
+    <view>{{item.userName}}</view>
+    <view>{{item.cardTitle}}</view>
+    <view>{{item.cardContent}}</view>
+    <image>{{item.img}}</image>
+    <view>{{item.cardLike}}</view>
+  </view>
+  
+
+</view>

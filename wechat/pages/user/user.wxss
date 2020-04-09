@@ -1,1 +1,31 @@
 /* pages/user/user.wxss */
+.userInfo{
+  height: 45vh;
+  overflow: hidden;
+  background-color: red;
+}
+.userImg{
+  position: relative;
+}
+.userBg{
+  height: 50vh;
+  /* 高斯模糊 */
+  filter: blur(10rpx);
+}
+.user{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+  text-align: center;
+}
+.userIcon{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+.userName{
+  color: #fff;
+  margin-top: 40rpx;
+  font-size: 40rpx;
+}
