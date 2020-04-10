@@ -9,7 +9,9 @@
     "pages/user2/user",
     "pages/collection/collection",
     "pages/myCard/myCard",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/components/Tabs/Tabs",
+    "pages/test/test"
   ],
   "tabBar": {
     "backgroundColor": "#fff",

@@ -1,19 +1,4 @@
-.head{
-  display: flex;
-  width: 100%;
-  justify-content:space-around;
-  margin-bottom: 18rpx;
-}
 
-.nomelUser{
-  border: 1px solid rgb(99, 91, 91);
-  padding: 2rpx 8rpx;
-}
-
-.vipUser{
-  border: 1px solid rgb(99, 91, 91);
-  padding: 2rpx 20rpx;
-}
 .page_row{
   display: flex;
   flex-direction: row
@@ -49,13 +34,210 @@
   border-radius: 10rpx;
 }
 
-.cardList {
+.List{
+  width: 100%;
+  background-color: #fff;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
 
-.cardList .cards {
-  border:1rpx red solid;
-  margin: 5rpx;
+.List .ListContainer {
+  width: 90%;
 }
 
+.List .ListContainer .ListItem{
+  margin-top: 15rpx;
+  border: red 1rpx solid;
+}
+
+.List .ListContainer .ListItem .userInfo {
+  display: flex;
+  margin: 5rpx 10rpx;
+}
+
+.List .ListContainer .ListItem .labelContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.List .ListContainer .ListItem .labelContainer .cardLabel {
+  border: red 1rpx solid;
+}
+
+.List .ListContainer .ListItem .userInfo .userName{
+  margin-left: 15rpx;
+  font-weight: 600;
+}
+
+.List .ListContainer .ListItem .cardTitle {
+  margin: 5rpx 10rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.List .ListContainer .ListItem .cardContent {
+  margin: 5rpx 10rpx;
+  font-size: 35rpx;
+}
+
+.List .ListContainer .ListItem .imgContainer {
+  border-top: 10rpx ;
+  width: 100%;
+  margin-top: 15rpx;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15rpx;
+}
+
+.List .ListContainer .ListItem .imgContainer .img {
+  border: solid 1rpx red;
+  width: 80%;
+}
+
+.addCard{
+  position: fixed;
+  width: 42px;
+  height: 42px;
+  bottom: 30px;
+  right: 20px;
+}
+
+  
+ /*mask*/
+ .drawer_screen { 
+  width: 100%; 
+  height: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  z-index: 1000; 
+  background: #000; 
+  opacity: 0.5; 
+  overflow: hidden; 
+ } 
+   
+ /*content*/
+ .drawer_box { 
+   display: flex;
+   flex-direction: column;
+  width: 650rpx; 
+  overflow: hidden; 
+  position: fixed; 
+  top: 50%; 
+  left: 0; 
+  z-index: 1001; 
+  background: #FAFAFA; 
+  margin: -150px 50rpx 0 50rpx; 
+  border-radius: 3px; 
+ } 
+   
+ .drawer_title{ 
+  padding:15px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+ } 
+ .drawer_content { 
+  height: 210px; 
+  overflow-y: scroll; /*超出父盒子高度可滚动*/
+ } 
+   
+ .btn_ok{ 
+  padding: 10px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+  border-top: 1px solid #E8E8EA; 
+  color: #3CC51F; 
+ } 
+   
+ .top{ 
+   padding-top:8px; 
+   display: flex;
+ } 
+ .bottom { 
+   padding-bottom:8px; 
+ } 
+ .title { 
+   height: 30px; 
+   line-height: 30px; 
+   width: 160rpx; 
+   text-align: center; 
+   display: inline-block; 
+   font: 300 28rpx/30px "microsoft yahei"; 
+ } 
+
+ .addLabel{
+   width: 30px;
+   line-height: 30px;
+   font-size: 70rpx;
+   text-align: center;
+   border: 1rpx greenyellow solid ;
+ }
+   
+ .input_base { 
+   border: 2rpx solid #ccc; 
+   padding-left: 10rpx; 
+   margin-right: 50rpx; 
+ } 
+ .input_h30{ 
+   height: 30px; 
+   line-height: 30px; 
+ } 
+ .input_h60{ 
+   height: 60px; 
+ } 
+ .input_view{ 
+   font: 12px "microsoft yahei"; 
+   background: #fff; 
+   color:#000; 
+   line-height: 30px; 
+ } 
+
+  
+.image{
+  width:31%;
+  height: 100px;
+  padding: 2px
+}
+ 
+.moment_img{
+  width: 98px;
+  height: 98px;
+}
+ 
+.image_content{
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-left: 20rpx;
+  
+}
+
+
+ textarea{
+  width: 65%;
+  height: 170rpx;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+  border: 2rpx solid #ccc;
+  padding-left: 10rpx; 
+  margin-right: 50rpx; 
+  padding-top: 15rpx;
+ }
+   
+ input { 
+   font: 12px "microsoft yahei"; 
+   background: #fff; 
+   color:#000 ; 
+ } 
+ radio{ 
+   margin-right: 20rpx; 
+ } 
+ /* .grid { display: -webkit-box; display: box; } 
+ .col-0 {-webkit-box-flex:0;box-flex:0;} 
+ .col-1 {-webkit-box-flex:1;box-flex:1;} 
+ .fl { float: left;} 
+ .fr { float: right;}
+  */

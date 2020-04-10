@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "Tabs":"../components/Tabs/Tabs"
+  },
+  "enablePullDownRefresh":true,
+  "backgroundTextStyle":"dark"
 }

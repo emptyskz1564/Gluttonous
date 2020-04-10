@@ -8,7 +8,7 @@
     <view class='sousuo' bindtap="query">搜索</view>
 </view>
 
-<view class="restList" wx:for="{{list}}" wx:key="{{index}}">
+<view class="restList" wx:for="{{showList}}" wx:key="{{index}}">
 
   <view class="rest">
     <view class="restInfo">
@@ -21,7 +21,7 @@
       <navigator style="margin:5rpx" url="../restDetail/restDetail">餐厅详情>></navigator>
     </view>
   
-    <view class="restPic">头像</view>
+    <view class="restPic" bindtap="handlePreviewImg" data-url="{{item.img}}">头像</view>
   </view>
 </view>
 

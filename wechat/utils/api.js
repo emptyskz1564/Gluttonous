@@ -17,7 +17,7 @@ function ajax(data = '', fn, method = "get", header = {}) {
         var res = Mock.mock({
             'error_code': '',
             'error_msg': '',
-            'data|10': [{
+            'data|20': [{
                 'id|+1': 1,
                 'img': "@image('200x100', '#4A7BF7','#fff','pic')",   //打卡图片
                 'userName':'@ctitle(2,5)',    //用户名
