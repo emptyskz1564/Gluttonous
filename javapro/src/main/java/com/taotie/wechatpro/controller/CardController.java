@@ -22,6 +22,8 @@ public class CardController {
     @Autowired
     CardServiceImpl cardService;
 
+
+    //许祁写的这部分，支持图片视频一并上传到云上
     @ResponseBody
     @RequestMapping(value = "/upCard",method = RequestMethod.POST)
     public Boolean upDisLike(@RequestParam(required = false,value = "files")MultipartFile[] multipartFiles ,@RequestParam@RequestBody String str) throws IOException {

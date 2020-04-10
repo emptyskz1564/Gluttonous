@@ -92,6 +92,13 @@ public class CardServiceImpl implements CardService {
             StringBuilder pictureUrl = new StringBuilder();
             StringBuilder videoUrl = new StringBuilder();
 
+
+            //修改的地方
+            File f = null;
+            StringBuffer path = new StringBuffer("");
+            String temp = null;
+
+
             for (MultipartFile multipartFile : multipartFiles){
                 String filename = multipartFile.getOriginalFilename();
                 System.out.println(filename);
@@ -102,12 +109,23 @@ public class CardServiceImpl implements CardService {
                 System.out.println(substring);
                 //将multipartFile变为file
                 InputStream ins = multipartFile.getInputStream();
-                File f = new File(multipartFile.getOriginalFilename());
+
+                //修改的地方
+                //File f = new File(multipartFile.getOriginalFilename());
+                f = new File(multipartFile.getOriginalFilename());
+
+
+
+
                 //新建的util类用来进行转换
                 FileUtil.inputStreamToFile(ins,f);
 
                 //得到上传文件的fileinputstream
                 FileInputStream fileInputStream = new FileInputStream(f);
+
+
+
+
 
                 //判断后缀，图片,视频else返回上传失败,调用七牛云接口完成上传和URL返回
                 if(substring.equals(".jpg") || substring.equals(".png")) {
@@ -131,6 +149,25 @@ public class CardServiceImpl implements CardService {
                     bool = false;
                     return bool;
                 }
+
+
+
+                //修改的地方
+                fileInputStream.close();
+
+                //获取图片路径，上传结束后删除掉本地出现的图片文件
+                temp = System.getProperty("user.dir");//获取当前工程的目录
+                path.delete(0,path.length());//对每一个文件，首先清空路径内容，重新赋值
+                path.append(temp);
+                path.append("\\"+f.getName());//获取文件名
+                System.out.println("是否删除成功？");
+                System.out.println(path);
+                File file = new File(String.valueOf(path));
+                System.out.println(file.delete());
+
+
+
+
             }
 
             card.setPicUrl(pictureUrl.toString());

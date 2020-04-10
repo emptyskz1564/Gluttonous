@@ -5,6 +5,7 @@ import com.taotie.wechatpro.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.ClassUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +30,11 @@ class WechatproApplicationTests {
         String urls[] = url.split("-");
         System.out.println(urls[0]);
 
+    }
+
+    @Test
+    public void test2(){
+        System.out.println(System.getProperty("user.dir"));
     }
 
 }
