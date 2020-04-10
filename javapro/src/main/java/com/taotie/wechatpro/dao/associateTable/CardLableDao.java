@@ -26,5 +26,5 @@ public interface CardLableDao {
     CardLable  selectByLableId(@Param("lableId")String lableId);
 
     @Insert("insert into card_lable values(#{cardId},#{lableId})")
-    void insert(@Param("cardId")String cardId,@Param("lableId")String lableId);
+    void insert(@Param("cardId") Integer cardId, @Param("lableId")Integer lableId);
 }

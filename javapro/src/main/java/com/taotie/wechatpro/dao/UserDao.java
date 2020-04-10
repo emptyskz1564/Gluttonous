@@ -3,7 +3,12 @@ package com.taotie.wechatpro.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.taotie.wechatpro.pojo.User;
+import com.taotie.wechatpro.pojo.view.VCardUserDiscuss;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 
 /**
@@ -15,5 +20,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserDao extends BaseMapper<User> {
+    @Select("select wx_id from user where user_id=#{userId}")
+    String selectWx_idByUserId(@Param("userId")Integer userId);
 
 }
