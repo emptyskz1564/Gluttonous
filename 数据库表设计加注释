@@ -31,6 +31,7 @@ create table if not exists restaurant(
 
 
 -- 打卡表（card_id为打卡id，res_id为餐厅id（外键于restaurant），content为打卡内容，title为打卡标题，self_lable为自定义打卡内容，picurl为图片链接，exist_lable_id为标签库中现存标签id（外键），wx_id为用户微信id（外键于用户微信id），bestfood为最好菜品，主键为card_id）
+注意：这个地方有所改动，如果前端无法拿到wxid，那么card表中的wxid在insert时直接当作userid，（并且在user表中要保证wxid=userid）
 create table if not exists card(
 	card_id int not null auto_increment,
 	res_id int not null,
@@ -68,6 +69,7 @@ create table if not exists discuss(
 
 
 -- 用户表（id为用户id，name为用户昵称，viplevle为用户vip等级，wx_id为用户微信id，主键为id）
+注意：这个地方有所改动，如果前端无法拿到wxid，那么user表中的wxid必须视为userid，也就是每次insert时wxid=userid
 create table if not exists user(
 	user_id int not null auto_increment,
 	user_name varchar(80) not null,
