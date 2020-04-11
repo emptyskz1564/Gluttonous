@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.Serializable;
+
 
 /**
  * 创建时间: 2020/4/8 16:26
@@ -22,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 @ToString
 @Configuration
 @TableName("discuss_user_like")
-public class DiscussUserLike {
+public class DiscussUserLike implements Serializable {
 
     private Integer discussId;
     private Integer userId;

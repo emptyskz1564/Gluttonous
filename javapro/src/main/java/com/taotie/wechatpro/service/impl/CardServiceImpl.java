@@ -9,10 +9,12 @@ import com.taotie.wechatpro.dao.CardDao;
 import com.taotie.wechatpro.dao.UserDao;
 import com.taotie.wechatpro.dao.associateTable.CardLableDao;
 import com.taotie.wechatpro.dao.associateTable.CardUserLikeDao;
+import com.taotie.wechatpro.dao.associateTable.ResLableDao;
 import com.taotie.wechatpro.pojo.Card;
 import com.taotie.wechatpro.pojo.Discuss;
 import com.taotie.wechatpro.pojo.association.CardLable;
 import com.taotie.wechatpro.pojo.association.CardUserLike;
+import com.taotie.wechatpro.pojo.association.ResLable;
 import com.taotie.wechatpro.service.CardService;
 import com.taotie.wechatpro.utils.FileUpDownUtil;
 import com.taotie.wechatpro.utils.FileUtil;
@@ -43,6 +45,9 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     CardLableDao cardLableDao;
+
+    @Autowired
+    ResLableDao resLableDao;
 
     @Override
     public void upCardLike(String str) {
@@ -80,6 +85,12 @@ public class CardServiceImpl implements CardService {
         }
         //此时的k会比预期的大1
         k--;
+
+        //新增的插入reslable表
+        Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        for (Integer lableId : lableIds) {
+            resLableDao.insert(new ResLable(lableId,resId));
+        }
 
         //Integer lableId = Integer.parseInt(JSON.parseObject(str).get("lableId").toString());
 

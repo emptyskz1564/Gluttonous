@@ -263,7 +263,7 @@ public class HelloController {
 
     //获取所有用户
     @ResponseBody
-    @RequestMapping(value = "/users",method = RequestMethod.GET)
+    @RequestMapping(value = "/userList",method = RequestMethod.GET)
     public Object getUsers(){
         //redis操作在UserServiceImpl中做了
         return userService.getUserList();

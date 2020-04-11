@@ -23,4 +23,5 @@ public class Restaurant implements Serializable {
     private Integer resId;
     private String resTitle;
     private String resAdress;
+    private String resUrl;
 }

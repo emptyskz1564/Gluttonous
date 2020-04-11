@@ -25,6 +25,7 @@ public class Discuss implements Serializable {
     private Integer cardId;
     private String disComment;
     private Integer parentId;
+    private String discussUserId;
     private String disThread;
     private Integer disUserId;
 }

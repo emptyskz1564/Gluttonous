@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.Serializable;
+
 /**
  * 创建时间: 2020/4/8 16:25
  * 文件备注:
@@ -19,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 @ToString
 @Configuration
 @TableName("card_user_like")
-public class CardUserLike {
+public class CardUserLike implements Serializable {
 
     private Integer cardId;
     private Integer userId;

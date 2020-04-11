@@ -24,6 +24,7 @@ public class VResLable implements Serializable {
     private Integer resId;
     private String resTitle;
     private String resAdress;
+    private String resUrl;
     private Integer lableId;
     private String lableContent;
     private Integer lableType;
