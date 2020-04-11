@@ -63,7 +63,18 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    console.log(res);
+    return {
+      title: '微信小程序',
+      //path: '/pages/share/share?id=123',
+      //imageUrl: "/images/1.jpg",
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
   }
 })

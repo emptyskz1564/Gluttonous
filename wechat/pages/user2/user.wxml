@@ -73,7 +73,7 @@
 </view>
 
 <view class="share">
-  <view class="shareContainer">
+  <button open-type="share" class="shareContainer" bindtap="onShareAppMessage">
     <view>把应用推荐给其他人</view>
-  </view>
+  </button>
 </view>

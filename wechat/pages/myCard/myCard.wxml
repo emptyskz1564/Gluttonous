@@ -1,2 +1,43 @@
-<!--pages/myCard/myCard.wxml-->
-<text>pages/myCard/myCard.wxml</text>
+<view class='page_row'>
+    <view class="search">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+      </view>
+    </view>
+    <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
+    <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
+</view> 
+
+<view class="list">
+<view class="ListContainer">
+
+  <view wx:for="{{showList}}" wx:key="index" class="ListItem">
+
+    <view class="userInfo">
+      <view class="userPic">用户头像</view>
+      <view class="userName">{{item.userName}}</view>
+    </view>
+
+    <view class="cardTitle">{{item.cardTitle}}</view>
+
+    <view class="cardContent">{{item.cardContent}}</view>
+
+    <view class="labelContainer">
+      <view 
+      wx:for="{{item.cardLabel}}" wx:key="index"
+      class="cardLabel">
+        {{item}}
+      </view>
+    </view>
+
+    <view class="imgContainer" bindtap="handlePreviewImg" data-url="url">
+      <image src="{{item.img}}" class="img"></image>
+    </view>
+        
+
+  </view>
+
+</view>
+
+</view>

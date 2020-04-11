@@ -1,3 +1,8 @@
+page {
+  /* background-color: #edece8; */
+  color: #666;
+}
+
 .page_row{
   display: flex;
   flex-direction: row
@@ -68,4 +73,5 @@
   justify-content: space-around;
   margin-left: 5rpx;
 }
+
 

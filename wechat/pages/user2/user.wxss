@@ -149,7 +149,10 @@ page {
   border-radius: 10rpx;
   background-color: #fff;
   line-height: 70rpx;
+  color: #666;
+  font-size: 40rpx;
+  display: flex;
 }
-.share .shareContainer view{
-  margin-left: 15rpx;
-}
+ .share .shareContainer view{
+  margin-left: -15rpx;
+} 

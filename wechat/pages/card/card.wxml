@@ -5,7 +5,8 @@
         <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
       </view>
     </view>
-    <view class='sousuo' bindtap="query">搜索</view>
+    <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
+    <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
 </view>
 
 <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
