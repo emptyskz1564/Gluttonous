@@ -1,10 +1,6 @@
 package com.taotie.wechatpro.controller;
 
 import com.taotie.wechatpro.dao.associateTable.*;
-import com.taotie.wechatpro.dao.view.VResLableDao;
-import com.taotie.wechatpro.pojo.Discuss;
-import com.taotie.wechatpro.pojo.association.CardLable;
-import com.taotie.wechatpro.pojo.association.CardUserLike;
 import com.taotie.wechatpro.service.impl.CardServiceImpl;
 import com.taotie.wechatpro.service.impl.DiscussServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +30,7 @@ public class associateTableController {
     UserRestaurantDao userRestaurantDao;
     @Autowired
     DiscussServiceImpl discussService;
+
     @Autowired
     CardServiceImpl cardservice;
 

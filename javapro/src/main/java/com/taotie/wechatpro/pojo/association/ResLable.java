@@ -2,6 +2,7 @@ package com.taotie.wechatpro.pojo.association;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * 编写人员:
  */
 
+@Configuration
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,8 +1,10 @@
 package com.taotie.wechatpro.controller;
 
 import com.taotie.wechatpro.dao.associateTable.UserRestaurantDao;
+import com.taotie.wechatpro.dao.view.VCardUserDiscussDao;
 import com.taotie.wechatpro.pojo.Restaurant;
 import com.taotie.wechatpro.pojo.association.UserRestaurant;
+import com.taotie.wechatpro.pojo.view.VCardUserDiscuss;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -34,6 +36,9 @@ public class Controller4 {
     @Autowired
     RedisTemplate<Object,Object> redisTemplate;
 
+    @Autowired
+    VCardUserDiscussDao vCardUserDiscussDao;
+
 
 
 
@@ -49,7 +54,21 @@ public class Controller4 {
             redisTemplate.opsForValue().set("userRestaurant:"+id,userRestaurant);
         }
         return userRestaurant;
+    }
 
+
+    //根据disId收取视图，前端需要哪些就取，根据key
+    @ResponseBody
+    @RequestMapping(value = "/vcarduserdiscuss/{id}",method = RequestMethod.GET)
+    private Object vcarduserdiscuss(@PathVariable String id){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        VCardUserDiscuss vCardUserDiscuss = (VCardUserDiscuss) redisTemplate.opsForValue().get("vCardUserDiscuss_disId:"+id);
+        if(vCardUserDiscuss==null){
+            vCardUserDiscuss = vCardUserDiscussDao.selectByDisId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("vCardUserDiscuss_disId:"+id,vCardUserDiscuss);
+        }
+        return vCardUserDiscuss;
     }
 
 

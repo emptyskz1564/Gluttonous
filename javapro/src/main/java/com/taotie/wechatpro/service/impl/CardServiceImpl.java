@@ -58,8 +58,7 @@ public class CardServiceImpl implements CardService {
         carduserlikeDao.insert(carduserlike);
     }
 
-    public Boolean upCard(String str,MultipartFile[] multipartFiles) throws IOException {
-        Boolean bool = new Boolean(true);
+    public Integer upCard1(String str,MultipartFile[] multipartFiles) throws IOException {
 
         //google的用来判断json串中某key是否存在（避免造成空指针）(lableId可能不存在)
         JsonParser parser = new JsonParser();
@@ -156,9 +155,8 @@ public class CardServiceImpl implements CardService {
                         String vidUrl = null;
                     }
                 }else {
-                    //文件类型不符合，response出错
-                    bool = false;
-                    return bool;
+                    //文件类型不符合，返回-1
+                    return -1;
                 }
 
 
@@ -193,53 +191,92 @@ public class CardServiceImpl implements CardService {
             k--;
         }
 
-        return bool;
+        return cardId;
 
     }
 
-    /**public void  upCard2(MultipartFile[] multipartFiles) throws IOException {
-        if(multipartFiles.length > 0){
+
+    /**
+     * 完成剩余图片以及mp4的上传
+     * 返回integer型，如果是-1，则上传失败，文件类型不符合.反之，如果不是，则是cardId
+     * @param str
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
+    public Integer upCard2(String str,MultipartFile multipartFile) throws IOException{
+        Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
+
+        if(multipartFile != null){
             //图片与视频的多个URL的合并String
             StringBuilder pictureUrl = new StringBuilder();
             StringBuilder videoUrl = new StringBuilder();
 
-            for (MultipartFile multipartFile : multipartFiles){
-                String filename = multipartFile.getOriginalFilename();
-                //判断文件类型
-                String contentType = multipartFile.getContentType().substring(multipartFile.getContentType().lastIndexOf("/")+1);
-                //获取后缀
-                String substring = filename.substring(filename.lastIndexOf("."));
-                //将multipartFile变为file
-                InputStream ins = multipartFile.getInputStream();
-                File f = new File(multipartFile.getOriginalFilename());
-                FileUtil.inputStreamToFile(ins,f);
+            //修改的地方
+            File f = null;
+            StringBuffer path = new StringBuffer("");
+            String temp = null;
 
-                //得到上传文件的fileinputstream
-                FileInputStream fileInputStream = new FileInputStream(f);
+            String filename = multipartFile.getOriginalFilename();
+            System.out.println(filename);
+            //获取后缀
+            String substring = filename.substring(filename.lastIndexOf("."));
+            System.out.println(substring);
+            //将multipartFile变为file
+            InputStream ins = multipartFile.getInputStream();
 
-                //判断后缀，图片,视频else返回上传失败,调用七牛云接口完成上传和URL返回
-                if(substring == "png" || substring == "jpg") {
-                    if(fileInputStream!=null) {
-                        String picUrl = FileUpDownUtil.upload(fileInputStream);
-                        pictureUrl.append(picUrl+"|");
-                    }else {
-                        String picUrl = null;
-                    }
-                }
-                if(substring == "mp4") {
-                    if(fileInputStream!=null) {
-                        String vidUrl = FileUpDownUtil.upload(fileInputStream);
-                        videoUrl.append(vidUrl+"|");
-                    }else {
-                        String vidUrl = null;
-                    }
+            //修改的地方
+            //File f = new File(multipartFile.getOriginalFilename());
+            f = new File(multipartFile.getOriginalFilename());
+
+            //新建的util类用来进行转换
+            FileUtil.inputStreamToFile(ins,f);
+
+            //得到上传文件的fileinputstream
+            FileInputStream fileInputStream = new FileInputStream(f);
+
+            //判断后缀，图片,视频else返回上传失败,调用七牛云接口完成上传和URL返回
+            if(substring.equals(".jpg") || substring.equals(".png")) {
+                System.out.println("第一层");
+                if(fileInputStream!=null) {
+                    System.out.println("第二层");
+                    String picUrl = FileUpDownUtil.upload(fileInputStream);
+                    pictureUrl.append(picUrl+"-");
+                    //直接调用dao向指定cardid中添加URL
+                    cardDao.concatPicUrl(pictureUrl.toString(),cardId);
                 }else {
-                    //文件类型不符合，response出错
-
+                    String picUrl = null;
                 }
+            }else if(substring.equals(".mp4")) {
+                if(fileInputStream!=null) {
+                    String vidUrl = FileUpDownUtil.upload(fileInputStream);
+                    videoUrl.append(vidUrl+"-");
+                    //直接调用dao向指定cardid中添加URL
+                    cardDao.concatVideoUrl(videoUrl.toString(),cardId);
+                }else {
+                    String vidUrl = null;
+                }
+            }else {
+                //文件类型不符合，response出错
+                return -1;
             }
 
+            //修改的地方
+            fileInputStream.close();
+
+            //获取图片路径，上传结束后删除掉本地出现的图片文件
+            temp = System.getProperty("user.dir");//获取当前工程的目录
+            path.delete(0,path.length());//对每一个文件，首先清空路径内容，重新赋值
+            path.append(temp);
+            path.append("\\"+f.getName());//获取文件名
+            System.out.println("是否删除成功？");
+            System.out.println(path);
+            File file = new File(String.valueOf(path));
+            System.out.println(file.delete());
 
         }
-    }**/
+        return cardId;
+    }
+
+
 }

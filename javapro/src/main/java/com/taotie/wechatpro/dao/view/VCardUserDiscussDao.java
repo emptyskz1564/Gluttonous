@@ -17,8 +17,11 @@ import java.util.List;
 public interface VCardUserDiscussDao {
 
     @Select("select * from v_card_user_discuss where user_id=#{userId}")
-    List<VCardUserDiscuss> selectByUserId(@Param("userId")String userId);
+    List<VCardUserDiscuss> selectByUserId(@Param("userId")Integer userId);
 
     @Select("select * from v_card_user_discuss where card_id=#{cardId}")
-    List<VCardUserDiscuss> selectByCardId(@Param("cardId")String cardId);
+    List<VCardUserDiscuss> selectByCardId(@Param("cardId")Integer cardId);
+
+    @Select("select * from v_card_user_discuss where dis_id=#{disId}")
+    VCardUserDiscuss selectByDisId(@Param("disId")Integer disId);
 }

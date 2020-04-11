@@ -2,6 +2,7 @@ package com.taotie.wechatpro.pojo.association;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @TableName("card_lable")
+@Configuration
 public class CardLable implements Serializable {
 
     private Integer cardId;

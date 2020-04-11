@@ -86,7 +86,7 @@ public class Controller2 {
         redisTemplate.setKeySerializer(redisSerializer);
         List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscuss_cardId:"+id);
         if(vCardUserDiscussList==null){
-            vCardUserDiscussList = vCardUserDiscussDao.selectByCardId(id);
+            vCardUserDiscussList = vCardUserDiscussDao.selectByCardId(Integer.valueOf(id));
             redisTemplate.opsForValue().set("vCardUserDiscuss_cardId:"+id,vCardUserDiscussList);
         }
         return vCardUserDiscussList;
@@ -102,7 +102,7 @@ public class Controller2 {
         redisTemplate.setKeySerializer(redisSerializer);
         List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscussList_userId:"+id);
         if(vCardUserDiscussList==null){
-            vCardUserDiscussList = vCardUserDiscussDao.selectByUserId(id);
+            vCardUserDiscussList = vCardUserDiscussDao.selectByUserId(Integer.valueOf(id));
             redisTemplate.opsForValue().set("vCardUserDiscussList_userId:"+id,vCardUserDiscussList);
         }
         return vCardUserDiscussList;

@@ -111,8 +111,17 @@
 
 
 
+<!--        csdn写的微信小程序登录需要的包-->
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
 
-<!--        七牛云-->
+
+
+        <!--        七牛云-->
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>

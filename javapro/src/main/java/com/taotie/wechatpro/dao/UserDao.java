@@ -7,6 +7,7 @@ import com.taotie.wechatpro.pojo.view.VCardUserDiscuss;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ import java.util.List;
 @Mapper
 public interface UserDao extends BaseMapper<User> {
     @Select("select wx_id from user where user_id=#{userId}")
-    String selectWx_idByUserId(@Param("userId")Integer userId);
+    String selectWx_idByUserId(@Param("userId") Integer userId);
+
+    @Update("update user set user_name=#{userName} where user_id=#{userId}")
+    void updateUserNameByUserId(@Param("userName") String userName, @Param("userId") Integer userId);
 
 }

@@ -25,28 +25,28 @@ public class CardController {
 
     //许祁写的这部分，支持图片视频一并上传到云上
     @ResponseBody
-    @RequestMapping(value = "/upCard",method = RequestMethod.POST)
-    public Boolean upDisLike(@RequestParam(required = false,value = "files")MultipartFile[] multipartFiles ,@RequestParam@RequestBody String str) throws IOException {
+    @RequestMapping(value = "/upCard1",method = RequestMethod.POST)
+    public Integer upCard(@RequestParam(required = false,value = "files")MultipartFile[] multipartFiles ,@RequestParam@RequestBody String str) throws IOException {
         //完成正常json数据上传
         System.out.println(str);
-        Boolean bool = cardService.upCard(str,multipartFiles);
-        //如果遇到了不支持类型则返回false
-        return bool;
+        Integer integer = cardService.upCard1(str,multipartFiles);
+        //如果遇到了不支持类型则返回-1,若成功则是cardId
+        return integer;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
-    public Boolean test(@RequestParam@RequestBody String str) throws IOException {
+    @RequestMapping(value = "/upCard2",method = RequestMethod.POST)
+    public Integer upCard2(@RequestParam(required = false,value = "files")MultipartFile multipartFile ,@RequestParam@RequestBody String str) throws IOException {
         //完成正常json数据上传
         System.out.println(str);
-        //Integer lableId = Integer.parseInt(JSON.parseObject(str).get("lableId").toString());
-        JsonParser parser = new JsonParser();
-        JsonObject json = (JsonObject) parser.parse(str);
-        System.out.println(json.has("lableId"));
-        //如果遇到了不支持类型则返回false
-        return true;
+        Integer integer = cardService.upCard2(str,multipartFile);
+        //如果遇到了不支持类型则返回-1,若成功则是cardId
+        return integer;
     }
+
+
+
 
 
 }
