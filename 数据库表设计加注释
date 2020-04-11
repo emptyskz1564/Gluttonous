@@ -71,13 +71,14 @@ create table if not exists discuss(
 
 
 
--- 用户表（id为用户id，name为用户昵称，viplevle为用户vip等级，wx_id为用户微信id，主键为id）
+-- 用户表（id为用户id，name为用户昵称，viplevle为用户vip等级，wx_id为用户微信id，user_openid拿取到的openid，主键为id）
 注意：这个地方有所改动，如果前端无法拿到wxid，那么user表中的wxid必须视为userid，也就是每次insert时wxid=userid
 create table if not exists user(
 	user_id int not null auto_increment,
-	user_name varchar(80) not null,
+	user_name varchar(80),
 	vip int,
 	wx_id varchar(80) not null,
+	user_openid varchar(200) not null,
 	user_pic varchar(255),
 	primary key (user_id),
 	foreign key (user_id) references user_lable (user_id),
