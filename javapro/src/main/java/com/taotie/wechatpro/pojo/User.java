@@ -25,6 +25,7 @@ public class User implements Serializable {
     private Integer vip;//0假1真
     private String wxId;
     private String userUrl;
+    private String userOpenid;
 
 
 }
