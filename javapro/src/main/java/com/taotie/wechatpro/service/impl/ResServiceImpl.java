@@ -9,6 +9,7 @@ import com.taotie.wechatpro.utils.FileUpDownUtil;
 import com.taotie.wechatpro.utils.FileUtil;
 import com.taotie.wechatpro.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,12 +18,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 @Service("ResServiceImpl")
 public class ResServiceImpl {
 
     @Autowired
     RestaurantDao restaurantDao;
+
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
 
     public Integer upRes1(String str, MultipartFile multipartFile) throws IOException {
         Integer resId = UUIDUtil.getUUIDInOrderId();
@@ -87,6 +92,9 @@ public class ResServiceImpl {
             restaurant.setResUrl(pictureUrl.toString());
         }
         restaurantDao.insert(restaurant);
+
+        redisTemplate.opsForValue().set("Restaurant_resId:"+resId,restaurant,1, TimeUnit.DAYS);
+
         return resId;
     }
 
@@ -94,6 +102,8 @@ public class ResServiceImpl {
 
     public Integer upRes2(String str,MultipartFile multipartFile) throws IOException{
         Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        Restaurant restaurant = (Restaurant) redisTemplate.opsForValue().get("Restaurant_resId:"+resId);
+        StringBuilder resurl = new StringBuilder(restaurant.getResUrl());
 
         if(multipartFile != null){
             //图片与视频的多个URL的合并String
@@ -129,8 +139,10 @@ public class ResServiceImpl {
                     System.out.println("第二层");
                     String picUrl = FileUpDownUtil.upload(fileInputStream);
                     pictureUrl.append(picUrl+"-");
+                    resurl.append(picUrl+"-");
                     //直接调用dao向指定cardid中添加URL
                     restaurantDao.concatResUrl(pictureUrl.toString(),resId);
+                    restaurant.setResUrl(resurl.toString());
                 }else {
                     String picUrl = null;
                 }
@@ -153,6 +165,8 @@ public class ResServiceImpl {
             System.out.println(file.delete());
 
         }
+
+        redisTemplate.opsForValue().set("Restaurant_resId:"+resId,restaurant,1, TimeUnit.DAYS);
         return resId;
     }
 }

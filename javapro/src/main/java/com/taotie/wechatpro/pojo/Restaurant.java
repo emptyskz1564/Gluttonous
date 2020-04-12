@@ -3,6 +3,7 @@ package com.taotie.wechatpro.pojo;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@Configuration
 public class Restaurant implements Serializable {
     @TableId("res_id")
     private Integer resId;

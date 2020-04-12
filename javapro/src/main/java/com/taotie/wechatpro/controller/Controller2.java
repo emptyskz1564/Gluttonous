@@ -56,10 +56,10 @@ public class Controller2 {
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         //首先尝试从redis取出
-        CardLable cardLable = (CardLable) redisTemplate.opsForValue().get("cardLable_cardId:"+id);
+        CardLable cardLable = (CardLable) redisTemplate.opsForValue().get("CardLable_cardId:"+id);
         if(cardLable==null){
             cardLable = cardLableDao.selectByCardId(id);
-            redisTemplate.opsForValue().set("cardLable_cardId:"+id,cardLable);
+            redisTemplate.opsForValue().set("CardLable_cardId:"+id,cardLable);
         }
         return cardLable;
     }
@@ -70,10 +70,10 @@ public class Controller2 {
     public Object getCardLable2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        CardLable cardLable = (CardLable) redisTemplate.opsForValue().get("cardLable_userId:"+id);
+        CardLable cardLable = (CardLable) redisTemplate.opsForValue().get("CardLable_userId:"+id);
         if(cardLable==null){
             cardLable = cardLableDao.selectByCardId(id);
-            redisTemplate.opsForValue().set("cardLable_userId:"+id,cardLable);
+            redisTemplate.opsForValue().set("CardLable_userId:"+id,cardLable);
         }
         return cardLable;
     }
@@ -84,10 +84,10 @@ public class Controller2 {
     public Object getVCardUserDisucuss(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscuss_cardId:"+id);
+        List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("VCardUserDiscuss_cardId:"+id);
         if(vCardUserDiscussList==null){
             vCardUserDiscussList = vCardUserDiscussDao.selectByCardId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("vCardUserDiscuss_cardId:"+id,vCardUserDiscussList);
+            redisTemplate.opsForValue().set("VCardUserDiscuss_cardId:"+id,vCardUserDiscussList);
         }
         return vCardUserDiscussList;
 
@@ -100,10 +100,10 @@ public class Controller2 {
     public Object getVCardUserDisucuss2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("vCardUserDiscussList_userId:"+id);
+        List<VCardUserDiscuss> vCardUserDiscussList = (List<VCardUserDiscuss>) redisTemplate.opsForValue().get("VCardUserDiscussList_userId:"+id);
         if(vCardUserDiscussList==null){
             vCardUserDiscussList = vCardUserDiscussDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("vCardUserDiscussList_userId:"+id,vCardUserDiscussList);
+            redisTemplate.opsForValue().set("VCardUserDiscussList_userId:"+id,vCardUserDiscussList);
         }
         return vCardUserDiscussList;
     }
@@ -118,10 +118,10 @@ public class Controller2 {
 
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-         Card card = (Card)redisTemplate.opsForValue().get("cardId:"+id);
+         Card card = (Card)redisTemplate.opsForValue().get("Card_cardId:"+id);
         if(card==null){
             card =cardDao.selectById(id);
-            redisTemplate.opsForValue().set("cardId:"+id,card);
+            redisTemplate.opsForValue().set("Card_cardId:"+id,card);
         }
         String url[] = card.getPicUrl().split("-");
         picUrl.setCount(url.length);
@@ -138,10 +138,10 @@ public class Controller2 {
 
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        Card card = (Card)redisTemplate.opsForValue().get("cardId:"+id);
+        Card card = (Card)redisTemplate.opsForValue().get("Card_cardId:"+id);
         if(card==null){
             card =cardDao.selectById(id);
-            redisTemplate.opsForValue().set("cardId:"+id,card);
+            redisTemplate.opsForValue().set("Card_cardId:"+id,card);
         }
         String url[] = card.getVideoUrl().split("-");
         picUrl.setCount(url.length);

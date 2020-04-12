@@ -15,7 +15,9 @@ import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 创建时间: 2020/4/6 15:24
@@ -36,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserLable userLable;
+
+    @Autowired
+    User user;
 
     @Autowired
     UserRestaurant userRestaurant;
@@ -62,15 +67,23 @@ public class UserServiceImpl implements UserService {
     public void upchangeUser(String str){
         Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         String userName = JSON.parseObject(str).get("userName").toString();
+        user = (User) redisTemplate.opsForValue().get("User_userId:"+userId);
+        user.setUserName(userName);
         //完成user表的更新
         userDao.updateUserNameByUserId(userName,userId);
+        List<UserLable> userLables = new ArrayList<UserLable>();
         //完成userlable表的插入
         for (int i = 1; i <= 3; i++){
             Integer lableId = Integer.parseInt(JSON.parseObject(str).get("lableId"+i).toString());
             userLable.setLableId(lableId);
             userLable.setUserId(userId);
             userLableDao.insertUserLable(lableId,userId);
+            userLables.add(userLable);
         }
+
+        redisTemplate.opsForValue().set("User_userId:"+userId,user,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLables,1, TimeUnit.DAYS);
+
     }
 
 
@@ -81,6 +94,9 @@ public class UserServiceImpl implements UserService {
         userRestaurant.setResId(resId);
         userRestaurant.setUserId(userId);
         userRestaurantDao.insert(userRestaurant);
+
+        redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurant,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurant,1, TimeUnit.DAYS);
     }
 
 

@@ -21,18 +21,27 @@ import com.taotie.wechatpro.utils.FileUtil;
 import com.taotie.wechatpro.utils.UUIDUtil;
 import com.taotie.wechatpro.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisConnectionUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service("CardServiceImpl")
 public class CardServiceImpl implements CardService {
 
     @Autowired
     CardUserLike carduserlike;
+
+    @Autowired
+    ResLable resLable;
+
+    @Autowired
+    CardLable cardLable;
 
     @Autowired
     CardUserLikeDao carduserlikeDao;
@@ -49,13 +58,20 @@ public class CardServiceImpl implements CardService {
     @Autowired
     ResLableDao resLableDao;
 
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
+
     @Override
     public void upCardLike(String str) {
         Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
         Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         carduserlike.setCardId(cardId);
         carduserlike.setUserId(userId);
+
         carduserlikeDao.insert(carduserlike);
+
+        redisTemplate.opsForValue().set("CardUserLike_cardId:"+cardId,carduserlike,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("CardUserLike_userId:"+userId,carduserlike,1,TimeUnit.DAYS);
     }
 
     public Integer upCard1(String str,MultipartFile[] multipartFiles) throws IOException {
@@ -87,8 +103,13 @@ public class CardServiceImpl implements CardService {
 
         //新增的插入reslable表
         Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        resLable.setLableId(resId);
+        List<ResLable> resLables=new ArrayList<ResLable>();
         for (Integer lableId : lableIds) {
-            resLableDao.insert(new ResLable(lableId,resId));
+           // new ResLable(lableId,resId)
+            resLable.setLableId(lableId);
+            resLableDao.insert(resLable);
+            resLables.add(resLable);
         }
 
         //Integer lableId = Integer.parseInt(JSON.parseObject(str).get("lableId").toString());
@@ -184,12 +205,20 @@ public class CardServiceImpl implements CardService {
         }
 
         cardDao.insert(card);
+        List<CardLable> cardLables = new ArrayList<CardLable>();
         //向关联表增加
         while (k >= 0) {
             System.out.println(lableIds[k]);
             cardLableDao.insert(cardId, lableIds[k]);
+            cardLable.setCardId(cardId);
+            cardLable.setLableId(lableIds[k]);
+            cardLables.add(cardLable);
             k--;
         }
+
+        redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("ResLable_resId:"+resId,resLables,1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("CardLable_cardId:"+cardId,cardLables,1,TimeUnit.DAYS);
 
         return cardId;
 
@@ -206,6 +235,9 @@ public class CardServiceImpl implements CardService {
      */
     public Integer upCard2(String str,MultipartFile multipartFile) throws IOException{
         Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
+        Card card = (Card) redisTemplate.opsForValue().get("Card_cardId:"+cardId);
+        StringBuilder picurl = new StringBuilder(card.getPicUrl());
+        StringBuilder vidurl = new StringBuilder(card.getVideoUrl());
 
         if(multipartFile != null){
             //图片与视频的多个URL的合并String
@@ -242,8 +274,11 @@ public class CardServiceImpl implements CardService {
                     System.out.println("第二层");
                     String picUrl = FileUpDownUtil.upload(fileInputStream);
                     pictureUrl.append(picUrl+"-");
+                    picurl.append(picUrl+"-");
                     //直接调用dao向指定cardid中添加URL
                     cardDao.concatPicUrl(pictureUrl.toString(),cardId);
+                    //将要加入redis的card的pic跟着改变
+                    card.setPicUrl(picurl.toString());
                 }else {
                     String picUrl = null;
                 }
@@ -251,8 +286,11 @@ public class CardServiceImpl implements CardService {
                 if(fileInputStream!=null) {
                     String vidUrl = FileUpDownUtil.upload(fileInputStream);
                     videoUrl.append(vidUrl+"-");
+                    vidurl.append(vidUrl+"-");
                     //直接调用dao向指定cardid中添加URL
                     cardDao.concatVideoUrl(videoUrl.toString(),cardId);
+                    //将要加入redis的card的vid跟着改变
+                    card.setVideoUrl(vidurl.toString());
                 }else {
                     String vidUrl = null;
                 }
@@ -275,6 +313,9 @@ public class CardServiceImpl implements CardService {
             System.out.println(file.delete());
 
         }
+
+        redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
+
         return cardId;
     }
 

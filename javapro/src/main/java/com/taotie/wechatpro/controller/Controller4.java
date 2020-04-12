@@ -48,10 +48,10 @@ public class Controller4 {
     private Object showUserLikeRes(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        UserRestaurant userRestaurant = (UserRestaurant) redisTemplate.opsForValue().get("userRestaurant:"+id);
+        UserRestaurant userRestaurant = (UserRestaurant) redisTemplate.opsForValue().get("UserRestaurant_userId:"+id);
         if(userRestaurant==null){
             userRestaurant = userRestaurantDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("userRestaurant:"+id,userRestaurant);
+            redisTemplate.opsForValue().set("UserRestaurant_userId:"+id,userRestaurant);
         }
         return userRestaurant;
     }
@@ -63,10 +63,10 @@ public class Controller4 {
     private Object vcarduserdiscuss(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VCardUserDiscuss vCardUserDiscuss = (VCardUserDiscuss) redisTemplate.opsForValue().get("vCardUserDiscuss_disId:"+id);
+        VCardUserDiscuss vCardUserDiscuss = (VCardUserDiscuss) redisTemplate.opsForValue().get("VCardUserDiscuss_disId:"+id);
         if(vCardUserDiscuss==null){
             vCardUserDiscuss = vCardUserDiscussDao.selectByDisId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("vCardUserDiscuss_disId:"+id,vCardUserDiscuss);
+            redisTemplate.opsForValue().set("VCardUserDiscuss_disId:"+id,vCardUserDiscuss);
         }
         return vCardUserDiscuss;
     }
