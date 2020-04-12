@@ -1,4 +1,6 @@
-<view class='page_row'>
+<!-- 防止页面上跳的一个占位盒子 -->
+<view class="holder"></view>
+<view class="page_rowFixed">
     <view class="search">
       <view class="search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
@@ -9,13 +11,13 @@
     <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
 </view>
 
-<Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
+<!-- <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange"> -->
 
-  <view wx:if="{{tabs[0].isActive}}" class="List">
+  <view class="List">
 
     <view class="ListContainer">
 
-      <view wx:for="{{showList}}" wx:key="index" class="ListItem">
+      <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
 
         <view class="userInfo">
           <view class="userPic">用户头像</view>
@@ -28,8 +30,8 @@
 
         <view class="labelContainer">
           <view 
-          wx:for="{{item.cardLabel}}" wx:key="index"
-          class="cardLabel">
+          wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
+          class="cardLabel" style="background-color:{{randomColorArr[i+j]}}">
             {{item}}
           </view>
         </view>
@@ -44,9 +46,9 @@
     </view>
 
   </view>
-
+<!-- 
   <view wx:else>VIP用户</view>
-</Tabs>
+</Tabs> -->
 
 <view bindtap="powerDrawer" data-statu="open">
   <image class="addCard" src="../icons/gengduo.png"></image>

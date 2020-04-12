@@ -1,12 +1,27 @@
 page {
   /* background-color: #edece8; */
   color: #666;
+  font-family: Microsoft YaHei;
 }
 
 .page_row{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  top:0rpx;
 }
+
+.page_rowFixed{
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
 .search{
   width: 80%;
 }
@@ -36,6 +51,11 @@ page {
   text-align: center;
   border: 1px solid #d0d0d0;
   border-radius: 10rpx;
+}
+
+.holder{
+  height: 60rpx;
+  width: 100%;
 }
 
 .restList{
@@ -74,4 +94,11 @@ page {
   margin-left: 5rpx;
 }
 
+.restSign {
+  padding: 5rpx 10rpx;
+  display: flex;
+  height: 30rpx;
+  color: #fff;
+  border-radius: 5rpx;
+}
 

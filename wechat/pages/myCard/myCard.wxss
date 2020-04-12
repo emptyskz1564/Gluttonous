@@ -1,8 +1,30 @@
-
+page {
+  /* background-color: #edece8; */
+  color: #666;
+}
 .page_row{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  top:0rpx
 }
+
+.page_rowFixed{
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
+.holder{
+  height: 60rpx;
+  width: 100%;
+}
+
 .search{
   width: 80%;
 }
@@ -63,6 +85,9 @@
 
 .ListContainer .ListItem .labelContainer .cardLabel {
   border: red 1rpx solid;
+  padding: 3rpx 10rpx;
+  color: #fff;
+  border-radius: 10rpx;
 }
 
 .ListContainer .ListItem .userInfo .userName{

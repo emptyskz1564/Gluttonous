@@ -16,6 +16,14 @@ Page({
     showList:[],
     inputValue:"",
     searchList:[],
+    // 自定义自己喜欢的颜色
+    colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+      "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
+      "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
+      "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
+      "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"],
+    // 存储随机颜色
+    randomColorArr: [],
   },
   inputBind: function(event) {
     this.setData({
@@ -30,7 +38,9 @@ Page({
     console.log(this.data.inputValue);
     const search=this.data.inputValue.toLowerCase();
     console.log(search);
-    
+    if(this.data.inputValue===0){
+      console.log("请输入关键字");
+    }
     if(search.length>0){
       const searchList=this.data.list.filter(data=>{
         return Object.keys(data).some(key=>{
@@ -45,7 +55,7 @@ Page({
       this.totalPage=Math.ceil(this.data.searchList.length/this.pageSize);
       this.currentPage = 1;
     }else{
-      console.log("请输入信息");
+      console.log("没有相关信息");
     }
   },
 
@@ -88,6 +98,27 @@ Page({
       
     },
 
+    getRandomColor:function(){
+      let that=this,
+        labLen = that.data.list.length*4,
+        colorArr = that.data.colorArr,
+        colorLen = colorArr.length,
+        randomColorArr = [];
+	    //判断执行
+      do{
+        let random = colorArr[Math.floor(Math.random() * colorLen)];
+        randomColorArr.push(random);
+        labLen--;
+      } while (labLen > 0)
+      that.setData({ 
+        randomColorArr: randomColorArr
+      });
+      console.log(
+        that.data.randomColorArr
+      );
+      
+    },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -108,6 +139,7 @@ Page({
     //计算总页数
     that.totalPage=Math.ceil(that.totalSzie/that.pageSize);
     that.getShowList();
+    that.getRandomColor();
     console.log(this.data.list)
   },
 
@@ -149,6 +181,12 @@ Page({
         //重新发送请求获取showList
         this.getShowList();
   },
+
+  // onPageScroll: function (e) {//监听页面滚动
+  //   this.setData({
+  //     scrollTop: e.scrollTop
+  //   })
+  // },
 
   /**
    * 页面上拉触底事件的处理函数

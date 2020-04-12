@@ -10,6 +10,10 @@ Page({
 
   },
 
+  Collecting:function(){
+    console.log("加入收藏");
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

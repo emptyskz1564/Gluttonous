@@ -1,8 +1,27 @@
 
 .page_row{
+  width: 100%;
+  background-color: #fff;
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  position:fixed;
+  top:0rpx
 }
+
+.page_rowFixed{
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
+.holder{
+  height: 60rpx;
+  width: 100%;
+}
+
 .search{
   width: 80%;
 }
@@ -63,6 +82,10 @@
 
 .List .ListContainer .ListItem .labelContainer .cardLabel {
   border: red 1rpx solid;
+  display: flex;
+  color: #fff;
+  padding: 3rpx 10rpx;
+  border-radius: 10rpx;
 }
 
 .List .ListContainer .ListItem .userInfo .userName{
@@ -80,6 +103,7 @@
   margin: 5rpx 10rpx;
   font-size: 35rpx;
 }
+
 
 .List .ListContainer .ListItem .imgContainer {
   border-top: 10rpx ;
@@ -227,7 +251,7 @@
   padding-top: 15rpx;
  }
    
- input { 
+ .formSubmit input { 
    font: 12px "microsoft yahei"; 
    background: #fff; 
    color:#000 ; 

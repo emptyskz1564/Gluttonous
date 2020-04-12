@@ -8,3 +8,5 @@
   </view>
   <view class="bestFood">最好的菜：{{list.bestFood}}</view>
 </view>
+
+<view bindtap="Collecting">收藏</view>

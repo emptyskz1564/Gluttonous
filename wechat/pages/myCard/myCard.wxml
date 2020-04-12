@@ -1,4 +1,6 @@
-<view class='page_row'>
+<!-- 防止页面上跳的一个占位盒子 -->
+<view class="holder"></view>
+<view class="page_row">
     <view class="search">
       <view class="search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
@@ -9,10 +11,12 @@
     <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
 </view> 
 
+
+
 <view class="list">
 <view class="ListContainer">
 
-  <view wx:for="{{showList}}" wx:key="index" class="ListItem">
+  <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
 
     <view class="userInfo">
       <view class="userPic">用户头像</view>
@@ -26,7 +30,7 @@
     <view class="labelContainer">
       <view 
       wx:for="{{item.cardLabel}}" wx:key="index"
-      class="cardLabel">
+      class="cardLabel" wx:for-index="j" style="background-color:{{randomColorArr[i+j]}}">
         {{item}}
       </view>
     </view>

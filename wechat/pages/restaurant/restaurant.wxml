@@ -1,4 +1,6 @@
-<view class='page_row'>
+<!-- 防止页面上跳的一个占位盒子 -->
+<view class="holder"></view>
+<view class="page_row">
     <view class="search">
       <view class="search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
@@ -11,13 +13,15 @@
     <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
 </view>
 
-<view class="restList" wx:for="{{showList}}" wx:key="index">
+
+
+<view class="restList" wx:for="{{showList}}" wx:key="index" wx:for-index="i">
 
   <view class="rest">
     <view class="restInfo">
       <view class="restName">{{item.restName}}</view>
       <view class="restTitle">
-        <view wx:for="{{item.restSign}}" wx:key="index">
+        <view wx:for="{{item.restSign}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[i+j]}}" class="restSign">
           <view>{{item}}</view>
         </view>
       </view>

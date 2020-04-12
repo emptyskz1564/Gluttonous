@@ -1,7 +1,26 @@
 .page_row{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  top:0rpx
 }
+
+.page_rowFixed{
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
+.holder{
+  height: 60rpx;
+  width: 100%;
+}
+
 .search{
   width: 80%;
 }
@@ -66,4 +85,12 @@
   flex-wrap: wrap;
   justify-content: space-around;
   margin-left: 5rpx;
+}
+
+.restSign {
+  display: flex;
+  height: 30rpx;
+  color: #fff;
+  padding: 5rpx 10rpx;
+  border-radius: 5rpx;
 }
