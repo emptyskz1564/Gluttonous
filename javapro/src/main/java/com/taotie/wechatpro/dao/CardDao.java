@@ -21,4 +21,7 @@ public interface CardDao extends BaseMapper<Card> {
     //追加videoUrl
     @Update("update card set video_url=CONCAT(video_url,#{videoUrl}) where card_id=#{cardId}")
     void concatVideoUrl(@Param("videoUrl") String videoUrl, @Param("cardId") Integer cardId);
+
+
+
 }
