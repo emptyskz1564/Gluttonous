@@ -22,6 +22,7 @@ public class VDiscussUserLike implements Serializable {
 
     private Integer userId;
     private String userName;
+    private String userUrl;
     private Integer vip;
     private String wxId;
     private Integer disId;

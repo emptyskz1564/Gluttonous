@@ -33,6 +33,7 @@ public class VCardUserLike implements Serializable {
     private String bestFood;
     private String userId;
     private String userName;
+    private String userUrl;
     private Integer vip;
 
 

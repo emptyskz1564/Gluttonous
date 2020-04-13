@@ -2,6 +2,7 @@ package com.taotie.wechatpro.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@Configuration
 public class User implements Serializable {
 
     @TableId("user_id")
@@ -24,6 +26,8 @@ public class User implements Serializable {
     private String userName;
     private Integer vip;//0假1真
     private String wxId;
+    private String userUrl;
+    private String userOpenid;
 
 
 }

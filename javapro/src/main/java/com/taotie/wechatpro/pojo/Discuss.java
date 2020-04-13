@@ -1,7 +1,9 @@
 package com.taotie.wechatpro.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
@@ -17,12 +19,15 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@Configuration
 public class Discuss implements Serializable {
 
-    @TableId("dis_id")
+    @TableId(value = "dis_id", type = IdType.AUTO)
     private Integer disId;
     private Integer cardId;
     private String disComment;
     private Integer parentId;
+    private String discussUserId;
     private String disThread;
+    private Integer disUserId;
 }
