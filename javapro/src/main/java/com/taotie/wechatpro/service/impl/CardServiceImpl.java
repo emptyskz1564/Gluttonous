@@ -23,6 +23,8 @@ import com.taotie.wechatpro.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,6 +65,11 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void upCardLike(String str) {
+
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+
+        CardUserLike carduserlike = new CardUserLike();
         Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
         Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         carduserlike.setCardId(cardId);
@@ -70,11 +77,19 @@ public class CardServiceImpl implements CardService {
 
         carduserlikeDao.insert(carduserlike);
 
-        redisTemplate.opsForValue().set("CardUserLike_cardId:"+cardId,carduserlike,1, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("CardUserLike_userId:"+userId,carduserlike,1,TimeUnit.DAYS);
+        //也是改成list
+        redisTemplate.opsForValue().set("CardUserLike_cardId:"+cardId,carduserlikeDao.selectBycardId(cardId),1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("CardUserLike_userId:"+userId,carduserlikeDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        //redisTemplate.opsForList().leftPush("CardUserLike_cardId:"+cardId,carduserlike);
+        //redisTemplate.opsForList().leftPush("CardUserLike_userId:"+userId,carduserlike);
+        //redisTemplate.expire("CardUserLike_cardId:"+cardId,1, TimeUnit.DAYS);
+        // redisTemplate.expire("CardUserLike_userId:"+userId,1, TimeUnit.DAYS);
     }
 
     public Integer upCard1(String str,MultipartFile[] multipartFiles) throws IOException {
+
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
 
         //google的用来判断json串中某key是否存在（避免造成空指针）(lableId可能不存在)
         JsonParser parser = new JsonParser();
@@ -217,8 +232,13 @@ public class CardServiceImpl implements CardService {
         }
 
         redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("ResLable_resId:"+resId,resLables,1,TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("CardLable_cardId:"+cardId,cardLables,1,TimeUnit.DAYS);
+        //以下改成list
+        redisTemplate.opsForValue().set("ResLable_resId:"+resId,resLableDao.selectByresId(resId),1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("CardLable_cardId:"+cardId,cardLableDao.selectBycardId(cardId),1,TimeUnit.DAYS);
+        //redisTemplate.opsForList().leftPush("ResLable_resId:"+resId,resLables);
+        //redisTemplate.opsForList().leftPush("CardLable_cardId:"+cardId,cardLables);
+        //redisTemplate.expire("ResLable_resId:"+resId,1, TimeUnit.DAYS);
+        //redisTemplate.expire("CardLable_cardId:"+cardId,1, TimeUnit.DAYS);
 
         return cardId;
 

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -65,6 +66,8 @@ public class UserServiceImpl implements UserService {
 
     //用户更改昵称和标签的上传
     public void upchangeUser(String str){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
         Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         String userName = JSON.parseObject(str).get("userName").toString();
         user = (User) redisTemplate.opsForValue().get("User_userId:"+userId);
@@ -81,22 +84,56 @@ public class UserServiceImpl implements UserService {
             userLables.add(userLable);
         }
 
-        redisTemplate.opsForValue().set("User_userId:"+userId,user,1, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLables,1, TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("User_userId:"+userId,user,1, TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLables,1, TimeUnit.DAYS);
+
+        redisTemplate.opsForValue().set("User_userId:"+userId,userDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLableDao.selectByuserId(userId),1,TimeUnit.DAYS);
+
+
 
     }
 
 
     //用户收藏餐馆的上传
     public void upUserLikeRes(String str){
+        //需要手动new，没有写工厂类太麻烦了
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        UserRestaurant userRestaurant = new UserRestaurant();
         Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
         userRestaurant.setResId(resId);
         userRestaurant.setUserId(userId);
         userRestaurantDao.insert(userRestaurant);
 
-        redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurant,1, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurant,1, TimeUnit.DAYS);
+
+        //这种多对多需要list形式
+        //redisTemplate.opsForList().leftPush("UserRestaurant_userId:"+userId,userRestaurant);
+        //redisTemplate.opsForList().leftPush("UserRestaurant_resId:"+resId,userRestaurant);
+        //redisTemplate.expire("UserRestaurant_userId:"+userId,1, TimeUnit.DAYS);
+        //redisTemplate.expire("UserRestaurant_resId:"+resId,1, TimeUnit.DAYS);
+
+        redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurantDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurantDao.selectByresId(resId),1,TimeUnit.DAYS);
+    }
+
+
+    public void upUserHateRes(String str){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        UserRestaurant userRestaurant = new UserRestaurant();
+        userRestaurant.setUserId(userId);
+        userRestaurant.setResId(resId);
+        userRestaurantDao.deletByuserIdresId(userId,resId);
+
+        //redisTemplate.opsForList().remove("UserRestaurant_userId:"+userId,1,userRestaurant);
+        //redisTemplate.opsForList().remove("UserRestaurant_resId:"+resId,1,userRestaurant);
+
+        redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurantDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurantDao.selectByresId(resId),1,TimeUnit.DAYS);
     }
 
 

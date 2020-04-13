@@ -18,12 +18,14 @@ import java.util.List;
 
 @Mapper
 public interface CardLableDao {
-
     @Select("select * from card_lable where card_id=#{cardId}")
     CardLable selectByCardId(@Param("cardId")String cardId);
 
     @Select("select * from card_lable where lable_id=#{lableId}")
     CardLable  selectByLableId(@Param("lableId")String lableId);
+
+    @Select("select * from card_lable where card_id=#{cardId}")
+    List<CardLable> selectBycardId(@Param("cardId")Integer cardId);
 
     @Insert("insert into card_lable values(#{cardId},#{lableId})")
     void insert(@Param("cardId") Integer cardId, @Param("lableId")Integer lableId);

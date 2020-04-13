@@ -47,14 +47,14 @@ public class associateTableController {
 
     @ResponseBody
     @RequestMapping(value = "/upDisUserLike",method = RequestMethod.GET)
-    public void upDisLike(@RequestBody String str){
+    public void upDisLike(@RequestParam@RequestBody String str){
         discussService.upDisLike(str);
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/upCardUserLike",method = RequestMethod.GET)
-    public void upCardLike(@RequestBody String str){
+    public void upCardLike(@RequestParam@RequestBody String str){
         cardservice.upCardLike(str);
     }
 

@@ -34,4 +34,7 @@ public interface UserDao extends BaseMapper<User> {
     @Update("update card set wx_id=#{userId} where user_id=#{userId}")
     void updateWxIdByUserId(@Param("userId")Integer userId);
 
+    @Select("select * from user where user_id=#{userId}")
+    List<User> selectByuserId(@Param("userId")Integer userId);
+
 }

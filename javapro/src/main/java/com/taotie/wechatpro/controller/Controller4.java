@@ -44,17 +44,32 @@ public class Controller4 {
 
     //根据userId获取用户餐厅收藏
     @ResponseBody
-    @RequestMapping(value = "/showuserlikeres/{id}",method = RequestMethod.GET)
-    private Object showUserLikeRes(@PathVariable String id){
+    @RequestMapping(value = "/userresbyuserid/{id}",method = RequestMethod.GET)
+    private Object showUserLikeRes1(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        UserRestaurant userRestaurant = (UserRestaurant) redisTemplate.opsForValue().get("UserRestaurant_userId:"+id);
-        if(userRestaurant==null){
-            userRestaurant = userRestaurantDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("UserRestaurant_userId:"+id,userRestaurant);
+        List<UserRestaurant> userRestaurantList = (List<UserRestaurant>) redisTemplate.opsForValue().get("UserRestaurant_userId:"+id);
+        if(userRestaurantList==null){
+            userRestaurantList = userRestaurantDao.selectByuserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("UserRestaurant_userId:"+id,userRestaurantList);
         }
-        return userRestaurant;
+        return userRestaurantList;
     }
+
+    //根据resId获取用户餐厅收藏
+    @ResponseBody
+    @RequestMapping(value = "/userresbyresid/{id}",method = RequestMethod.GET)
+    private Object showUserLikeRes2(@PathVariable String id){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        List<UserRestaurant> userRestaurantList = (List<UserRestaurant>) redisTemplate.opsForValue().get("UserRestaurant_resId:"+id);
+        if(userRestaurantList==null){
+            userRestaurantList = userRestaurantDao.selectByuserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("UserRestaurant_resId:"+id,userRestaurantList);
+        }
+        return userRestaurantList;
+    }
+
 
 
     //根据disId收取视图，前端需要哪些就取，根据key
@@ -70,6 +85,11 @@ public class Controller4 {
         }
         return vCardUserDiscuss;
     }
+
+
+
+
+
 
 
 

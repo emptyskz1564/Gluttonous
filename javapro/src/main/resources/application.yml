@@ -16,10 +16,10 @@ spring:
     password: 131428
     lettuce:
       pool:
-        max-idle: 30
-        max-wait: 3000
-        max-active: 30
-    timeout: 3000
+        max-idle: 3000000
+        max-wait: 3000000
+        max-active: 3000000
+    timeout: 3000000
   servlet:
     multipart:
       max-file-size: 1GB
