@@ -1,12 +1,18 @@
 <view class="main">
   <view class="restName">{{list.restName}}</view>
-  <navigator style="margin-left:40rpx">查看地理位置>></navigator>
+  <navigator class="adress" url="/pages/map/map">查看地理位置>></navigator>
   <view class="restSigns">
-    <view class="restSign" wx:for="{{list.restSign}}" wx:key="{{index}}">
+    <view class="restSign" wx:for="{{list.restSign}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[j]}}">
       <view>{{item}}</view>
     </view>
   </view>
   <view class="bestFood">最好的菜：{{list.bestFood}}</view>
 </view>
 
-<view bindtap="Collecting">收藏</view>
+
+<image wx:if="{{isCollect}}" bindtap="CancelCollecting" class="collection" src="/pages/icons/收藏成功.png"></image>
+
+<image wx:else class="collection" bindtap="Collecting" src="/pages/icons/收藏.png"></image>
+
+
+

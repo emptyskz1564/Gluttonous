@@ -1,10 +1,12 @@
 page {
   /* background-color: #edece8; */
+  background-color: #f2f2f2;
   color: #666;
   font-family: Microsoft YaHei;
 }
 
 .page_row{
+  height: 80rpx;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -14,6 +16,7 @@ page {
 }
 
 .page_rowFixed{
+  height: 65rpx;
   width: 100%;
   background-color: #fff;
   position:fixed;
@@ -45,6 +48,7 @@ page {
   border-radius: 5px;
 }
 .sousuo {
+  height: 60rpx;
   margin-left: 15rpx;
   width: 15%;
   line-height: 150%;
@@ -54,11 +58,12 @@ page {
 }
 
 .holder{
-  height: 60rpx;
+  height:90rpx;
   width: 100%;
 }
 
 .restList{
+  margin-top: 10rpx;
   display: flex;
   flex-direction: column;
 }
@@ -66,11 +71,13 @@ page {
 .restList .rest{
   margin: 10rpx;
   display: flex;
-  
+  background-color: #fff;
+  border-radius: 10rpx;
 }
 
 .restList .restInfo{
-  border: 1rpx red solid;
+  display: flex;
+  flex-direction: column;
   margin: 5px;
   flex: 3;
 }
@@ -83,15 +90,17 @@ page {
 }
 
 .restName{
+  font-weight: bold;
   margin: 5rpx;
+  color: #333333;
 }
 
 .restTitle{
+  margin-top: 15rpx;
   display: flex;
   font-size: 25rpx;
-  flex-wrap: wrap;
-  justify-content: space-around;
   margin-left: 5rpx;
+  margin-bottom: 15rpx;
 }
 
 .restSign {
@@ -100,5 +109,9 @@ page {
   height: 30rpx;
   color: #fff;
   border-radius: 5rpx;
+  margin-right: 8rpx;
 }
-
+.restDetail{
+  color: #999999;
+  font-size: 30rpx;
+}

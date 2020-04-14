@@ -1,5 +1,12 @@
+page {
+  /* background-color: #edece8; */
+  background-color: #f2f2f2;
+  color: #666;
+  font-family: Microsoft YaHei;
+}
 
 .page_row{
+  height: 80rpx;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -9,6 +16,7 @@
 }
 
 .page_rowFixed{
+  height: 80rpx;
   width: 100%;
   background-color: #fff;
   position:fixed;
@@ -18,7 +26,7 @@
 }
 
 .holder{
-  height: 60rpx;
+  height: 80rpx;
   width: 100%;
 }
 
@@ -45,6 +53,7 @@
   border-radius: 5px;
 }
 .sousuo {
+  height: 60rpx;
   margin-left: 15rpx;
   width: 15%;
   line-height: 150%;
@@ -55,7 +64,6 @@
 
 .List{
   width: 100%;
-  background-color: #fff;
   display: flex;
   justify-content: center;
 }
@@ -66,7 +74,9 @@
 
 .List .ListContainer .ListItem{
   margin-top: 15rpx;
-  border: red 1rpx solid;
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 50rpx;
 }
 
 .List .ListContainer .ListItem .userInfo {
@@ -81,11 +91,12 @@
 }
 
 .List .ListContainer .ListItem .labelContainer .cardLabel {
-  border: red 1rpx solid;
   display: flex;
+  font-size: 30rpx;
   color: #fff;
   padding: 3rpx 10rpx;
   border-radius: 10rpx;
+  margin-bottom: 15rpx;
 }
 
 .List .ListContainer .ListItem .userInfo .userName{
@@ -94,14 +105,20 @@
 }
 
 .List .ListContainer .ListItem .cardTitle {
+  color: #333333;
+  font-size: 42rpx;
   margin: 5rpx 10rpx;
   text-align: center;
   margin-top: 20rpx;
+  margin-bottom: 15rpx;
 }
 
 .List .ListContainer .ListItem .cardContent {
+  color: #333333;
+  font-size: 40rpx;
   margin: 5rpx 10rpx;
   font-size: 35rpx;
+  margin-bottom: 15rpx;
 }
 
 
@@ -117,6 +134,7 @@
 .List .ListContainer .ListItem .imgContainer .img {
   border: solid 1rpx red;
   width: 80%;
+  margin-bottom: 50rpx;
 }
 
 .addCard{

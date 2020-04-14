@@ -19,7 +19,7 @@
     <view class="restInfo">
       <view class="restName">{{item.restName}}</view>
       <view class="restTitle">
-        <view wx:for="{{item.restSign}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[i+j]}}" class="restSign">
+        <view wx:for="{{item.restSign}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[i*4+j]}}" class="restSign">
           <view>{{item}}</view>
         </view>
       </view>

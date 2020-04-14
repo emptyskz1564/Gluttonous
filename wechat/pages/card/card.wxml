@@ -31,7 +31,7 @@
         <view class="labelContainer">
           <view 
           wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
-          class="cardLabel" style="background-color:{{randomColorArr[i+j]}}">
+          class="cardLabel" style="background-color:{{randomColorArr[i*3+j]}}">
             {{item}}
           </view>
         </view>

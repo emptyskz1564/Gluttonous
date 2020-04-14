@@ -11,10 +11,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // wx.login({
+    //   success: function(res) {
+    //     console.log(res);
+        
+    //   }
+    // })
     wx.request({
-      url: 'http://hailicy.xyz:8090/v1/user/1',
-      success: function(res) {
-        console.log(res)// 服务器回包信息
+      url: 'https://hailicy.xyz/wechatpro/v1/upUserLikeRes',
+      method:'GET',
+      data:{resId:1,userId:1},
+      success(res){
+        console.log(res);
       }
     })
   },

@@ -11,8 +11,14 @@
     "pages/myCard/myCard",
     "pages/history/history",
     "pages/components/Tabs/Tabs",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/map/map"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "tabBar": {
     "backgroundColor": "#fff",
     "list": [
