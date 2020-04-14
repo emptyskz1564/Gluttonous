@@ -23,7 +23,7 @@
           <view>{{item}}</view>
         </view>
       </view>
-      <navigator style="margin:5rpx" url="../restDetail/restDetail">餐厅详情>></navigator>
+      <navigator url="../restDetail/restDetail">餐厅详情>></navigator>
     </view>
   
     <view class="restPic" bindtap="handlePreviewImg" data-url="{{item.img}}">头像</view>

@@ -101,15 +101,19 @@ page {
   font-size: 25rpx;
   margin-left: 5rpx;
   margin-bottom: 15rpx;
+  flex-wrap: wrap;
 }
 
 .restSign {
   padding: 5rpx 10rpx;
   display: flex;
+  flex-wrap: nowrap;
   height: 30rpx;
   color: #fff;
   border-radius: 5rpx;
   margin-right: 8rpx;
+  line-height: 30rpx;
+  margin-top: 10rpx;
 }
 .restDetail{
   color: #999999;
