@@ -1,6 +1,9 @@
+
+
 .tabs{}
 
-.tabsTitle {
+.tabsTitle { 
+  background-color: #fff;
   display: flex;
 }
 

@@ -1,0 +1,6 @@
+page {
+  /* background-color: #edece8; */
+  background-color: #f2f2f2;
+  color: #666;
+  font-family: Microsoft YaHei;
+}

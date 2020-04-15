@@ -73,6 +73,7 @@ page {
   display: flex;
   background-color: #fff;
   border-radius: 10rpx;
+  height: 200rpx;
 }
 
 .restList .restInfo{
@@ -83,9 +84,10 @@ page {
 }
 
 .restList .rest .restPic{
+  margin-top: 40rpx;
+  height: 180rpx;
   flex: 1;
-  border: 1rpx red solid;
-  margin: 5px;
+  margin-right: 5px;
   display: flex;
 }
 

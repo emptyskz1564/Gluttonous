@@ -4,6 +4,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    labelList:[],
+    list:[],
     userId:"",
     str:{userId:2,resId:1675852983,cardContent:"123",cardTitle:"123",bestFood:"123",selfLable1:"123",selfLable2:"yahu",selfLable3:"aha",lableId1:1,lableId2:-1,lableId3:-1}
   },
@@ -12,39 +14,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let str=JSON.stringify(this.data.str);
-    //     wx.request({
-    //       url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
-    //       method:'POST',
-    //       data:{
-    //         str:str
-    //       },
-    //       header: {
-    //         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
-    //       },
-    //       success:function(res){
-    //         console.log(res);
-    //       }
-    //     })
-    // wx.login({
-    //   success:function(res){
-    //     //const code=JSON.stringify(res.code);
-    //     wx.request({
-    //       url: 'https://hailicy.xyz/wechatpro/v1/login',
-    //       method:'POST',
-    //       data:{
-    //         code:res.code
-    //       },
-    //       header: {
-    //          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
-    //       },
-    //       success:function(res){
-    //         console.log(res);
-            
-    //       }
-    //     })
-    //   }
-    // })
+    let that=this;
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/restaurants',
+      success:function(res){
+        console.log(res);
+        that.setData({
+          list:res.data
+        })
+        wx.request({
+          url: 'https://hailicy.xyz/wechatpro/v1/vreslables',
+          success:function(res){
+            //console.log(res);
+            that.setData({
+              labelList:res.data
+            })
+            let list=that.data.list;
+            let labelList=that.data.labelList;
+            //console.log(labelList);
+            let labels=[];
+            for(let i=0;i<list.length;i++){
+              for(let j=0;j<labelList.length;j++){
+                if(labelList[j].resId===list[i].resId){
+                  labels.push(labelList[j].lableContent)
+                }
+              }
+              list[i]["labels"]=labels;
+              //console.log(labels);
+              labels=[];
+            }
+            that.setData({
+              list:list
+            })
+            console.log(that.data.list);
+          }
+        }) 
+      }
+    })
   },
 
   /**
