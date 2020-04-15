@@ -69,16 +69,16 @@
   </view> 
   <view class="top grid"> 
    <label class="title col-0">打卡内容</label> 
-   <textarea name="cardContent"></textarea>
+   <textarea fixed name="cardContent"></textarea>
   </view> 
   <view class="top grid"> 
    <label class="title col-0">最好的菜</label> 
    <input class="input_base input_h30 col-1" name="bestFood"></input> 
   </view> 
-  <view class="top grid"> 
+  <view class="top grid1"> 
     <label class="title col-0">标签一</label> 
     <input class="input_base input_h30 col-1" name="selfLable1"></input> 
-    <view class="addLabel" bindtap="addLabel">+</view>
+    <image class="addLabel" bindtap="addLabel" src="/pages/icons/增加.png"></image>
   </view> 
   <view class="top grid"> 
     <label wx:if="{{addLabel[0]}}" class="title col-0">标签二</label> 

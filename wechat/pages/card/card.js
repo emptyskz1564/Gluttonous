@@ -159,24 +159,29 @@ formSubmit: function (e) {
   send:function(){
     var that = this;
     var user_id = wx.getStorageSync('userid')
-    wx.showLoading({
-      title: '上传中',
-    })
-    that.img_upload()
+    if(that.data.cardForm.cardTitle===""&&that.data.cardForm.cardContent===""){
+      console.log("没有打卡信息上传");
+      that.util("close");
+    }else{
+      that.img_upload()
+    }
+    // wx.showLoading({
+    //   title: '上传中',
+    // })
   },
   //图片上传
   img_upload: function () {
     //******************此处需要获取userid******************
     const userInfo=wx.getStorageSync('userInfo');
     let userId = userInfo["userId"];
-    let str=that.data.cardForm;
+    let str=this.data.cardForm;
     str["userId"]=userId;
     /////////////////餐厅id如何获取
     str["resId"]="1675852983";
-    if(str.LabelId2.length>0){
+    if(str.LabelId2!=""){
       str.LabelId2=1
     }
-    if(str.LabelId3.length>0){
+    if(str.LabelId3!=""){
       str.LabelId3=1
     }
     str=JSON.stringify(str);
@@ -185,7 +190,7 @@ formSubmit: function (e) {
     let cardId="";
     //let img_url_ok = [];
     wx.uploadFile({
-      filePath: imh_url[0],
+      filePath: img_url[0],
       name: 'files',
       url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
       formData:{
@@ -196,6 +201,14 @@ formSubmit: function (e) {
       },
       success:function(res){
         cardId=res.data
+        console.log(res);
+        if(img_url.length===0){
+          wx.showToast({
+            title: '打卡成功',
+            duration: 2000
+          });
+          that.util("close");
+        }
       }
     })
     //上传剩下的图片
@@ -212,63 +225,14 @@ formSubmit: function (e) {
         },
         success:function(res){
           console.log(res);
+          wx.showToast({
+            title: '打卡成功',
+            duration: 2000
+          });
+          that.util("close"); 
         }
       })
     }
-
-    //由于图片只能一张一张地上传，所以用循环
-    // for (let i = 0; i < img_url.length; i++) {
-    //   wx.uploadFile({
-    //     //路径填你上传图片方法的地址
-    //     url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
-    //     filePath: img_url[i],
-    //     name: 'files',
-    //     formData: {
-    //       str:this.data.cardForm
-    //     },
-    //     success:function(res){
-    //       console.log(res);
-    //     },
-        // success: function (res) {
-        //   console.log('上传成功');
-        //   //把上传成功的图片的地址放入数组中
-        //   img_url_ok.push(res.data)
-        //   //如果全部传完，则可以将图片路径保存到数据库
-        //   if (img_url_ok.length == img_url.length) {
-        //     var userid = wx.getStorageSync('userid');
-        //     var userid = 7;
-        //     var content = that.data.content;
-        //     wx.request({
-        //       url: 'http://wechat.homedoctor.com/Moments/adds',
-        //       data: {
-        //         user_id: userid,
-        //         images: img_url_ok,
-        //         content: content,
-        //       },
-        //       success: function (res) {
-        //         if (res.data.status == 1) {
-        //           wx.hideLoading()
-        //           wx.showModal({
-        //             title: '提交成功',
-        //             showCancel: false,
-        //             success: function (res) {
-        //               if (res.confirm) {
-        //                 wx.navigateTo({
-        //                   url: '/pages/my_moments/my_moments',
-        //                 })
-        //               }
-        //             }
-        //           })
-        //         }
-        //       }
-        //     })
-        //   }
-        // },
-      //   fail: function (res) {
-      //     console.log('上传失败')
-      //   }
-      // })
-    //}
   } ,
 
 

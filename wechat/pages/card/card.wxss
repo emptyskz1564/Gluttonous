@@ -188,13 +188,14 @@ page {
   padding: 10px; 
   font: 20px "microsoft yahei"; 
   text-align: center; 
-  border-top: 1px solid #E8E8EA; 
+  /* border-top: 1px solid #E8E8EA;  */
   color: #3CC51F; 
  } 
    
  .top{ 
-   padding-top:8px; 
+   /* padding-top:8rpx;  */
    display: flex;
+   margin-top: 20rpx;
  } 
  .bottom { 
    padding-bottom:8px; 
@@ -208,16 +209,24 @@ page {
    font: 300 28rpx/30px "microsoft yahei"; 
  } 
 
+ .grid1{
+   display: flex;
+   
+ }
+ .top input {
+  width: 50%;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+ }
+
  .addLabel{
-   width: 30px;
-   line-height: 30px;
-   font-size: 70rpx;
-   text-align: center;
-   border: 1rpx greenyellow solid ;
+   height: 60rpx;
+   width: 60rpx;
  }
    
  .input_base { 
-   border: 2rpx solid #ccc; 
+   /* border: 1rpx solid #ccc;  */
    padding-left: 10rpx; 
    margin-right: 50rpx; 
  } 
@@ -235,7 +244,6 @@ page {
    line-height: 30px; 
  } 
 
-  
 .image{
   width:31%;
   height: 100px;
@@ -252,10 +260,9 @@ page {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  margin-left: 20rpx;
-  
+  margin-left: 40rpx; 
+  margin-top: 20rpx;
 }
-
 
  textarea{
   width: 65%;
@@ -263,17 +270,17 @@ page {
   font: 12px "microsoft yahei"; 
   background: #fff; 
   color:#000 ;
-  border: 2rpx solid #ccc;
+  /* border: 1rpx solid #ccc; */
   padding-left: 10rpx; 
   margin-right: 50rpx; 
   padding-top: 15rpx;
  }
    
- .formSubmit input { 
+ /* .formSubmit input { 
    font: 12px "microsoft yahei"; 
    background: #fff; 
    color:#000 ; 
- } 
+ }  */
  radio{ 
    margin-right: 20rpx; 
  } 
