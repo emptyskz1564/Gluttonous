@@ -6,11 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userId:""
   },
 
   handleGetuserinfo(e){
-    const{userInfo} = e.detail;
+    let {userInfo} = e.detail;
+    userInfo["userId"]=this.data.userId;
     console.log(userInfo);
     wx.setStorageSync('userInfo', userInfo);
     wx.navigateBack({
@@ -22,7 +23,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that=this;
+    wx.login({
+      success:function(res){
+        wx.request({
+          url: 'https://hailicy.xyz/wechatpro/v1/login/'+res.code,
+          success:function(res){
+            that.setData({
+              userId:res.data
+            })
+          }
+        })
+      }
+    })
   },
 
   /**

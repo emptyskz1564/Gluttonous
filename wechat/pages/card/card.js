@@ -33,12 +33,17 @@ Page({
     //   }
     // ],
     cardForm:{
-      cardTitle:"",
+      userId:7,
+      resId:1675852983,
       cardContent:"",
+      cardTitle:"",
       bestFood:"",
-      cardLabel1:"",
-      cardLabel2:"",
-      cardLabel3:"",
+      selfLable1:"",
+      LabelId1:1,
+      selfLable2:"",
+      LabelId2:-1,
+      selfLable3:"",
+      LabelId3:-1,
     },
         // 自定义自己喜欢的颜色
     colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
@@ -116,6 +121,7 @@ formSubmit: function (e) {
     } 
    } ,
 
+   //选择本地图片
    chooseimage:function(){
     var that = this;
     wx.chooseImage({
@@ -123,11 +129,9 @@ formSubmit: function (e) {
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
       success: function (res) {
-        
         if (res.tempFilePaths.length>0){
- 
           //图如果满了9张，不显示加图
-          if (res.tempFilePaths.length == 9){
+          if (res.tempFilePaths.length === 9){
             that.setData({
               hideAdd:1
             })
@@ -163,58 +167,108 @@ formSubmit: function (e) {
   //图片上传
   img_upload: function () {
     //******************此处需要获取userid******************
+    const userInfo=wx.getStorageSync('userInfo');
+    let userId = userInfo["userId"];
+    let str=that.data.cardForm;
+    str["userId"]=userId;
+    /////////////////餐厅id如何获取
+    str["resId"]="1675852983";
+    if(str.LabelId2.length>0){
+      str.LabelId2=1
+    }
+    if(str.LabelId3.length>0){
+      str.LabelId3=1
+    }
+    str=JSON.stringify(str);
     let that = this;
     let img_url = that.data.img_url;
-    let img_url_ok = [];
-    //由于图片只能一张一张地上传，所以用循环
-    for (let i = 0; i < img_url.length; i++) {
+    let cardId="";
+    //let img_url_ok = [];
+    wx.uploadFile({
+      filePath: imh_url[0],
+      name: 'files',
+      url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
+      formData:{
+        str:str
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+      },
+      success:function(res){
+        cardId=res.data
+      }
+    })
+    //上传剩下的图片
+    for(let i=1; i< img_url.length; i++){
       wx.uploadFile({
-        //路径填你上传图片方法的地址
-        url: 'http://wechat.homedoctor.com/Moments/upload_do',
         filePath: img_url[i],
-        name: 'file',
-        formData: {
-          'user': 'test'
+        name: 'files',
+        url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
+        formData:{
+          cardId:JSON.stringify(cardId)
         },
-        success: function (res) {
-          console.log('上传成功');
-          //把上传成功的图片的地址放入数组中
-          img_url_ok.push(res.data)
-          //如果全部传完，则可以将图片路径保存到数据库
-          if (img_url_ok.length == img_url.length) {
-            var userid = wx.getStorageSync('userid');
-            var content = that.data.content;
-            wx.request({
-              url: 'http://wechat.homedoctor.com/Moments/adds',
-              data: {
-                user_id: userid,
-                images: img_url_ok,
-                content: content,
-              },
-              success: function (res) {
-                if (res.data.status == 1) {
-                  wx.hideLoading()
-                  wx.showModal({
-                    title: '提交成功',
-                    showCancel: false,
-                    success: function (res) {
-                      if (res.confirm) {
-                        wx.navigateTo({
-                          url: '/pages/my_moments/my_moments',
-                        })
-                      }
-                    }
-                  })
-                }
-              }
-            })
-          }
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
         },
-        fail: function (res) {
-          console.log('上传失败')
+        success:function(res){
+          console.log(res);
         }
       })
     }
+
+    //由于图片只能一张一张地上传，所以用循环
+    // for (let i = 0; i < img_url.length; i++) {
+    //   wx.uploadFile({
+    //     //路径填你上传图片方法的地址
+    //     url: 'https://hailicy.xyz/wechatpro/v1/upCard1',
+    //     filePath: img_url[i],
+    //     name: 'files',
+    //     formData: {
+    //       str:this.data.cardForm
+    //     },
+    //     success:function(res){
+    //       console.log(res);
+    //     },
+        // success: function (res) {
+        //   console.log('上传成功');
+        //   //把上传成功的图片的地址放入数组中
+        //   img_url_ok.push(res.data)
+        //   //如果全部传完，则可以将图片路径保存到数据库
+        //   if (img_url_ok.length == img_url.length) {
+        //     var userid = wx.getStorageSync('userid');
+        //     var userid = 7;
+        //     var content = that.data.content;
+        //     wx.request({
+        //       url: 'http://wechat.homedoctor.com/Moments/adds',
+        //       data: {
+        //         user_id: userid,
+        //         images: img_url_ok,
+        //         content: content,
+        //       },
+        //       success: function (res) {
+        //         if (res.data.status == 1) {
+        //           wx.hideLoading()
+        //           wx.showModal({
+        //             title: '提交成功',
+        //             showCancel: false,
+        //             success: function (res) {
+        //               if (res.confirm) {
+        //                 wx.navigateTo({
+        //                   url: '/pages/my_moments/my_moments',
+        //                 })
+        //               }
+        //             }
+        //           })
+        //         }
+        //       }
+        //     })
+        //   }
+        // },
+      //   fail: function (res) {
+      //     console.log('上传失败')
+      //   }
+      // })
+    //}
   } ,
 
 
