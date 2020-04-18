@@ -245,19 +245,6 @@ formSubmit: function (e) {
     console.log(this.data.inputValue)
   },
 
-  //从子组件传递过来的标题点击事件
-  handleTabsItemChange:function(e){
-    //获取被点击的标题索引
-    const {index}=e.detail;
-    //修改源数组
-    let {tabs}=this.data;
-    tabs.forEach((v,i)=>i===index?v.isActive=true:v.isActive=false);
-    //赋值到data中
-    this.setData({
-      tabs:tabs
-    })
-  },
-
   query:function(e){
     console.log("调用函数");
     console.log(this.data.inputValue);

@@ -20,52 +20,24 @@ Page({
       userId:userInfo.userId
     })
     wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/vuserrestaurant/'+that.data.userId,
+      url: 'https://hailicy.xyz/wechatpro/v1/hotcardusers',
       success:function(res){
         console.log(res);
-        wx.request({
-          url: 'https://hailicy.xyz/wechatpro/v1/vuserlable/'+that.data.userId,
-          success:function(res){}
-        })
+        
       }
     })
+
     // wx.request({
-    //   url: 'https://hailicy.xyz/wechatpro/v1//discusses/asc/1',
+    //   url: 'https://hailicy.xyz/wechatpro/v1/vuserrestaurant/'+that.data.userId,
     //   success:function(res){
     //     console.log(res);
+    //     wx.request({
+    //       url: 'https://hailicy.xyz/wechatpro/v1/vuserlable/'+that.data.userId,
+    //       success:function(res){}
+    //     })
     //   }
     // })
-    // wx.request({
-    //   url: 'https://hailicy.xyz/wechatpro/v1//cards',
-    //   success:function(res){
-    //     console.log(res);
-    //     that.setData({
-    //       list:res.data
-    //     })
-    //     let list=res.data;
-    //     for(let i=0;i<list.length;i++){
-    //       let url=list[i].picUrl;
-    //       let vurl=list[i].videoUrl;
-    //       if(url!=null){
-    //         let urls=url.split("@");
-    //         list[i].picUrl=urls;
-    //       }else{
-    //         list[i].picUrl=[];
-    //       }
-    //       if(vurl!=null){
-    //         let vurls=vurl.split("@");
-    //         list[i].videoUrl=vurls;
-    //       }else{
-    //         list[i].videoUrl=[];
-    //       }
-    //     }
-    //     that.setData({
-    //       list:list
-    //     })
-    //     console.log(that.data.list);
-        
-    //   }
-    // })
+    
   },
 
   /**
