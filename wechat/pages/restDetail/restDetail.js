@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userid:"",
+    list:{},
       // 是否收藏
       isCollect:false,
 
@@ -22,16 +24,32 @@ Page({
   },
 
   Collecting:function(){
+    let that=this;
     console.log("加入收藏");
-    this.setData({
-      isCollect:true
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/userrestaurant/like/'+this.data.userid+"/"+this.data.list.resId,
+      method:'POST',
+      success:function(res){
+        that.setData({
+          isCollect:true
+        })
+        console.log(res);
+      }
     })
   },
 
   CancelCollecting:function(){
     console.log("取消收藏");
-    this.setData({
-      isCollect:false
+    let that=this;
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/userrestaurant/hate/'+this.data.userid+"/"+this.data.list.resId,
+      method:'POST',
+      success:function(res){
+        that.setData({
+          isCollect:false
+        })
+        console.log(res);
+      }
     })
   },
 
@@ -60,19 +78,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('onLoad')
-    var that = this
-    // 使用 Mock
-    API.ajax('', function (res) {
-        //这里既可以获取模拟的res
-        console.log(res)
-        that.setData({
-            list:res.data
+    let that=this;
+    let userInfo=wx.getStorageSync('userInfo');
+    that.setData({
+      userid:userInfo.userId
+    })
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/restaurants/'+options.resId,
+      success:function(res){
+        let list=res.data;
+        wx.request({
+          url: 'https://hailicy.xyz/wechatpro/v1/vreslable/'+options.resId,
+          success:function(res){
+            let url=list.resUrl;
+            let urls=url.split("@");
+            list["resUrl"]=urls;
+            let labels=[];
+            for(let i=0;i<res.data.length;i++){
+              labels.push(res.data[i].lableContent);
+            }
+            list["labels"]=labels;
+            that.setData({
+              list:list
+            })
+            console.log(list);
+          }
         })
-    });
+      }
+    })
     that.getRandomColor();
 
-    console.log(this.data.list)
   },
 
   /**
@@ -122,5 +157,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //点击餐厅图片放大预览
+  handlePreviewImg(e){
+    //接受传递过来的图片url  
+    //console.log(e);
+    const urls=e.target.dataset.url;
+    console.log("图片放大");
+    wx.previewImage({
+      current:urls[0],
+      urls:urls
+    })
   }
 })

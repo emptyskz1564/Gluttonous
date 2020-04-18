@@ -25,7 +25,7 @@
           <view>{{item}}</view>
         </view>
       </view>
-      <navigator style="margin:5rpx" url="../restDetail/restDetail" class="restDetail">餐厅详情>></navigator>
+      <navigator style="margin:5rpx" url="../restDetail/restDetail?resId={{item.resId}}" class="restDetail">餐厅详情>></navigator>
     </view>
 
       <image class="restPic" mode="widthFix" wx:if="{{item.resUrl[0].length!=0}}" src="{{item.resUrl[0]}}" bindtap="handlePreviewImg" data-url="{{item.resUrl}}"></image>

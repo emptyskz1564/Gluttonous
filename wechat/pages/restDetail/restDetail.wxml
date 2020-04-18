@@ -1,12 +1,12 @@
 <view class="main">
-  <view class="restName">{{list.restName}}</view>
+  <view class="restName">{{list.resTitle}}</view>
+  <image src="{{list.resUrl[0]}}" data-url="{{list.resUrl}}" bindtap="handlePreviewImg" class="restPic"></image>
   <navigator class="adress" url="/pages/map/map">查看地理位置>></navigator>
   <view class="restSigns">
-    <view class="restSign" wx:for="{{list.restSign}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[j]}}">
+    <view class="restSign" wx:for="{{list.labels}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[j]}}">
       <view>{{item}}</view>
     </view>
   </view>
-  <view class="bestFood">最好的菜：{{list.bestFood}}</view>
 </view>
 
 

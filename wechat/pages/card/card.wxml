@@ -20,7 +20,7 @@
       <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
 
         <view class="userInfo">
-          <view class="userPic">用户头像</view>
+          <image class="userPic" src="{{item.userUrl}}"></image>
           <view class="userName">{{item.userName}}</view>
         </view>
 
@@ -36,10 +36,24 @@
           </view>
         </view>
 
-        <view class="imgContainer" bindtap="handlePreviewImg" data-url="url">
-          <image src="{{item.img}}" class="img"></image>
+        <view class="imgContainer" >
+          <image src="{{item.picUrl[0]}}" class="img" bindtap="handlePreviewImg" data-url="{{item.picUrl}}"></image>
         </view>
         
+        <view class="bottom">
+          <view wx:if="{{userLike[i]===false}}" class="likeContainer">
+            <view>{{item.cardLike+1}}</view>
+            <image src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-cardId="{{i}}"></image>
+          </view>
+
+          <view wx:else class="likeContainer">
+            <view>{{item.cardLike}}</view>
+            <image  src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-Id="{{item.cardId}}" data-cardId="{{i}}"></image>
+          </view>
+          
+          <navigator url="/pages/cardDetail/cardDetail?cardId={{item.cardId}}" data-cardId="{{item.cardId}}"><image src="/pages/icons/评论.png" class="discuss"></image></navigator>
+        </view>
+      
 
       </view>
 

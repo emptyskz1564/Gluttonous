@@ -12,7 +12,8 @@
     "pages/history/history",
     "pages/components/Tabs/Tabs",
     "pages/test/test",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/cardDetail/cardDetail"
   ],
   "permission": {
     "scope.userLocation": {

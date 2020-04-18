@@ -30,7 +30,7 @@
   </view>
 </view>
 
-<view class="main">
+<view class="main" wx:if="{{userInfo===null}}">
   <!-- vip等级  以及标签 -->
   <view class="userLabel">
     <!-- 第一栏 -->
@@ -47,6 +47,28 @@
     <!-- 第三栏 -->
     <view>
       <view class="label">标签3</view>
+    </view>
+
+  </view>
+</view>
+
+<view class="main" wx:else >
+  <!-- vip等级  以及标签 -->
+  <view class="userLabel">
+    <!-- 第一栏 -->
+    <view class="first">
+      <view class="vipLevel" style="background-color:{{randomColorArr[3]}}">会员等级：{{vipLevel}}</view>
+    </view>
+
+    <!-- 第二栏 -->
+    <view class="second">
+      <view class="label" wx:if="{{selfLabels[0]!=null}}" style="background-color:{{randomColorArr[0]}}">{{selfLabels[0]}}</view>
+      <view class="label" wx:if="{{selfLabels[1]!=null}}" style="background-color:{{randomColorArr[1]}}">{{selfLabels[1]}}</view>
+    </view>
+
+    <!-- 第三栏 -->
+    <view>
+      <view class="label" wx:if="{{selfLabels[2]!=null}}" style="background-color:{{randomColorArr[2]}}">{{selfLabels[2]}}</view>
     </view>
 
   </view>

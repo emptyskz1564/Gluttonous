@@ -1,6 +1,6 @@
 <!-- 防止页面上跳的一个占位盒子 -->
 <view class="holder"></view>
-<view class="page_row">
+<view class="page_rowFixed">
     <view class="search">
       <view class="search_arr">
         <icon class="searchcion" size='20' type='search'></icon>
@@ -9,39 +9,58 @@
     </view>
     <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
     <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
-</view> 
+</view>
 
+<!-- <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange"> -->
 
+  <view class="List">
 
-<view class="list">
-<view class="ListContainer">
+    <view class="ListContainer">
 
-  <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
+      <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
 
-    <view class="userInfo">
-      <view class="userPic">用户头像</view>
-      <view class="userName">{{item.userName}}</view>
-    </view>
+        <view class="userInfo">
+          <image class="userPic" src="{{item.userUrl}}"></image>
+          <view class="userName">{{item.userName}}</view>
+        </view>
 
-    <view class="cardTitle">{{item.cardTitle}}</view>
+        <view class="cardTitle">{{item.cardTitle}}</view>
 
-    <view class="cardContent">{{item.cardContent}}</view>
+        <view class="cardContent">{{item.cardContent}}</view>
 
-    <view class="labelContainer">
-      <view 
-      wx:for="{{item.cardLabel}}" wx:key="index"
-      class="cardLabel" wx:for-index="j" style="background-color:{{randomColorArr[i+j]}}">
-        {{item}}
-      </view>
-    </view>
+        <view class="labelContainer">
+          <view 
+          wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
+          class="cardLabel" style="background-color:{{randomColorArr[i*3+j]}}">
+            {{item}}
+          </view>
+        </view>
 
-    <view class="imgContainer" bindtap="handlePreviewImg" data-url="url">
-      <image src="{{item.img}}" class="img"></image>
-    </view>
+        <view class="imgContainer" >
+          <image src="{{item.picUrl[0]}}" class="img" bindtap="handlePreviewImg" data-url="{{item.picUrl}}"></image>
+        </view>
         
+        <view class="bottom">
+          <view wx:if="{{userLike[i]===false}}" class="likeContainer">
+            <view>{{item.cardLike+1}}</view>
+            <image src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-cardId="{{i}}"></image>
+          </view>
+
+          <view wx:else class="likeContainer">
+            <view>{{item.cardLike}}</view>
+            <image  src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-Id="{{item.cardId}}" data-cardId="{{i}}"></image>
+          </view>
+          
+          <navigator url="/pages/cardDetail/cardDetail?cardId={{item.cardId}}" data-cardId="{{item.cardId}}"><image src="/pages/icons/评论.png" class="discuss"></image></navigator>
+        </view>
+      
+
+      </view>
+
+    </view>
 
   </view>
 
-</view>
 
-</view>
+
+

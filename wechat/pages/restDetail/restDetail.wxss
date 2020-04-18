@@ -11,13 +11,22 @@ page {
 }
 
 .restName {
-  padding-left: 10rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-left: 20rpx;
   margin: 20rpx 50rpx;
   font-weight: 520;
   font-size: 60rpx;
   border-radius: 20rpx;
   background-color: #fff;
   color: #333333;
+}
+
+.restPic{
+  margin-left: 50rpx;
+  margin-top: 20rpx;
+  width: 87%;
+  height: 500rpx;
 }
 
 .restSigns {
@@ -59,6 +68,7 @@ page {
 
 .collection{
   margin-left: 50rpx;
+  margin-bottom: 50rpx;
   width: 80rpx;
   height: 80rpx;
 }

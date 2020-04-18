@@ -12,7 +12,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-     list:[],    //总打卡列表
+    userLike:[],
+    img_url: [],
+    labelIndex:0,
+    list:[],    //总打卡列表
     showList:[],    //显示的打卡列表
     inputValue:"",
     searchList:[],
@@ -127,23 +130,59 @@ Page({
    */
   onLoad: function (options) {
     console.log('onLoad')
-    var that = this
-    // 使用 Mock
-    API.ajax('', function (res) {
-        //这里既可以获取模拟的res
-        console.log("res");
-        
-        console.log(res)
+    let that = this
+    let userInfo=wx.getStorageSync('userInfo');
+    let userId=userInfo.userId;
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/cardusers/'+userId,
+      success:function(res){
+        console.log(res);
         that.setData({
-            list:res.data,
+          list:res.data
         })
-    });
-    console.log(that.data.list);
-    that.totalSzie=that.data.list.length;
-    //计算总页数
-    that.totalPage=Math.ceil(that.totalSzie/that.pageSize);
-    that.getShowList();
-    that.getRandomColor();
+        let list=res.data;
+        for(let i=0;i<list.length;i++){
+          let url=list[i].picUrl;
+          let vurl=list[i].videoUrl;
+          if(url!=null){
+            let urls=url.split("@");
+            list[i].picUrl=urls;
+          }else{
+            list[i].picUrl=[];
+          }
+          if(vurl!=null){
+            let vurls=vurl.split("@");
+            list[i].videoUrl=vurls;
+          }else{
+            list[i].videoUrl=[];
+          }
+          let cardLabel=[];
+          if(list[i].selfLable1!=null&&list[i].selfLable1!=""){
+            cardLabel.push(list[i].selfLable1)
+          }
+          if(list[i].selfLable2!=null&&list[i].selfLable2!=""){
+            cardLabel.push(list[i].selfLable2)
+          }
+          if(list[i].selfLable3!=null&&list[i].selfLable3!=""){
+            cardLabel.push(list[i].selfLable3)
+          }
+          list[i]["cardLabel"]=cardLabel;
+        }
+        that.data.userLike.push(false);
+        for(let i=0;i<list.length;i++){
+          list[i].userName=userInfo.nickName
+        }
+        that.setData({
+          list:list
+        })
+        console.log(that.data.list);
+        that.totalSzie=that.data.list.length;
+        //计算总页数
+        that.totalPage=Math.ceil(that.totalSzie/that.pageSize);
+        that.getShowList();
+        that.getRandomColor();
+      }
+    })
   },
 
 
@@ -225,14 +264,47 @@ Page({
   
   //点击放大图片事件
   handlePreviewImg(e){
-    const urls=this.data.showList.img;    //以后接口直接得到打卡图片数组
-    const current=e.currentTarget.dataset.url;
-    console.log("预览图片");
+    //接受传递过来的图片url  
+    console.log(e);
+    const urls=e.target.dataset.url;
+    console.log(urls);
+    
+    console.log("图片放大");
     wx.previewImage({
-      current:current,
-      urls: urls
+      current:urls[0],
+      urls:urls
     })
   },
+
+  handleLike(e){
+    let that=this;
+    let userLike=that.data.userLike;
+    console.log(e);
+    userLike[e.target.dataset.cardid]=true;
+    that.setData({
+      userLike:userLike
+    })
+  },
+
+  handleDisLike(e){
+    let that=this;
+    let userLike=that.data.userLike;
+    let userInfo=wx.getStorageSync('userInfo');
+    let userId=userInfo["userId"];
+    let cardId=e.target.dataset.id;
+    console.log(e);
+    userLike[e.target.dataset.cardid]=false;
+    that.setData({
+      userLike:userLike
+    })
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+cardId+"/"+userId,
+      method:'POST',
+      success:function(res){
+        console.log(res);
+      }
+    })
+  }
 
 
 })

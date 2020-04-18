@@ -13,7 +13,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    picUrls:[],
     list:[],
+    labelList:[],
     showList:[],
     inputValue:"",
     searchList:[],
@@ -127,21 +129,49 @@ Page({
   onLoad: function (options) {
     console.log('onLoad')
     var that = this
-    // 使用 Mock
-    API.ajax('', function (res) {
-        //这里既可以获取模拟的res
-        console.log(res)
+    let userInfo=wx.getStorageSync('userInfo');
+    let userId=userInfo.userId;
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/vuserrestaurant/'+userId,
+      success:function(res){
         that.setData({
-            list:res.data
+          list:res.data
         })
-      });
-      console.log(that.data.list);
-      that.totalSzie=that.data.list.length;
-      //计算总页数
-      that.totalPage=Math.ceil(that.totalSzie/that.pageSize);
-      that.getShowList();
-      that.getRandomColor();
-      console.log(this.data.list)
+        wx.request({
+          url: 'https://hailicy.xyz/wechatpro/v1/vreslables',
+          success:function(res){
+            that.setData({
+              labelList:res.data
+            })
+            //console.log(res);
+            let list=that.data.list;
+            let labelList=that.data.labelList;
+            let labels=[];
+            for(let i=0;i<list.length;i++){
+              for(let j=0;j<labelList.length;j++){
+                if(labelList[j].resId===list[i].resId){
+                  labels.push(labelList[j].lableContent)
+                }
+              }
+              let url=list[i].resUrl;
+              let urls=url.split("@");
+              list[i]["resUrl"]=urls;
+              list[i]["labels"]=labels;
+              labels=[];
+            }
+            that.setData({
+              list:list,
+            }),
+            console.log(that.data.list);    
+            that.totalSzie=that.data.list.length;
+            //计算总页数
+            that.totalPage=Math.ceil(that.totalSzie/that.pageSize);
+            that.getShowList();
+            that.getRandomColor();
+          }
+        }) 
+      }
+    })
   },
 
   /**
@@ -219,12 +249,15 @@ Page({
 
   },
 
+  //点击餐厅图片放大预览
   handlePreviewImg(e){
-    //接受传递过来的图片url
-    const url=e.currentTarget.dataset.url;
+    //接受传递过来的图片url  
+    //console.log(e);
+    const urls=e.target.dataset.url;
     console.log("图片放大");
     wx.previewImage({
-      urls:url
+      current:urls[0],
+      urls:urls
     })
   }
 })

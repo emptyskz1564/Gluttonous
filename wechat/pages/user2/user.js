@@ -5,7 +5,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo:{}
+    vipLevel:0,
+    selfLabels:null,
+    userInfo:null,
+    // 自定义自己喜欢的颜色
+    colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+      "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
+      "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
+      "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
+      "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"],
+    // 存储随机颜色
+    randomColorArr: [],
+  },
+
+
+  getRandomColor:function(){
+    let that=this,
+      labLen = 4,
+      colorArr = that.data.colorArr,
+      colorLen = colorArr.length,
+      randomColorArr = [];
+    //判断执行
+    do{
+      let random = colorArr[Math.floor(Math.random() * colorLen)];
+      randomColorArr.push(random);
+      labLen--;
+    } while (labLen > 0)
+    that.setData({ 
+      randomColorArr: randomColorArr
+    });
+    console.log(
+      that.data.randomColorArr
+    );
+    
   },
 
 
@@ -14,7 +46,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that=this;
+    const userInfo = wx.getStorageSync('userInfo');
+    if(userInfo===null){
+      console.log("请先登录");
+    }else{
+      that.setData({userInfo})
+      let userId=userInfo.userId;
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/users/'+userId,
+        success:function(res){
+          if(res.data.vip===null){
+            
+          }else{
+            that.setData({
+              vipLevel:res.data.vip
+              })
+          }
+          
+          wx.request({
+            url: 'https://hailicy.xyz/wechatpro/v1/vuserlable/'+userId,
+            success:function(res){
+              console.log(res);
+              
+              let selfLabels=null;
+              for(let i=0;i<res.data.length;i++){
+                selfLabels.push(res.data[i].lableContent);
+              }
+              that.setData({
+                selfLabels:selfLabels
+              })
+              that.getRandomColor();
+            }
+          })
+        }
+      })
+    }
+   
   },
 
   /**
@@ -28,8 +96,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const userInfo = wx.getStorageSync('userInfo');
-    this.setData({userInfo})
+    
   },
 
   /**

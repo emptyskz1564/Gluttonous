@@ -68,11 +68,19 @@ page {
   justify-content: center;
 }
 
+.userPic{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: red 1rpx solid;
+}
+
 .List .ListContainer {
   width: 90%;
 }
 
 .List .ListContainer .ListItem{
+  width: 100%;
   margin-top: 15rpx;
   background-color: #fff;
   border-radius: 20rpx;
@@ -80,8 +88,13 @@ page {
 }
 
 .List .ListContainer .ListItem .userInfo {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  width: 95%;
   display: flex;
-  margin: 5rpx 10rpx;
+  margin-left: 20rpx;
+  border-bottom: 1rpx #f2f2f2 solid;
 }
 
 .List .ListContainer .ListItem .labelContainer {
@@ -116,7 +129,7 @@ page {
 .List .ListContainer .ListItem .cardContent {
   color: #333333;
   font-size: 40rpx;
-  margin: 5rpx 10rpx;
+  margin: 5rpx 20rpx;
   font-size: 35rpx;
   margin-bottom: 15rpx;
 }
@@ -132,9 +145,34 @@ page {
 }
 
 .List .ListContainer .ListItem .imgContainer .img {
-  border: solid 1rpx red;
   width: 80%;
   margin-bottom: 50rpx;
+}
+
+.like{
+  margin-bottom: 30rpx;
+  margin-left: 15rpx;
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.discuss{
+  margin-bottom: 30rpx;
+  margin-left: 30rpx;
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.likeContainer{
+  font-size: 45rpx;
+  line-height: 84rpx;
+  height: 70rpx;
+  display: flex;
+  margin-left: 40rpx;
+}
+
+.bottom{
+  display: flex;
 }
 
 .addCard{
@@ -275,6 +313,7 @@ page {
   margin-right: 50rpx; 
   padding-top: 15rpx;
  }
+
    
  /* .formSubmit input { 
    font: 12px "microsoft yahei"; 
