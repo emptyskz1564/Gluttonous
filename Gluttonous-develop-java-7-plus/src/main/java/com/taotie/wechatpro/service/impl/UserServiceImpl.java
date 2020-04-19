@@ -94,14 +94,15 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    //杨伯益修改为接口直接传数字
     //用户收藏餐馆的上传
-    public void upUserLikeRes(String str){
+    public void upUserLikeRes(Integer userId,Integer resId){
         //需要手动new，没有写工厂类太麻烦了
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         UserRestaurant userRestaurant = new UserRestaurant();
-        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
-        Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        //Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        //Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
         userRestaurant.setResId(resId);
         userRestaurant.setUserId(userId);
         //userRestaurantDao.insert(userRestaurant);
@@ -119,11 +120,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void upUserHateRes(String str){
+    public void upUserHateRes(Integer userId,Integer resId){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
-        Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
+        //Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        //Integer resId = Integer.parseInt(JSON.parseObject(str).get("resId").toString());
         UserRestaurant userRestaurant = new UserRestaurant();
         userRestaurant.setUserId(userId);
         userRestaurant.setResId(resId);

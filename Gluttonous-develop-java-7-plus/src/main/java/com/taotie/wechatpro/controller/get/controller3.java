@@ -1,8 +1,9 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.get;
 
 import com.taotie.wechatpro.dao.CardDao;
 import com.taotie.wechatpro.dao.RestaurantDao;
 import com.taotie.wechatpro.pojo.Card;
+import com.taotie.wechatpro.pojo.CardUser;
 import com.taotie.wechatpro.pojo.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -39,7 +40,7 @@ public class controller3 {
 
     //获取所有restaurant表信息
     @ResponseBody
-    @RequestMapping(value = "/restaurantList",method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurants",method = RequestMethod.GET)
     public Object getRestaurant(){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -53,7 +54,7 @@ public class controller3 {
 
     //获取所有card表信息
     @ResponseBody
-    @RequestMapping(value = "/cardList",method = RequestMethod.GET)
+    @RequestMapping(value = "/cards",method = RequestMethod.GET)
     public Object getcard(){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -64,6 +65,21 @@ public class controller3 {
         }
         return cardList;
     }
+
+    //获取所有carduser表信息(专供打卡列表)
+    @ResponseBody
+    @RequestMapping(value = "/cardusers",method = RequestMethod.GET)
+    public Object getcarduser(){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        List<CardUser> cardList = (List<CardUser>) redisTemplate.opsForValue().get("allCardUser");
+        if(cardList==null){
+            cardList = cardDao.selectAllCardUser();
+            redisTemplate.opsForValue().set("allCardUser",cardList);
+        }
+        return cardList;
+    }
+
 
 
 }

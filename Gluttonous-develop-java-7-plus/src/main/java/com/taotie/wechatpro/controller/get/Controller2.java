@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.get;
 
 import com.taotie.wechatpro.dao.CardDao;
 import com.taotie.wechatpro.dao.associateTable.CardLableDao;
@@ -46,7 +46,7 @@ public class Controller2 {
 //    PicUrl picUrl;
 
     //根据cardId取cardlable表的信息
-    @RequestMapping("/cardlable1/{id}")
+    @RequestMapping("/cardlable/card/{id}")
     @ResponseBody
     public Object getCardLable1(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
@@ -61,7 +61,7 @@ public class Controller2 {
     }
 
     //根据userId取cardlable表的信息
-    @RequestMapping("/cardlable2/{id}")
+    @RequestMapping("/cardlable/user/{id}")
     @ResponseBody
     public Object getCardLable2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
@@ -105,45 +105,7 @@ public class Controller2 {
     }
 
 
-    //根据cardId可以提取相应的图片url，通过json发给前端
-    @ResponseBody
-    @RequestMapping(value = "/picurl/{id}",method = RequestMethod.GET)
-    public Object getpicurl(@PathVariable String id){
 
-        PicUrl picUrl = new PicUrl();
-
-        RedisSerializer redisSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(redisSerializer);
-         Card card = (Card)redisTemplate.opsForValue().get("Card_cardId:"+id);
-        if(card==null){
-            card =cardDao.selectById(id);
-            redisTemplate.opsForValue().set("Card_cardId:"+id,card);
-        }
-        String url[] = card.getPicUrl().split("-");
-        picUrl.setCount(url.length);
-        picUrl.setUrls(url);
-        return picUrl;
-    }
-
-    //根据cardId可以提取相应的视频url，通过json发给前端
-    @ResponseBody
-    @RequestMapping(value = "/videourl/{id}",method = RequestMethod.GET)
-    public Object getvideourl(@PathVariable String id){
-
-        PicUrl picUrl = new PicUrl();
-
-        RedisSerializer redisSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(redisSerializer);
-        Card card = (Card)redisTemplate.opsForValue().get("Card_cardId:"+id);
-        if(card==null){
-            card =cardDao.selectById(id);
-            redisTemplate.opsForValue().set("Card_cardId:"+id,card);
-        }
-        String url[] = card.getVideoUrl().split("-");
-        picUrl.setCount(url.length);
-        picUrl.setUrls(url);
-        return picUrl;
-    }
 
 
 

@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.set;
 
 
 import com.taotie.wechatpro.dao.associateTable.UserRestaurantDao;
@@ -25,29 +25,36 @@ public class UserController {
     RedisTemplate redisTemplate;
 
     @ResponseBody
-    @RequestMapping(value = "/upchangeUser",method = RequestMethod.POST)
+    @RequestMapping(value = "/user",method = RequestMethod.POST)
     public Integer upchangeUser(@RequestParam @RequestBody String str){
         userService.upchangeUser(str);
         return 1;
     }
 
+    //用户收藏餐馆
     @ResponseBody
-    @RequestMapping(value = "/upUserLikeRes",method = RequestMethod.POST)
-    public Integer upUserLikeRes(@RequestParam@RequestBody String str){
-        userService.upUserLikeRes(str);
+    @RequestMapping(value = "/userrestaurant/like/{user_id}/{restaurant_id}",method = RequestMethod.POST)
+    public Integer upUserLikeRes(@PathVariable String user_id,@PathVariable String restaurant_id){
+        Integer userId = Integer.valueOf(user_id);
+        Integer resId = Integer.valueOf(restaurant_id);
+        userService.upUserLikeRes(userId,resId);
         return 1;
     }
 
 
+    //用户取消收藏
     @ResponseBody
-    @RequestMapping(value = "/upUserHateRes",method = RequestMethod.POST)
-    public Integer upUserHateRes(@RequestParam@RequestBody String str){
-        userService.upUserHateRes(str);
+    @RequestMapping(value = "/userrestaurant/hate/{user_id}/{restaurant_id}",method = RequestMethod.POST)
+    public Integer upUserHateRes(@PathVariable String user_id,@PathVariable String restaurant_id){
+        Integer userId = Integer.valueOf(user_id);
+        Integer resId = Integer.valueOf(restaurant_id);
+        userService.upUserHateRes(userId,resId);
         return 1;
     }
 
 
 
+    /****************************************************************************/
     //下面是杨伯益写的测试用的不用管，能用
     @ResponseBody
     @RequestMapping(value = "/upuserres",method = RequestMethod.POST)

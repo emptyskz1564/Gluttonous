@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.get;
 /******************************************************************************************************************/
 /***********测试***********************************测试********************************************************************/
 /************************************************************测试******************************************************/
@@ -19,7 +19,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 创建时间: 2020/4/5 11:09
@@ -102,7 +104,7 @@ public class HelloController {
 
     //根据id返回user表信息
     @ResponseBody
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{id}",method = RequestMethod.GET)
     public Object getUser(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -119,7 +121,7 @@ public class HelloController {
 
     //根据card_id返回card表信息
     @ResponseBody
-    @RequestMapping(value = "/card/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/cards/{id}",method = RequestMethod.GET)
     public Object getCard(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -131,23 +133,23 @@ public class HelloController {
         return card;
     }
 
-    //根据id返回discuss表信息
+    //根据card_id返回discuss表信息，正序
     @ResponseBody
-    @RequestMapping(value = "/discuss/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/discusses/asc/{id}",method = RequestMethod.GET)
     public Object getDiscuss(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        Discuss discuss = (Discuss) redisTemplate.opsForValue().get("Discuss_discussId:"+id);
-        if(discuss==null){
-            discuss = discussDao.selectById(id);
-            redisTemplate.opsForValue().set("Discuss_discussId:"+id,discuss);
+        List<Discuss> discussList = (List<Discuss>) redisTemplate.opsForValue().get("Discuss_cardId:"+id);
+        if(discussList==null){
+            discussList = discussDao.showalldis(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("Discuss_cardId:"+id,discussList);
         }
-        return discuss;
+        return discussList;
     }
 
     //根据lable_id返回lable表信息
     @ResponseBody
-    @RequestMapping(value = "/lable/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/lables/{id}",method = RequestMethod.GET)
     public Object getLable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -161,7 +163,7 @@ public class HelloController {
 
     //根据res_id返回restaurant表信息
     @ResponseBody
-    @RequestMapping(value = "/restaurant/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurants/{id}",method = RequestMethod.GET)
     public Object getRestaurant(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -205,6 +207,22 @@ public class HelloController {
         return vCardUserLike;
     }
 
+
+    //根据cardId返回v_card_user_like信息
+    //@ResponseBody
+    @RequestMapping(value = "/vcarduserlikes/{card_id}",method = RequestMethod.GET)
+    public Integer getvcarduserlikes(@PathVariable String card_id){
+//        RedisSerializer redisSerializer = new StringRedisSerializer();
+//        redisTemplate.setKeySerializer(redisSerializer);
+//        VCardUserLike vCardUserLike = (VCardUserLike) redisTemplate.opsForValue().get("VCardUserLike_cardId:"+id);
+////        if(vCardUserLike==null){
+////            vCardUserLike = vCardUserLikeDao.selectByCardId(Integer.valueOf(id));
+////            redisTemplate.opsForValue().set("VCardUserLike_cardId:"+id,vCardUserLike);
+////        }
+////        return vCardUserLike;
+        return vCardUserLikeDao.countlike(Integer.valueOf(card_id));
+    }
+
     //根据user_id返回v_discuss_user_like表信息
     @ResponseBody
     @RequestMapping(value = "/vdiscussuserlike/{id}",method = RequestMethod.GET)
@@ -225,12 +243,20 @@ public class HelloController {
     public Object getvreslable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VResLable vResLable = (VResLable) redisTemplate.opsForValue().get("VResLable_resId:"+id);
-        if(vResLable==null){
-            vResLable = vResLableDao.selectByResId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("VResLable_resId:"+id,vResLable);
+        List<VResLable> vResLableList = (List<VResLable>) redisTemplate.opsForValue().get("VResLable_resId:"+id);
+        if(vResLableList==null){
+            vResLableList = vResLableDao.selectByResId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("VResLable_resId:"+id,vResLableList);
         }
-        return vResLable;
+        return vResLableList;
+    }
+
+    //返回v_res_lable全部信息
+    @ResponseBody
+    @RequestMapping(value = "/vreslables",method = RequestMethod.GET)
+    public Object getvreslables(){
+        List<VResLable> vResLableList = vResLableDao.selectAll();
+        return vResLableList;
     }
 
     //根据user_id返回v_user_lable表信息
@@ -268,7 +294,7 @@ public class HelloController {
 
     //获取所有用户
     @ResponseBody
-    @RequestMapping(value = "/userList",method = RequestMethod.GET)
+    @RequestMapping(value = "/users",method = RequestMethod.GET)
     public Object getUsers(){
         //redis操作在UserServiceImpl中做了
         return userService.getUserList();

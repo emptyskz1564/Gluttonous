@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.set;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

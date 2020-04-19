@@ -46,15 +46,15 @@ public class DiscussServiceImpl{
     }
 
 
-    public void upDisLike(String str) {
+    public void upDisLike(Integer disID,Integer userId,Integer cardId) {
 
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
 
         DiscussUserLike discussUserLike = new DiscussUserLike();
 
-        Integer disID = Integer.parseInt(JSON.parseObject(str).get("disId").toString());
-        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        //Integer disID = Integer.parseInt(JSON.parseObject(str).get("disId").toString());
+        //Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         disuserlike.setDiscussId(disID);
         disuserlike.setUserId(userId);
 
@@ -64,6 +64,10 @@ public class DiscussServiceImpl{
         //改用list存储
         redisTemplate.opsForValue().set("DiscussUserLike_disId:"+disID,disuserlikeDao.selectBydisId(disID),1, TimeUnit.DAYS);
         redisTemplate.opsForValue().set("DiscussUserLike_userId:"+userId,disuserlikeDao.selectByuserId(userId),1,TimeUnit.DAYS);
+
+        //保证用户点赞评论后，评论列表的redis存储为最新状态
+        redisTemplate.opsForValue().set("Discuss_cardId:"+cardId,disdao.showalldis(cardId));
+
         //redisTemplate.opsForList().leftPush("DiscussUserLike_disId:"+disID,discussUserLike);
         //redisTemplate.opsForList().leftPush("DiscussUserLike_userId:"+userId,discussUserLike);
         //redisTemplate.expire("DiscussUserLike_disId:"+disID,1, TimeUnit.DAYS);
@@ -88,7 +92,11 @@ public class DiscussServiceImpl{
 
         disdao.insert(dis);
 
-        redisTemplate.opsForValue().set("Discuss_cardId:"+cardId,dis,1,TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("Discuss_cardId:"+cardId,dis,1,TimeUnit.DAYS);
         redisTemplate.opsForValue().set("Discuss_userId:"+userId,dis,1,TimeUnit.DAYS);
+
+        //更新redis的discuss(以cardid为key值)
+        List<Discuss> discussList = disdao.showalldis(Integer.valueOf(cardId));
+        redisTemplate.opsForValue().set("Discuss_cardId:"+cardId,discussList);
     }
 }

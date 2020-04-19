@@ -25,7 +25,7 @@ public class VCardUserDiscuss implements Serializable {
     private Integer vip;
     private String userUrl;
     private Integer cardId;
-    private Integer carsLike;
+    private Integer cardLike;
     private Integer resId;
     private String cardContent;
     private String cardTitle;

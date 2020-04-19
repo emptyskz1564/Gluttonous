@@ -1,13 +1,10 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.set;
 
 
 import com.taotie.wechatpro.service.impl.DiscussServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/v1")
@@ -21,8 +18,8 @@ public class DiscussController {
      * @param str
      */
     @ResponseBody
-    @RequestMapping(value = "/upDis",method = RequestMethod.POST)
-    public Integer upDis(@RequestBody String str){
+    @RequestMapping(value = "/discuss",method = RequestMethod.POST)
+    public Integer upDis(@RequestParam@RequestBody String str){
         discussService.upDis(str);
         return 1;
     }

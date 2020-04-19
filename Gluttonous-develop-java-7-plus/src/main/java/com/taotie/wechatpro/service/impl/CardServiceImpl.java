@@ -8,6 +8,7 @@ import com.taotie.wechatpro.dao.UserDao;
 import com.taotie.wechatpro.dao.associateTable.CardLableDao;
 import com.taotie.wechatpro.dao.associateTable.CardUserLikeDao;
 import com.taotie.wechatpro.dao.associateTable.ResLableDao;
+import com.taotie.wechatpro.dao.view.VCardUserLikeDao;
 import com.taotie.wechatpro.pojo.Card;
 import com.taotie.wechatpro.pojo.association.CardLable;
 import com.taotie.wechatpro.pojo.association.CardUserLike;
@@ -48,6 +49,9 @@ public class CardServiceImpl implements CardService {
     CardUserLikeDao carduserlikeDao;
 
     @Autowired
+    VCardUserLikeDao vCardUserLikeDao;
+
+    @Autowired
     UserDao userDao;
 
     @Autowired
@@ -63,14 +67,14 @@ public class CardServiceImpl implements CardService {
     private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
-    public void upCardLike(String str) {
+    public void upCardLike(Integer cardId,Integer userId) {
 
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
 
         CardUserLike carduserlike = new CardUserLike();
-        Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
-        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        //Integer cardId = Integer.parseInt(JSON.parseObject(str).get("cardId").toString());
+        //Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
         carduserlike.setCardId(cardId);
         carduserlike.setUserId(userId);
 
@@ -80,6 +84,13 @@ public class CardServiceImpl implements CardService {
         //也是改成list
         redisTemplate.opsForValue().set("CardUserLike_cardId:"+cardId,carduserlikeDao.selectBycardId(cardId),1, TimeUnit.DAYS);
         redisTemplate.opsForValue().set("CardUserLike_userId:"+userId,carduserlikeDao.selectByuserId(userId),1,TimeUnit.DAYS);
+
+        //新增这个在用户点赞打卡的时候会直接再把此userid关联的所有vcarduserlike以数组存入redis方便后续调用
+        redisTemplate.opsForValue().set("VCardUserLikes_userId"+userId,vCardUserLikeDao.selectByUserId(userId));
+
+        //新增这个保证在点赞过后打卡列表得到的allcarduser为同步状态
+        redisTemplate.opsForValue().set("allCardUser",cardDao.selectAllCardUser());
+
         //redisTemplate.opsForList().leftPush("CardUserLike_cardId:"+cardId,carduserlike);
         //redisTemplate.opsForList().leftPush("CardUserLike_userId:"+userId,carduserlike);
         //redisTemplate.expire("CardUserLike_cardId:"+cardId,1, TimeUnit.DAYS);
@@ -180,14 +191,14 @@ public class CardServiceImpl implements CardService {
                     if(fileInputStream!=null) {
                         System.out.println("第二层");
                         String picUrl = FileUpDownUtil.upload(fileInputStream);
-                        pictureUrl.append(picUrl+"-");
+                        pictureUrl.append(picUrl+"@");
                     }else {
                         String picUrl = null;
                     }
                 }else if(substring.equals(".mp4")) {
                     if(fileInputStream!=null) {
                         String vidUrl = FileUpDownUtil.upload(fileInputStream);
-                        videoUrl.append(vidUrl+"-");
+                        videoUrl.append(vidUrl+"@");
                     }else {
                         String vidUrl = null;
                     }
@@ -232,14 +243,25 @@ public class CardServiceImpl implements CardService {
             k--;
         }
 
-        redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("Card_cardId:"+cardId,card);
         //以下改成list
-        redisTemplate.opsForValue().set("ResLable_resId:"+resId,resLableDao.selectByresId(resId),1,TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("CardLable_cardId:"+cardId,cardLableDao.selectBycardId(cardId),1,TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("ResLable_resId:"+resId,resLableDao.selectByresId(resId));
+        redisTemplate.opsForValue().set("CardLable_cardId:"+cardId,cardLableDao.selectBycardId(cardId));
+
+        //存储进redis中以lableId为key得到cardlable，方便后续操作
+        for (Integer lableId : lableIds) {
+            redisTemplate.opsForValue().set("CardLable_lableId:"+lableId,cardLableDao.selectBylableId(lableId));
+        }
+
         //redisTemplate.opsForList().leftPush("ResLable_resId:"+resId,resLables);
         //redisTemplate.opsForList().leftPush("CardLable_cardId:"+cardId,cardLables);
         //redisTemplate.expire("ResLable_resId:"+resId,1, TimeUnit.DAYS);
         //redisTemplate.expire("CardLable_cardId:"+cardId,1, TimeUnit.DAYS);
+
+        //完成对allcards的redis缓存的更新
+        List<Card> cardList = (List<Card>) redisTemplate.opsForValue().get("allCard");
+        cardList.add(card);
+        redisTemplate.opsForValue().set("allCard",cardList);
 
         return cardId;
 
@@ -294,8 +316,8 @@ public class CardServiceImpl implements CardService {
                 if(fileInputStream!=null) {
                     System.out.println("第二层");
                     String picUrl = FileUpDownUtil.upload(fileInputStream);
-                    pictureUrl.append(picUrl+"-");
-                    picurl.append(picUrl+"-");
+                    pictureUrl.append(picUrl+"@");
+                    picurl.append(picUrl+"@");
                     //直接调用dao向指定cardid中添加URL
                     cardDao.concatPicUrl(pictureUrl.toString(),cardId);
                     //将要加入redis的card的pic跟着改变
@@ -306,8 +328,8 @@ public class CardServiceImpl implements CardService {
             }else if(substring.equals(".mp4")) {
                 if(fileInputStream!=null) {
                     String vidUrl = FileUpDownUtil.upload(fileInputStream);
-                    videoUrl.append(vidUrl+"-");
-                    vidurl.append(vidUrl+"-");
+                    videoUrl.append(vidUrl+"@");
+                    vidurl.append(vidUrl+"@");
                     //直接调用dao向指定cardid中添加URL
                     cardDao.concatVideoUrl(videoUrl.toString(),cardId);
                     //将要加入redis的card的vid跟着改变
@@ -336,6 +358,10 @@ public class CardServiceImpl implements CardService {
         }
 
         redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
+
+        //将redis的allCard更新，还没想到更好的方法
+        List<Card> cardList = cardDao.selectList(null);
+        redisTemplate.opsForValue().set("allCard",cardList);
 
         return cardId;
     }

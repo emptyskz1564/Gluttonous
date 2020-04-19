@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.get;
 
 import com.taotie.wechatpro.dao.associateTable.UserRestaurantDao;
 import com.taotie.wechatpro.dao.view.VCardUserDiscussDao;
@@ -42,7 +42,7 @@ public class Controller4 {
 
     //根据userId获取用户餐厅收藏
     @ResponseBody
-    @RequestMapping(value = "/userresbyuserid/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/userrestaurant/user/{id}",method = RequestMethod.GET)
     private Object showUserLikeRes1(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -56,7 +56,7 @@ public class Controller4 {
 
     //根据resId获取用户餐厅收藏
     @ResponseBody
-    @RequestMapping(value = "/userresbyresid/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/userrestaurant/restaurant/{id}",method = RequestMethod.GET)
     private Object showUserLikeRes2(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
@@ -72,8 +72,9 @@ public class Controller4 {
 
     //根据disId收取视图，前端需要哪些就取，根据key
     @ResponseBody
-    @RequestMapping(value = "/vcarduserdiscuss/{id}",method = RequestMethod.GET)
-    private Object vcarduserdiscuss(@PathVariable String id){
+    @RequestMapping(value = "/vcarduserdiscuss/discuss/{dis_id}",method = RequestMethod.GET)
+    private Object vcarduserdiscuss(@PathVariable String dis_id){
+        Integer id=Integer.valueOf(dis_id);
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         VCardUserDiscuss vCardUserDiscuss = (VCardUserDiscuss) redisTemplate.opsForValue().get("VCardUserDiscuss_disId:"+id);

@@ -1,8 +1,9 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.set;
 
 
 import com.alibaba.fastjson.JSONObject;
 import com.taotie.wechatpro.dao.UserDao;
+import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.utils.HttpClientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -56,6 +57,10 @@ public class LoginController {
         System.out.println("unionid="+unionid);
         System.out.println("openid="+openid);
         System.out.println("session_key="+session_key);
+
+        //用户进入小程序便将信息存入redis，方便后续调用
+        User user = userDao.selectById(userId);
+        redisTemplate.opsForValue().set("User_userId:"+userId,user);
 
         return userId;
     }

@@ -25,6 +25,9 @@ public interface CardLableDao {
     @Select("select * from card_lable where card_id=#{cardId}")
     List<CardLable> selectBycardId(@Param("cardId") Integer cardId);
 
+    @Select("select * from card_lable where lable_id=#{lableId}")
+    List<CardLable> selectBylableId(@Param("lableId") Integer lableId);
+
     @Insert("insert ignore into card_lable (card_id,lable_id) values (#{cardId},#{lableId})")
     void insertCardLable(@Param("cardId") Integer cardId, @Param("lableId") Integer lableId);
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * 创建时间: 2020/4/6 14:44
  * 文件备注:
@@ -14,7 +16,9 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface VResLableDao {
 
-    @Select("select * from v_res_lable where res_id=#{resId}")
-    VResLable selectByResId(@Param("resId") Integer resId);
+    @Select("select * from v_res_lable ")
+    List<VResLable> selectAll();
 
+    @Select("select * from v_res_lable where res_id=#{resId}")
+    List<VResLable> selectByResId(@Param("resId") Integer resId);
 }

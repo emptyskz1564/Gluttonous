@@ -1,4 +1,4 @@
-package com.taotie.wechatpro.controller;
+package com.taotie.wechatpro.controller.set;
 
 
 import com.taotie.wechatpro.service.impl.ResServiceImpl;
@@ -17,8 +17,8 @@ public class RestaurantController {
     ResServiceImpl resService;
 
     @ResponseBody
-    @RequestMapping(value = "/upRes1",method = RequestMethod.POST)
-    public Integer upCard(@RequestParam(required = false,value = "files") MultipartFile multipartFile , @RequestParam@RequestBody String str) throws IOException {
+    @RequestMapping(value = "/restaurant/first",method = RequestMethod.POST)
+    public Integer upRes1(@RequestParam(required = false,value = "files") MultipartFile multipartFile , @RequestParam@RequestBody String str) throws IOException {
         //完成正常json数据上传
         System.out.println(str);
         Integer integer = resService.upRes1(str,multipartFile);
@@ -28,8 +28,8 @@ public class RestaurantController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/upRes2",method = RequestMethod.POST)
-    public Integer upCard2(@RequestParam(required = false,value = "files")MultipartFile multipartFile ,@RequestParam@RequestBody String str) throws IOException {
+    @RequestMapping(value = "/restaurant/second",method = RequestMethod.POST)
+    public Integer upRes2(@RequestParam(required = false,value = "files")MultipartFile multipartFile ,@RequestParam@RequestBody String str) throws IOException {
         //完成正常json数据上传
         System.out.println(str);
         Integer integer = resService.upRes2(str,multipartFile);

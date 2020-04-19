@@ -3,6 +3,7 @@ package com.taotie.wechatpro.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.taotie.wechatpro.dao.RestaurantDao;
+import com.taotie.wechatpro.pojo.Card;
 import com.taotie.wechatpro.pojo.Restaurant;
 import com.taotie.wechatpro.utils.FileUpDownUtil;
 import com.taotie.wechatpro.utils.FileUtil;
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service("ResServiceImpl")
@@ -65,7 +67,7 @@ public class ResServiceImpl {
                 if(fileInputStream!=null) {
                     System.out.println("第二层");
                     String picUrl = FileUpDownUtil.upload(fileInputStream);
-                    pictureUrl.append(picUrl+"-");
+                    pictureUrl.append(picUrl+"@");
                 }else {
                     String picUrl = null;
                 }
@@ -93,6 +95,11 @@ public class ResServiceImpl {
         restaurantDao.insert(restaurant);
 
         redisTemplate.opsForValue().set("Restaurant_resId:"+resId,restaurant,1, TimeUnit.DAYS);
+
+        //将redis中的allres保持更新
+        List<Restaurant> list = (List<Restaurant>) redisTemplate.opsForValue().get("allRestaurant");
+        list.add(restaurant);
+        redisTemplate.opsForValue().set("allRestaurant",list);
 
         return resId;
     }
@@ -137,8 +144,8 @@ public class ResServiceImpl {
                 if(fileInputStream!=null) {
                     System.out.println("第二层");
                     String picUrl = FileUpDownUtil.upload(fileInputStream);
-                    pictureUrl.append(picUrl+"-");
-                    resurl.append(picUrl+"-");
+                    pictureUrl.append(picUrl+"@");
+                    resurl.append(picUrl+"@");
                     //直接调用dao向指定cardid中添加URL
                     restaurantDao.concatResUrl(pictureUrl.toString(),resId);
                     restaurant.setResUrl(resurl.toString());
@@ -166,6 +173,11 @@ public class ResServiceImpl {
         }
 
         redisTemplate.opsForValue().set("Restaurant_resId:"+resId,restaurant,1, TimeUnit.DAYS);
+
+        //保证redis的allres的更新
+        List<Restaurant> restaurantList = restaurantDao.selectList(null);
+        redisTemplate.opsForValue().set("allRestaurant",restaurantList);
+
         return resId;
     }
 }
