@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 创建时间: 2020/4/6 14:23
@@ -26,7 +25,4 @@ public interface VCardUserLikeDao {
 
     @Select("select * from v_card_user_like")
     List<VCardUserLike> selectAll();
-
-    @Select("select count(*) from v_card_user_like where card_id=#{cardId}")
-    Integer countlike(@Param("cardId") Integer cardId);
 }

@@ -29,6 +29,7 @@ public class Discuss implements Serializable {
     private Integer parentId;
     private String disThread;
     private Integer disUserId;
+
     private String userName;
     private Integer discussLike;
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.taotie.wechatpro.dao.UserDao;
 import com.taotie.wechatpro.dao.associateTable.UserLableDao;
 import com.taotie.wechatpro.dao.associateTable.UserRestaurantDao;
+import com.taotie.wechatpro.dao.view.VUserLableDao;
+import com.taotie.wechatpro.dao.view.VUserRestaurantDao;
 import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.pojo.association.UserLable;
 import com.taotie.wechatpro.pojo.association.UserRestaurant;
@@ -34,6 +36,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRestaurantDao userRestaurantDao;
+
+    @Autowired
+    VUserLableDao vUserLableDao;
+
+    @Autowired
+    VUserRestaurantDao vUserRestaurantDao;
 
     @Autowired
     UserLable userLable;
@@ -87,7 +95,10 @@ public class UserServiceImpl implements UserService {
         //redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLables,1, TimeUnit.DAYS);
 
         redisTemplate.opsForValue().set("User_userId:"+userId,userDao.selectByuserId(userId),1,TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLableDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("UserLable_userId:"+userId,userLableDao.selectByuserId(userId),1,TimeUnit.DAYS);
+
+        //
+        redisTemplate.opsForValue().set("VUserLable_userId:"+userId,vUserLableDao.selectByUserId(userId));
 
 
 
@@ -115,8 +126,10 @@ public class UserServiceImpl implements UserService {
         //redisTemplate.expire("UserRestaurant_userId:"+userId,1, TimeUnit.DAYS);
         //redisTemplate.expire("UserRestaurant_resId:"+resId,1, TimeUnit.DAYS);
 
-        redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurantDao.selectByuserId(userId),1,TimeUnit.DAYS);
-        redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurantDao.selectByresId(resId),1,TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("UserRestaurant_userId:"+userId,userRestaurantDao.selectByuserId(userId),1,TimeUnit.DAYS);
+        //redisTemplate.opsForValue().set("UserRestaurant_resId:"+resId,userRestaurantDao.selectByresId(resId),1,TimeUnit.DAYS);
+
+        redisTemplate.opsForValue().set("VUserRestaurant_userId:"+userId,vUserRestaurantDao.selectByUserId(userId));
     }
 
 

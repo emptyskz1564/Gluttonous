@@ -19,9 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 创建时间: 2020/4/5 11:09
@@ -133,7 +131,22 @@ public class HelloController {
         return card;
     }
 
-    //根据card_id返回discuss表信息，正序
+    //根据user_id返回carduser表信息
+    @ResponseBody
+    @RequestMapping(value = "/cardusers/{id}",method = RequestMethod.GET)
+    public Object getCardUser(@PathVariable String id){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        List<CardUser> cardList = (List<CardUser>) redisTemplate.opsForValue().get("CardUser_userId:"+id);
+        if(cardList==null){
+            cardList = cardDao.selectCardUserByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("CardUser_userId:"+id,cardList);
+        }
+        return cardList;
+    }
+
+
+    //根据id返回discuss表信息，正序
     @ResponseBody
     @RequestMapping(value = "/discusses/asc/{id}",method = RequestMethod.GET)
     public Object getDiscuss(@PathVariable String id){
@@ -208,10 +221,10 @@ public class HelloController {
     }
 
 
-    //根据cardId返回v_card_user_like信息
-    //@ResponseBody
-    @RequestMapping(value = "/vcarduserlikes/{card_id}",method = RequestMethod.GET)
-    public Integer getvcarduserlikes(@PathVariable String card_id){
+    //返回v_card_user_like全部视图信息
+    @ResponseBody
+    @RequestMapping(value = "/vcarduserlikes",method = RequestMethod.GET)
+    public Object getvcarduserlikes(){
 //        RedisSerializer redisSerializer = new StringRedisSerializer();
 //        redisTemplate.setKeySerializer(redisSerializer);
 //        VCardUserLike vCardUserLike = (VCardUserLike) redisTemplate.opsForValue().get("VCardUserLike_cardId:"+id);
@@ -220,7 +233,7 @@ public class HelloController {
 ////            redisTemplate.opsForValue().set("VCardUserLike_cardId:"+id,vCardUserLike);
 ////        }
 ////        return vCardUserLike;
-        return vCardUserLikeDao.countlike(Integer.valueOf(card_id));
+        return vCardUserLikeDao.selectAll();
     }
 
     //根据user_id返回v_discuss_user_like表信息
@@ -265,12 +278,12 @@ public class HelloController {
     public Object getvuserlable(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VUserLable vUserLable = (VUserLable) redisTemplate.opsForValue().get("VUserLable_userId:"+id);
-        if(vUserLable==null){
-            vUserLable = vUserLableDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("VUserLable_userId:"+id,vUserLable);
+        List<VUserLable> vUserLables = (List<VUserLable>) redisTemplate.opsForValue().get("VUserLable_userId:"+id);
+        if(vUserLables==null){
+            vUserLables = vUserLableDao.selectByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("VUserLable_userId:"+id,vUserLables);
         }
-        return vUserLable;
+        return vUserLables;
     }
 
     //根据user_id返回v_user_restaurant表信息
@@ -279,12 +292,12 @@ public class HelloController {
     public Object getvuserrestaurant(@PathVariable String id){
         RedisSerializer redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
-        VUserRestaurant vUserRestaurant = (VUserRestaurant) redisTemplate.opsForValue().get("VUserRestaurant_userId:"+id);
-        if(vUserRestaurant==null){
-            vUserRestaurant = vUserRestaurantDao.selectByUserId(Integer.valueOf(id));
-            redisTemplate.opsForValue().set("VUserRestaurant_userId:"+id,vUserRestaurant);
+        List<VUserRestaurant> vUserRestaurants = (List<VUserRestaurant>) redisTemplate.opsForValue().get("VUserRestaurant_userId:"+id);
+        if(vUserRestaurants==null){
+            vUserRestaurants = vUserRestaurantDao.selectByUserId(Integer.valueOf(id));
+            redisTemplate.opsForValue().set("VUserRestaurant_userId:"+id,vUserRestaurants);
         }
-        return vUserRestaurant;
+        return vUserRestaurants;
     }
 
 

@@ -10,6 +10,7 @@ import com.taotie.wechatpro.dao.associateTable.CardUserLikeDao;
 import com.taotie.wechatpro.dao.associateTable.ResLableDao;
 import com.taotie.wechatpro.dao.view.VCardUserLikeDao;
 import com.taotie.wechatpro.pojo.Card;
+import com.taotie.wechatpro.pojo.CardUser;
 import com.taotie.wechatpro.pojo.association.CardLable;
 import com.taotie.wechatpro.pojo.association.CardUserLike;
 import com.taotie.wechatpro.pojo.association.ResLable;
@@ -91,6 +92,9 @@ public class CardServiceImpl implements CardService {
         //新增这个保证在点赞过后打卡列表得到的allcarduser为同步状态
         redisTemplate.opsForValue().set("allCardUser",cardDao.selectAllCardUser());
 
+        //新增这个保证在点赞打卡后得到的redis中的hotcarduser为同步状态
+        redisTemplate.opsForValue().set("hotCardUser",cardDao.selectHotCardUser());
+
         //redisTemplate.opsForList().leftPush("CardUserLike_cardId:"+cardId,carduserlike);
         //redisTemplate.opsForList().leftPush("CardUserLike_userId:"+userId,carduserlike);
         //redisTemplate.expire("CardUserLike_cardId:"+cardId,1, TimeUnit.DAYS);
@@ -108,7 +112,8 @@ public class CardServiceImpl implements CardService {
 
         Card card = JSON.parseObject(str, (Type) Card.class);
         //因为刘sh不好拿wxId只能给userId，这个地方就去user表查找到wxId再放进实体pojo
-        String wx_id = userDao.selectWx_idByUserId(Integer.parseInt(JSON.parseObject(str).get("userId").toString()));
+        Integer userId = Integer.parseInt(JSON.parseObject(str).get("userId").toString());
+        String wx_id = userDao.selectWx_idByUserId(userId);
         Integer cardId = UUIDUtil.getUUIDInOrderId();
         //这个地方需要插入关联表card_lable于是需要单独拿出来
         //需要对lableId1,lableId2,lableId3进行存在和值存在的判断，规定值为-1则客户没选次lable
@@ -258,10 +263,12 @@ public class CardServiceImpl implements CardService {
         //redisTemplate.expire("ResLable_resId:"+resId,1, TimeUnit.DAYS);
         //redisTemplate.expire("CardLable_cardId:"+cardId,1, TimeUnit.DAYS);
 
-        //完成对allcards的redis缓存的更新
-        List<Card> cardList = (List<Card>) redisTemplate.opsForValue().get("allCard");
-        cardList.add(card);
-        redisTemplate.opsForValue().set("allCard",cardList);
+        //完成对cardusers的redis缓存的更新
+        List<CardUser> cardList = cardDao.selectAllCardUser();
+        redisTemplate.opsForValue().set("allCardUser",cardList);
+
+        //新增这个保证在上传打卡后得到的redis中的个人的打卡信息为同步状态
+        redisTemplate.opsForValue().set("CardUser_userId:"+userId,cardDao.selectCardUserByUserId(userId));
 
         return cardId;
 
@@ -359,9 +366,13 @@ public class CardServiceImpl implements CardService {
 
         redisTemplate.opsForValue().set("Card_cardId:"+cardId,card,1, TimeUnit.DAYS);
 
-        //将redis的allCard更新，还没想到更好的方法
-        List<Card> cardList = cardDao.selectList(null);
-        redisTemplate.opsForValue().set("allCard",cardList);
+        //完成对cardusers的redis缓存的更新
+        List<CardUser> cardList = cardDao.selectAllCardUser();
+        redisTemplate.opsForValue().set("allCardUser",cardList);
+
+        //新增这个保证在上传打卡后得到的redis中的个人的打卡信息为同步状态
+        Integer userId = cardDao.selectUserIdByCardId(cardId);
+        redisTemplate.opsForValue().set("CardUser_userId:"+userId,cardDao.selectCardUserByUserId(userId));
 
         return cardId;
     }

@@ -81,5 +81,20 @@ public class controller3 {
     }
 
 
+    //得到热门打卡（按card_like打卡点赞数降序排序）
+    @ResponseBody
+    @RequestMapping(value = "/hotcardusers",method = RequestMethod.GET)
+    public Object gethotcarduser(){
+        RedisSerializer redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        List<CardUser> cardList = (List<CardUser>) redisTemplate.opsForValue().get("hotCardUser");
+        if(cardList==null){
+            cardList = cardDao.selectHotCardUser();
+            redisTemplate.opsForValue().set("hotCardUser",cardList);
+        }
+        return cardList;
+    }
+
+
 
 }

@@ -45,7 +45,8 @@ public class LoginController {
         redisTemplate.setKeySerializer(redisSerializer);
         Integer userId = (Integer) redisTemplate.opsForValue().get("openid:"+openid);
         if(userId == null){
-            userDao.insertemptyUseropenId(openid);
+            //先默认所有微信登陆的都为vip
+            userDao.insertemptyUseropenId(openid,1);
             userId = userDao.selectUserIdByUserOpenid(openid);
 
             userDao.updateWxIdByUserId(userId);
