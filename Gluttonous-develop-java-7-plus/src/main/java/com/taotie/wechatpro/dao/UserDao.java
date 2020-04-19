@@ -23,8 +23,8 @@ public interface UserDao extends BaseMapper<User> {
     @Select("select user_id from user where user_openid=#{userOpenid}")
     Integer selectUserIdByUserOpenid(@Param("userOpenid") String userOpenid);
 
-    @Insert("insert ignore into user(user_openid) values (#{userOpenid})")
-    void insertemptyUseropenId(@Param("userOpenid") String userOpenid);
+    @Insert("insert ignore into user(user_openid,vip) values (#{userOpenid},#{vip})")
+    void insertemptyUseropenId(@Param("userOpenid") String userOpenid,@Param("vip") Integer vip);
 
     @Update("update user set user_name=#{userName} where user_id=#{userId}")
     void updateUserNameByUserId(@Param("userName") String userName, @Param("userId") Integer userId);

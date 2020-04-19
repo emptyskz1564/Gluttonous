@@ -54,7 +54,6 @@ public class UserController {
 
 
 
-    /****************************************************************************/
     //下面是杨伯益写的测试用的不用管，能用
     @ResponseBody
     @RequestMapping(value = "/upuserres",method = RequestMethod.POST)

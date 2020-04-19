@@ -3,6 +3,7 @@ package com.taotie.wechatpro.controller.get;
 
 import com.taotie.wechatpro.dao.CardDao;
 import com.taotie.wechatpro.pojo.Card;
+import com.taotie.wechatpro.pojo.CardUser;
 import com.taotie.wechatpro.pojo.User;
 import com.taotie.wechatpro.pojo.association.CardLable;
 import com.taotie.wechatpro.pojo.association.UserLable;
@@ -105,17 +106,17 @@ public class VipCardController {
 
 
             //将得到的cardIdlist1，转为card的数组并返回
-            List<Card> cardList = new ArrayList<>();
+            List<CardUser> carduserList = new ArrayList<>();
             if (cardIdlist1 != null) {
                 for (int k = cardIdlist1.size()-1; k > 0; k--) {
-                    cardList.add(cardDao.selectById(cardIdlist1.get(k)));
+                    carduserList.add(cardDao.selectCardUserByCardId(cardIdlist1.get(k)));
                 }
             }
 
-            if (cardList.size() == 0) {
+            if (carduserList.size() == 0) {
                 return -1;
             }else {
-                return cardList;
+                return carduserList;
             }
         }else{
             //返回没有推荐
