@@ -35,18 +35,18 @@
   <view class="userLabel">
     <!-- 第一栏 -->
     <view class="first">
-      <view class="vipLevel">会员等级</view>
+      <view class="vipLevel" style="background-color:{{randomColorArr[3]}}">会员等级:0</view>
     </view>
 
     <!-- 第二栏 -->
     <view class="second">
-      <view class="label">标签1</view>
-      <view class="label">标签2</view>
+      <view class="label" style="background-color:{{randomColorArr[0]}}">标签1</view>
+      <view class="label" style="background-color:{{randomColorArr[1]}}">标签2</view>
     </view>
 
     <!-- 第三栏 -->
     <view>
-      <view class="label">标签3</view>
+      <view class="label" style="background-color:{{randomColorArr[2]}}">标签3</view>
     </view>
 
   </view>

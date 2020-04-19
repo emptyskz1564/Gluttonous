@@ -16,11 +16,19 @@ Page({
   onLoad: function (options) {
     let that=this;
     let userInfo=wx.getStorageSync('userInfo');
+    let key=wx.getStorageSync('key');
+    console.log("key"+key);
+    if(key){
+      console.log("key不为空");
+      
+    }else{
+      console.log("key为空");
+      
+    }
     that.setData({
       userId:userInfo.userId
     })
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/hotcardusers',
+    wx.login({
       success:function(res){
         console.log(res);
         

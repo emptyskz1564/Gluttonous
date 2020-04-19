@@ -302,67 +302,6 @@ page {
   margin-top: 20rpx;
 }
 
-.restList{
-  margin-top: 10rpx;
-  display: flex;
-  flex-direction: column;
-}
-
-.restList .rest{
-  margin: 10rpx;
-  display: flex;
-  background-color: #fff;
-  border-radius: 10rpx;
-  height: 200rpx;
-}
-
-.restList .restInfo{
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  flex: 3;
-}
-
-.restList .rest .restPic{
-  margin-top: 40rpx;
-  height: 180rpx;
-  flex: 1;
-  margin-right: 5px;
-  display: flex;
-}
-
-.restName{
-  font-weight: bold;
-  margin: 5rpx;
-  color: #333333;
-}
-
-.restTitle{
-  margin-top: 15rpx;
-  display: flex;
-  font-size: 25rpx;
-  margin-left: 5rpx;
-  margin-bottom: 15rpx;
-  flex-wrap: wrap;
-}
-
-.restSign {
-  padding: 5rpx 10rpx;
-  display: flex;
-  flex-wrap: nowrap;
-  height: 30rpx;
-  color: #fff;
-  border-radius: 5rpx;
-  margin-right: 8rpx;
-  line-height: 30rpx;
-  margin-top: 10rpx;
-}
-.restDetail{
-  color: #999999;
-  font-size: 30rpx;
-}
-
-   
 
  radio{ 
    margin-right: 20rpx; 

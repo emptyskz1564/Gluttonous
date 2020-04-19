@@ -55,24 +55,53 @@
 
   <block wx:if="{{tabs[1].isActive}}">
   
-  <view class="restList" wx:for="{{showList2}}" wx:key="index" wx:for-index="i">
+  <view class="List">
 
-  <view class="rest">
-    <view class="restInfo">
-      <view class="restName">{{item.resTitle}}</view>
-      <view class="restTitle">
-        <view wx:for="{{item.labels}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[i*4+j]}}" class="restSign">
-          <view>{{item}}</view>
+    <view class="ListContainer">
+
+      <view wx:for="{{showList2}}" wx:key="index" class="ListItem" wx:for-index="i">
+
+        <view class="userInfo">
+          <image class="userPic" src="{{item.userUrl}}"></image>
+          <view class="userName">{{item.userName}}</view>
         </view>
+
+        <view class="cardTitle">{{item.cardTitle}}</view>
+
+        <view class="cardContent">{{item.cardContent}}</view>
+
+        <view class="labelContainer">
+          <view 
+          wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
+          class="cardLabel" style="background-color:{{randomColorArr[i*3+j]}}">
+            {{item}}
+          </view>
+        </view>
+
+        <view class="imgContainer" >
+          <image src="{{item.picUrl[0]}}" class="img" bindtap="handlePreviewImg" data-url="{{item.picUrl}}"></image>
+        </view>
+        
+        <view class="bottom">
+          <view wx:if="{{userLike[i]===false}}" class="likeContainer">
+            <view>{{item.cardLike+1}}</view>
+            <image src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-cardId="{{i}}"></image>
+          </view>
+
+          <view wx:else class="likeContainer">
+            <view>{{item.cardLike}}</view>
+            <image  src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-Id="{{item.cardId}}" data-cardId="{{i}}"></image>
+          </view>
+          
+          <navigator url="/pages/cardDetail/cardDetail?cardId={{item.cardId}}" data-cardId="{{item.cardId}}"><image src="/pages/icons/评论.png" class="discuss"></image></navigator>
+        </view>
+      
+
       </view>
-      <navigator style="margin:5rpx" url="../restDetail/restDetail?resId={{item.resId}}" class="restDetail">餐厅详情>></navigator>
+
     </view>
 
-      <image class="restPic" mode="widthFix" wx:if="{{item.resUrl[0].length!=0}}" src="{{item.resUrl[0]}}" bindtap="handlePreviewImg" data-url="{{item.resUrl}}"></image>
-
-
   </view>
-</view>
 
   
   </block>

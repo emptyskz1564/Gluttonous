@@ -1,20 +1,9 @@
 <!--pages/user/user.wxml-->
-<!-- <text>{{userInfo.nickName}}</text> -->
-
-<view class="userInfo">
-
-  <view class="userImg" wx:if="{{userInfo.avatarUrl}}">
-    <image class="userBg" src="{{userInfo.avatarUrl}}"></image>
-    <view class="user">
-      <image class="userIcon" src="{{userInfo.avatarUrl}}"></image>
-      <view class="userName">{{userInfo.nickName}}</view>
-    </view>
-  </view>
-
-  <view wx:else>
-    <navigator url="../login/login">登录</navigator>
-  </view>
-
+<cover-image src="{{userInfo.avatarUrl === undefined ? 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' : userInfo.avatarUrl}}" class="user-image" bindtap="login"></cover-image>
+<view class="user-name">{{userInfo.avatarUrl === undefined ? '点击图片登录' : userInfo.nickName}}</view>
+<view class="tabs">
+  <view>会员等级</view>
+  <view>标签1</view>
+  <view>标签2</view>
+  <view>标签3</view>
 </view>
-
-

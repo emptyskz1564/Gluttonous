@@ -1,31 +1,17 @@
 /* pages/user/user.wxss */
-.userInfo{
-  height: 45vh;
-  overflow: hidden;
-  background-color: red;
+/* 用户头像 */
+.user-image {
+  width: 30%;
+  margin: 0 auto;
+  padding: 30rpx;
 }
-.userImg{
-  position: relative;
-}
-.userBg{
-  height: 50vh;
-  /* 高斯模糊 */
-  filter: blur(10rpx);
-}
-.user{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 20%;
+/* 昵称 */
+.user-name {
   text-align: center;
 }
-.userIcon{
-  width: 150rpx;
-  height: 150rpx;
-  border-radius: 50%;
-}
-.userName{
-  color: #fff;
-  margin-top: 40rpx;
-  font-size: 40rpx;
+/* 用户标签 */
+.tabs {
+  width: 90%;
+  margin: 0 auto;
+  border:solid 1rpx rgba(0, 0, 0, 0.1) ;
 }

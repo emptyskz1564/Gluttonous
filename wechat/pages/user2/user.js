@@ -48,9 +48,7 @@ Page({
   onLoad: function (options) {
     let that=this;
     const userInfo = wx.getStorageSync('userInfo');
-    if(userInfo===null){
-      console.log("请先登录");
-    }else{
+    if(wx.getStorageSync('userInfo')){
       that.setData({userInfo})
       let userId=userInfo.userId;
       wx.request({
@@ -81,6 +79,9 @@ Page({
           })
         }
       })
+    }else{
+      console.log("请先登录");
+      that.getRandomColor();
     }
    
   },

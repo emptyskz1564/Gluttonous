@@ -121,6 +121,8 @@ getRandomColor:function(){
    */
   onLoad: function (options) {
     console.log('onLoad')
+    let userInfo=wx.getStorageSync('userInfo');
+    let userId=userInfo.userId;
     var that = this
     wx.request({
       url: 'https://hailicy.xyz/wechatpro/v1/hotcardusers',
@@ -172,46 +174,59 @@ getRandomColor:function(){
       }
     })
     console.log('onLoad')
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/restaurants',
-      success:function(res){
-        that.setData({
-          list2:res.data
-        })
-        wx.request({
-          url: 'https://hailicy.xyz/wechatpro/v1/vreslables',
-          success:function(res){
-            that.setData({
-              labelList:res.data
-            })
-            //console.log(res);
-            let list=that.data.list2;
-            let labelList=that.data.labelList;
-            let labels=[];
-            for(let i=0;i<list.length;i++){
-              for(let j=0;j<labelList.length;j++){
-                if(labelList[j].resId===list[i].resId){
-                  labels.push(labelList[j].lableContent)
-                }
-              }
-              let url=list[i].resUrl;
+    if(wx.getStorageSync('userInfo')){
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/vipcards/'+userId,
+        success:function(res){
+          console.log(res);
+          
+          that.setData({
+            list2:res.data
+          })
+          let list=res.data;
+          console.log(list.length);
+          for(let i=0;i<list.length;i++){
+            let url=list[i].picUrl;
+            let vurl=list[i].videoUrl;
+            if(url!=null){
               let urls=url.split("@");
-              list[i]["resUrl"]=urls;
-              list[i]["labels"]=labels;
-              labels=[];
+              list[i].picUrl=urls;
+            }else{
+              list[i].picUrl=[];
             }
-            that.setData({
-              list2:list,
-            }),
-            console.log(that.data.list2);    
-            that.totalSzie2=that.data.list2.length;
-            //计算总页数
-            that.totalPage=Math.ceil(that.totalSzie2/that.pageSize);
-            that.getShowList2();
+            if(vurl!=null){
+              let vurls=vurl.split("@");
+              list[i].videoUrl=vurls;
+            }else{
+              list[i].videoUrl=[];
+            }
+            let cardLabel=[];
+            if(list[i].selfLable1!=null&&list[i].selfLable1!=""){
+              cardLabel.push(list[i].selfLable1)
+            }
+            if(list[i].selfLable2!=null&&list[i].selfLable2!=""){
+              cardLabel.push(list[i].selfLable2)
+            }
+            if(list[i].selfLable3!=null&&list[i].selfLable3!=""){
+              cardLabel.push(list[i].selfLable3)
+            }
+            list[i]["cardLabel"]=cardLabel;
           }
-        }) 
-      }
-    })
+          that.data.userLike.push(false);
+          that.setData({
+            list2:list
+          })
+          console.log(that.data.list2.length);
+          that.totalSzie2=that.data.list2.length;
+          //计算总页数
+          that.totalPage2=Math.ceil(that.totalSzie1/that.pageSize);
+          that.getShowList2();
+          that.getRandomColor();
+          console.log(that.data.showList2);
+        }
+      })
+    }
+    
   },
 
   /**
