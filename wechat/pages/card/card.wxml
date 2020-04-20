@@ -1,2 +1,122 @@
-<!--pages/card/card.wxml-->
-<text>pages/card/card.wxml</text>
+<!-- 防止页面上跳的一个占位盒子 -->
+<view class="holder"></view>
+<view class="page_rowFixed">
+    <view class="search">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+      </view>
+    </view>
+    <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
+    <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
+</view>
+
+<!-- <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange"> -->
+
+  <view class="List">
+
+    <view class="ListContainer">
+
+      <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
+
+        <view class="userInfo">
+          <image class="userPic" src="{{item.userUrl}}"></image>
+          <view class="userName">{{item.userName}}</view>
+        </view>
+
+        <view class="cardTitle">{{item.cardTitle}}</view>
+
+        <view class="cardContent">{{item.cardContent}}</view>
+
+        <view class="labelContainer">
+          <view 
+          wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
+          class="cardLabel" style="background-color:{{randomColorArr[i*3+j]}}">
+            {{item}}
+          </view>
+        </view>
+
+        <view class="imgContainer" >
+          <image src="{{item.picUrl[0]}}" class="img" bindtap="handlePreviewImg" data-url="{{item.picUrl}}"></image>
+        </view>
+        
+        <view class="bottom">
+          <view wx:if="{{userLike[i]===false}}" class="likeContainer">
+            <view>{{item.cardLike+1}}</view>
+            <image src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-cardId="{{i}}"></image>
+          </view>
+
+          <view wx:else class="likeContainer">
+            <view>{{item.cardLike}}</view>
+            <image  src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-Id="{{item.cardId}}" data-cardId="{{i}}"></image>
+          </view>
+          
+          <navigator url="/pages/cardDetail/cardDetail?cardId={{item.cardId}}" data-cardId="{{item.cardId}}"><image src="/pages/icons/评论.png" class="discuss"></image></navigator>
+        </view>
+      
+
+      </view>
+
+    </view>
+
+  </view>
+<!-- 
+  <view wx:else>VIP用户</view>
+</Tabs> -->
+
+<view bindtap="powerDrawer" data-statu="open">
+  <image class="addCard" src="../icons/gengduo.png"></image>
+</view>
+
+<!--mask-->
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view> 
+<!--content-->
+<!--使用animation属性指定需要执行的动画-->
+<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}"> 
+  <form bindsubmit="formSubmit">
+ <!--drawer content-->
+ <view class="drawer_title">打卡</view> 
+ <view class="drawer_content"> 
+  <view class="top grid"> 
+   <label class="title col-0">打卡标题</label> 
+   <input class="input_base input_h30 col-1" name="cardTitle"></input> 
+  </view> 
+  <view class="top grid"> 
+   <label class="title col-0">打卡内容</label> 
+   <textarea fixed name="cardContent"></textarea>
+  </view> 
+  <view class="top grid"> 
+   <label class="title col-0">最好的菜</label> 
+   <input class="input_base input_h30 col-1" name="bestFood"></input> 
+  </view> 
+  <view class="top grid1"> 
+    <label class="title col-0">标签一</label> 
+    <input class="input_base input_h30 col-1" name="selfLable1"></input> 
+    <image class="addLabel" bindtap="addLabel" src="/pages/icons/增加.png"></image>
+  </view> 
+  <view class="top grid"> 
+    <label wx:if="{{addLabel[0]}}" class="title col-0">标签二</label> 
+    <input wx:if="{{addLabel[0]}}" class="input_base input_h30 col-1" name="selfLable2"></input> 
+  </view> 
+  <view class="top grid"> 
+    <label wx:if="{{addLabel[1]}}" class="title col-0" >标签三</label> 
+    <input wx:if="{{addLabel[1]}}" class="input_base input_h30 col-1" name="selfLable3"></input> 
+  </view> 
+
+  <view class="image_content">
+    <view class='image' wx:for="{{img_url}}">
+      <image class="moment_img" src="{{item}}"></image>
+    </view>
+    <view class='image' style='display:{{hideAdd?"none":"block"}}'>
+      <image bindtap="chooseimage" class="moment_img" src="../icons/add.png"></image>
+    </view>
+  </view>
+  
+ </view> 
+
+ <button class="btn_ok" bindtap="powerDrawer" bindtap="send" data-statu="close" form-type="submit">确定</button> 
+<!-- 图片视频上传事件还未绑定 -->
+  </form>
+</view>
+
+

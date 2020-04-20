@@ -1,0 +1,122 @@
+page {
+  /* background-color: #edece8; */
+  background-color: #f2f2f2;
+  color: #666;
+  font-family: Microsoft YaHei;
+}
+
+.page_row{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  top:0rpx;
+}
+
+.page_rowFixed{
+  height: 65rpx;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
+.search{
+  width: 80%;
+}
+.search_arr {
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+}
+.searchcion {
+  margin: 10rpx 10rpx 10rpx 10rpx;
+  position: absolute;
+  left:25rpx;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+} 
+.search_arr input{
+  margin-left: 60rpx;
+  height: 60rpx;
+  border-radius: 5px;
+}
+.sousuo {
+  height: 60rpx;
+  margin-left: 15rpx;
+  width: 15%;
+  line-height: 150%;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+}
+
+.holder{
+  height:90rpx;
+  width: 100%;
+}
+
+.restList{
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.restList .rest{
+  margin: 10rpx;
+  display: flex;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+
+.restList .restInfo{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  flex: 3;
+}
+
+.restName{
+  font-weight: bold;
+  margin: 5rpx;
+  color: #333333;
+}
+
+.restTitle{
+  margin-top: 15rpx;
+  display: flex;
+  font-size: 25rpx;
+  margin-left: 5rpx;
+  margin-bottom: 15rpx;
+  flex-wrap: wrap;
+}
+
+.restSign {
+  padding: 5rpx 10rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 30rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  margin-right: 8rpx;
+  line-height: 30rpx;
+  margin-top: 10rpx;
+}
+.restDetail{
+  color: #999999;
+  font-size: 30rpx;
+}
+
+.restList .rest .restPic{
+  margin-top: 40rpx;
+  height: 180rpx;
+  flex: 1;
+  margin-right: 5px;
+  display: flex;
+}

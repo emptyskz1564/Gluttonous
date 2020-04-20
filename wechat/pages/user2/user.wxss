@@ -1,0 +1,160 @@
+/* pages/user2/user.wxss *//* pages/user/user.wxss */
+page {
+  background-color: #edece8;
+  color: #666;
+}
+
+.userInfo{
+  height: 45vh;
+  overflow: hidden;
+  background-color: red;
+}
+.userImg{
+  position: relative;
+}
+.userBg{
+  height: 50vh;
+  /* 高斯模糊 */
+  filter: blur(10rpx);
+}
+.user{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+  text-align: center;
+}
+.userIcon{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+.userName{
+  color: #fff;
+  margin-top: 40rpx;
+  font-size: 40rpx;
+}
+
+.userList {
+  position: relative;
+}
+
+.userList .userMain {
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -40rpx;
+}
+
+.userList .userMain .collection {
+  background-color: #fff;
+  display: flex;
+  height: 80rpx;
+  border-radius: 10rpx;
+}
+
+.userList .userMain .collection navigator {
+  flex : 1;
+  text-align: center;
+  line-height: 80rpx;
+}
+.userList .userMain .collection navigator .hisName {
+  font-size: 35rpx;
+}
+
+.main {
+  width: 100%;
+  height: 500rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.main .userLabel {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  background-color: #fff;
+  margin-top: 50rpx;
+  align-items: center;
+  border-radius: 10rpx;
+  justify-content: space-around;
+}
+
+.main .userLabel .first .vipLevel {
+  color: #fff;
+  border-radius: 10rpx;
+  padding: 10rpx 10rpx;
+}
+
+.main .userLabel .second {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .userLabel .label {
+  color: #fff;
+  border-radius: 10rpx;
+  padding: 10rpx 10rpx;
+}
+
+.appInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+
+.appInfo .appInfoContainer {
+  height: 270rpx;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.appInfo .appInfoContainer .appInfoItem {
+  height: 70rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  line-height: 70rpx;
+}
+
+.appInfo .appInfoContainer .appInfoItem navigator {
+  margin-left: 15rpx;
+}
+
+.appInfo .appInfoContainer .appInfoItem text{
+  margin-right: 15rpx;
+}
+
+.appInfoContext {
+  display: flex;
+  justify-content: space-between;
+}
+
+.share {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30rpx;
+  margin-bottom: 100rpx;
+}
+
+.share .shareContainer {
+  height: 70rpx;
+  width: 90%;
+  border-radius: 10rpx;
+  background-color: #fff;
+  line-height: 70rpx;
+  color: #666;
+  font-size: 40rpx;
+  display: flex;
+}
+ .share .shareContainer view{
+  margin-left: -15rpx;
+} 
