@@ -1,0 +1,44 @@
+<!--index.wxml-->
+<!-- 错误提示 -->
+
+<import src="./../../templates/errors/errors.wxml"/>
+<import src="./../../templates/warnings/warnings.wxml"/>
+<template is="errors" data="{{exceptions}}"></template>
+<!-- 正常显示 -->
+<Tabs show="{{!exceptions.isError}}" tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
+  <!-- 普通用户 -->
+  <block wx:if="{{tabs[0].isActive}}"><navigator url="../test/test">test</navigator>
+    <view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{item.cardId}}">
+      <view class="card-user">
+        <view class="card-user-image">
+          <image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
+        </view>
+        <view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
+      </view>
+      <text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
+      <view class="card-content">{{item.cardContent=== '' || item.cardContent === null ? '他什么都没写，看图吧' : item.cardContent}}</view>
+      <view class="card-image">
+        <image mode="widthFix" src="{{ cardsImageUrls[i] === null ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />
+      </view>
+    </view>
+  </block>
+  <!-- VIP -->
+  <block wx:if="{{tabs[1].isActive}}">
+    <block wx:if="{{warnings.isWarning}}">
+      <view wx:for="{{nearCards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{item.cardId}}">
+        <view class="card-user">
+          <view class="card-user-image">
+            <image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
+          </view>
+          <view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
+        </view>
+        <text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
+        <view class="card-content">{{item.cardContent=== '' || item.cardContent === null ? '他什么都没写，看图吧' : item.cardContent}}</view>
+        <view class="card-image">
+          <image mode="widthFix" src="{{ nearCardsImageUrls[i] === null ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />
+        </view>
+      </view>
+    </block>
+    <template is="warnings" data="{{warnings}}"></template>
+  </block>
+</Tabs>

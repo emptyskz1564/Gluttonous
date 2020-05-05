@@ -1,0 +1,57 @@
+/**app.wxss**/
+@import '/assets/icons/iconfont.wxss';
+page, html, body {
+  position: relative;
+  background-color: antiquewhite;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+/* 错误信息 */
+.error-frame {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  padding: 40rpx 0;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 15rpx;
+  box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
+  border: solid 1rpx #87cefa;
+  background-image: linear-gradient(45deg, #87cefa , #fff);
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  text-align: center;
+  animation: roll-card-x;
+  animation-fill-mode: forwards;
+  animation-duration: 0.45s;
+  animation-timing-function: ease-in-out;
+}
+.error-title {
+  font-size: 150rpx;
+  color: #e64340;
+}
+.error-message {
+  padding: 15rpx;
+  font-size: 20pt;
+}
+.error-detail {
+  padding: 20rpx;
+}
+
+/* 特效 */
+@keyframes roll-card-x {
+  from {
+    transform: rotateX(90deg);
+  } to {
+    transform: rotateX(0);
+  }
+}
+@-webkit-keyframes roll-card-x {
+  from {
+    transform: rotateX(90deg);
+  } to {
+    transform: rotateX(0);
+  }
+}

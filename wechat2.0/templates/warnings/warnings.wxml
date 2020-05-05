@@ -1,0 +1,10 @@
+<!--templates/warnings/warnings.wxml-->
+<template name="warnings">
+  <block wx:if="{{warnings.isWarning}}">
+    <view class="error-frame">
+      <text class="error-title iconfont icon-warning"></text>
+      <text class="error-message">{{warnings.message}}</text>
+      <view class="error-detail">{{warnings.detail}}</view>
+    </view>
+  </block>
+</template>

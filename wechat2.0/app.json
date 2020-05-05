@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/restaurant/restaurant",
+    "pages/user/user",
+    "pages/index/index",
+    "pages/card/card",
+    "templates/errors/errors",
+    "templates/warnings/warnings",
+    "pages/restDetail/restDetail",
+    "pages/map/map",
+    "pages/test/test"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于附近餐厅的推荐"
+    }
+  },
+  "tabBar": {
+    "selectedColor": "#00BFFF",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/images/index.png",
+        "selectedIconPath": "assets/images/index-s.png"
+      },
+      {
+        "pagePath": "pages/restaurant/restaurant",
+        "text": "餐厅",
+        "iconPath": "assets/images/restaurant.png",
+        "selectedIconPath": "assets/images/restaurant-s.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "assets/images/user.png",
+        "selectedIconPath": "assets/images/user-s.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00BFFF",
+    "navigationBarTitleText": "饕餮食客",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

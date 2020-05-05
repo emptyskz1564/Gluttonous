@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/user/user",
+    "pages/gaoMap/gaoMap",
     "pages/restaurant/restaurant",
     "pages/card/card",
     "pages/restDetail/restDetail",

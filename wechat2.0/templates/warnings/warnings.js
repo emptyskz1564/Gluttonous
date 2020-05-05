@@ -1,45 +1,18 @@
-// pages/login/login.js
-const app = getApp()
+// templates/warnings/warnings.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userId:""
-  },
 
-  handleGetuserinfo(e){
-    let {userInfo} = e.detail;
-    userInfo["userId"]=this.data.userId;
-    console.log(userInfo);
-    wx.setStorageSync('userInfo', userInfo);
-    wx.reLaunch({
-      url: '/pages/user2/user'
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
-    wx.login({
-      success:function(res){
-        console.log(res.code);
-        
-        wx.request({
-          url: 'https://hailicy.xyz/wechatpro/v1/login/'+res.code,
-          success:function(res){
-            console.log(res);
-            
-            that.setData({
-              userId:res.data
-            })
-          }
-        })
-      }
-    })
+
   },
 
   /**

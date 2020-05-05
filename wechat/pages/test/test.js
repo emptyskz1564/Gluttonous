@@ -34,17 +34,7 @@ Page({
         
       }
     })
-
-    // wx.request({
-    //   url: 'https://hailicy.xyz/wechatpro/v1/vuserrestaurant/'+that.data.userId,
-    //   success:function(res){
-    //     console.log(res);
-    //     wx.request({
-    //       url: 'https://hailicy.xyz/wechatpro/v1/vuserlable/'+that.data.userId,
-    //       success:function(res){}
-    //     })
-    //   }
-    // })
+    
     
   },
 

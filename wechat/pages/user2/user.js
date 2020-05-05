@@ -67,7 +67,7 @@ Page({
             success:function(res){
               console.log(res);
               
-              let selfLabels=null;
+              let selfLabels=[];
               for(let i=0;i<res.data.length;i++){
                 selfLabels.push(res.data[i].lableContent);
               }

@@ -15,7 +15,7 @@ Page({
     console.log(userInfo);
     wx.setStorageSync('userInfo', userInfo);
     wx.reLaunch({
-      url: '/pages/user2/user'
+      url: '/pages/user/user'
     })
   },
 
@@ -27,7 +27,6 @@ Page({
     wx.login({
       success:function(res){
         console.log(res.code);
-        
         wx.request({
           url: 'https://hailicy.xyz/wechatpro/v1/login/'+res.code,
           success:function(res){

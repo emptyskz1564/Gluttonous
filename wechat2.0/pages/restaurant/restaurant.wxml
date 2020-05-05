@@ -1,0 +1,17 @@
+<view wx:for="{{restaurants}}" wx:key="index" wx:for-index="i" class="card" bindtap="toRest" data-item="{{item.resId}}">
+	<view class="card-user">
+		<view class="card-user-image">
+
+		</view>
+		<view>{{item.resTitle === null ? '无名餐厅' : item.resTitle}}</view>
+	</view>
+	<view class="Labels">
+		<view class="card-content">{{item.lableContent1=== '' || item.lableContent1 === null ? '无标签' : item.lableContent1}}</view>
+		<view class="card-content">{{item.lableContent2=== '' || item.lableContent2 === null ? '无标签' : item.lableContent2}}</view>
+		<view class="card-content">{{item.lableContent3=== '' || item.lableContent3 === null ? '无标签' : item.lableContent3}}</view>
+	</view>
+
+	<view class="card-image">
+		<image mode="widthFix" src="{{ resImageUrls[i] === null ? 'http://47.111.252.78/images/exceptions/nope.png' : resImageUrls[i] }}" />
+	</view>
+</view>
