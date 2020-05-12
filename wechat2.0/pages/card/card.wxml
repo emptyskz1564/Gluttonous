@@ -1,2 +1,75 @@
 <!--pages/card/card.wxml-->
-<text>pages/card/card.wxml</text>
+<!-- 预览用户头像 -->
+<user-image id="previewUserImage" imageUrl="{{card !== null && card.userUrl !== null ? card.userUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}" hidden="{{showPreview}}"></user-image>
+<!-- 预览附加图像 -->
+<addons-image id="previewAddonsImage" imageUrl="{{imageUrl}}" hidden="{{showAddons}}"></addons-image>
+
+<import src="./../../templates/errors/errors.wxml" />
+<template is="errors" data="{{exceptions}}"></template>
+<scroll-view class="card-container" hidden="{{exceptions.isError}}" scroll-y="{{true}}">
+	<view class="card-header">
+		<view class="card-header-panel">
+			<view class="card-header-user">
+				<view class="card-header-image" bindtap="toggleUserImage">
+					<image src="{{card.userUrl !== '' && card.userUrl !== null ? card.userUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}"></image>
+				</view>
+				<view class="card-header-user-name">{{card.userName !== '' && card.userName !== null ? card.userName : '这个人没写名字'}}</view>
+			</view>
+			<view class="card-header-favor">
+				<text class="iconfont icon-good card-header-favor-icon"></text>
+				<text class="card-header-favor-text">{{card.cardLike !== null ? card.cardLike : '？'}}</text>
+			</view>
+		</view>
+	</view>
+	<view class="card-detail">
+		<view class="card-title">{{card.cardTitle !== '' && card.cardTitle !== null ? card.cardTitle : '无题'}}</view>
+		<view class="card-label-panel">
+			<view>{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
+			<view>{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
+			<view>{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
+		</view>
+		<view class="card-content">{{card.cardContent !== '' && card.cardContent !== null ? card.cardContent : '这个人什么都没写，直接看图吧'}}</view>
+	</view>
+	<view class="card-image-panel">
+		<view class="card-image-panel-item" wx:for="{{cardImageUrls}}" wx:key="index" wx:for-index="i" data-url="{{item}}" bindtap="toggleAddonsImage">
+			<image src="{{item}}" mode="widthFix"></image>
+		</view>
+	</view>
+
+	<!-- 评论部分 -->
+	<view class="disContainer">
+		<view wx:for="{{disList}}" wx:key="index" class="alldis">
+			<view wx:if="{{item.parentId===0}}" class="disItem" bindtap="setInput" data-disId="{{item.disId}}" data-parentThread="{{item.disThread}}" data-parentId="{{item.parentId}}">
+				{{item.userName}}:{{item.disComment}}
+				<view wx:if="{{userLike[index]===false}}" class="likeCount">
+					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}">
+            </text>
+					<view>{{item.discussLike+1}}</view>
+				</view>
+				<view wx:else class="likeCount">
+					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleDisLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></text>
+					<view wx:if="{{item.discussLike!=null}}">{{item.discussLike}}</view>
+				</view>
+
+			</view>
+
+			<view wx:else style="margin-left: 30rpx;" class="disItem">
+				{{item.userName}}:{{item.disComment}}
+				<view wx:if="{{userLike[index]===false}}" class="likeCount">
+					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></text>
+					<view>{{item.discussLike+1}}</view>
+				</view>
+				<view wx:else class="likeCount">
+					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleDisLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></text>
+					<view wx:if="{{item.discussLike!=null}}">{{item.discussLike}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="discuss">
+		<input value="{{inputValue}}" bindinput='inputBind' bindconfirm='huifu' focus="{{inputShowed}}"></input>
+		<view class="reply" bindtap="reply">回复</view>
+	</view>
+
+</scroll-view>

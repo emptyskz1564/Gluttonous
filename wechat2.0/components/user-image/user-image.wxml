@@ -1,0 +1,6 @@
+<!--components/imagepreview/preview.wxml-->
+<view class="back-panel" hidden="{{hidden}}" bindtap="toggleUserImage">
+  <view class="image-panel">
+    <image mode="widthFix" src="{{imageUrl}}"></image>
+  </view>
+</view>

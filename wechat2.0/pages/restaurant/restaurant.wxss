@@ -1,1 +1,199 @@
-/* pages/restaurant/restaurant.wxss */
+<<<<<<< HEAD
+page {
+  /* background-color: #edece8; */
+  background-color: #f2f2f2;
+  color: #666;
+  font-family: Microsoft YaHei;
+}
+
+.page_row{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  top:0rpx;
+}
+
+.page_rowFixed{
+  height: 65rpx;
+  width: 100%;
+  background-color: #fff;
+  position:fixed;
+  display: flex;
+  flex-direction: row;
+  top:0rpx
+}
+
+.search{
+  width: 80%;
+}
+.search_arr {
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+}
+.searchcion {
+  margin: 10rpx 10rpx 10rpx 10rpx;
+  position: absolute;
+  left:25rpx;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+} 
+.search_arr input{
+  margin-left: 60rpx;
+  height: 60rpx;
+  border-radius: 5px;
+}
+.sousuo {
+  height: 60rpx;
+  margin-left: 15rpx;
+  width: 15%;
+  line-height: 150%;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 10rpx;
+}
+
+.holder{
+  height:90rpx;
+  width: 100%;
+}
+
+.restList{
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.restList .rest{
+  margin: 10rpx;
+  display: flex;
+  background-color: #fff;
+  border-radius: 10rpx;
+  height: 200rpx;
+}
+
+.restList .restInfo{
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  flex: 3;
+}
+
+.restList .rest .restPic{
+  margin-top: 40rpx;
+  height: 180rpx;
+  flex: 1;
+  margin-right: 5px;
+  display: flex;
+}
+
+.restName{
+  font-weight: bold;
+  margin: 5rpx;
+  color: #333333;
+}
+
+.restTitle{
+  margin-top: 15rpx;
+  display: flex;
+  font-size: 25rpx;
+  margin-left: 5rpx;
+  margin-bottom: 15rpx;
+  flex-wrap: wrap;
+}
+
+.restSign {
+  padding: 5rpx 10rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 30rpx;
+  color: #fff;
+  border-radius: 5rpx;
+  margin-right: 8rpx;
+  line-height: 30rpx;
+  margin-top: 10rpx;
+}
+.restDetail{
+  color: #999999;
+  font-size: 30rpx;
+}
+=======
+/**index.wxss**/
+/* 打卡 */
+.card {
+  width: 94%;
+  margin: 20px auto 20px auto;
+  border-radius: 15rpx;
+  text-align: center;
+  animation: roll-card-x;
+  animation-duration: 0.45s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  background-color: #fff;
+  box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
+}
+.card-user {
+  padding: 8px;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+}
+.card-user-image {
+  border: solid 5rpx #00bfff;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 60rpx;
+}
+.card-user-image image {
+  width: 75rpx;
+  height: 75rpx;
+}
+.card-user-name {
+  margin-left: 60rpx;
+  color: #353535;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-title {
+  margin-top: 15px;
+  font-size: 17pt;
+}
+.Labels{
+  display: flex;
+  justify-content: space-between;
+}
+.card-content {
+  color: #353535;
+  /* 仅显示部分，多余内容省略 */
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: left;
+  padding: 0 25rpx;
+}
+.card-image {
+  width: 60%;
+  margin: 8px auto 0 auto;
+}
+.card-image image {
+  width: 100%;
+  z-index: 999;
+}
+>>>>>>> ecc746de330539875bff559ed156cec37a9e0955

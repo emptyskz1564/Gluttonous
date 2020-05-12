@@ -1,0 +1,10 @@
+<!--templates/errors/errors.wxml-->
+<template name="errors">
+  <block wx:if="{{exceptions.isError}}">
+    <view class="error-frame">
+      <text class="error-title iconfont icon-reeor"></text>
+      <text class="error-message">{{exceptions.errorMessage}}</text>
+      <view class="error-detail">{{exceptions.errorDetail}}</view>
+    </view>
+  </block>
+</template>

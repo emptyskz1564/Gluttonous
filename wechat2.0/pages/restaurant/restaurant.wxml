@@ -1,2 +1,58 @@
-<!--pages/restaurant/restaurant.wxml-->
-<text>pages/restaurant/restaurant.wxml</text>
+<<<<<<< HEAD
+<!-- 防止页面上跳的一个占位盒子 -->
+<view class="holder"></view>
+<view class="page_row">
+    <view class="search">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'>
+          
+        </input>
+      </view>
+    </view>
+    <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
+    <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
+</view>
+
+
+<!-- 餐厅列表 -->
+<view class="restList" wx:for="{{showList}}" wx:key="index" wx:for-index="i">
+
+  <view class="rest">
+    <view class="restInfo">
+      <view class="restName">{{item.resTitle}}</view>
+      <view class="restTitle">
+        <view wx:for="{{item.labels}}" wx:key="index" wx:for-index="j" style="background-color:{{randomColorArr[i*4+j]}}" class="restSign">
+          <view>{{item}}</view>
+        </view>
+      </view>
+      <navigator style="margin:5rpx" url="../restDetail/restDetail?resId={{item.resId}}" class="restDetail">餐厅详情>></navigator>
+    </view>
+
+      <image class="restPic" mode="widthFix" wx:if="{{item.resUrl[0].length!=0}}" src="{{item.resUrl[0]}}" bindtap="handlePreviewImg" data-url="{{item.resUrl}}"></image>
+
+
+  </view>
+</view>
+
+
+
+=======
+<view wx:for="{{restaurants}}" wx:key="index" wx:for-index="i" class="card" bindtap="toRest" data-item="{{item.resId}}">
+	<view class="card-user">
+		<view class="card-user-image">
+
+		</view>
+		<view>{{item.resTitle === null ? '无名餐厅' : item.resTitle}}</view>
+	</view>
+	<view class="Labels">
+		<view class="card-content">{{item.lableContent1=== '' || item.lableContent1 === null ? '无标签' : item.lableContent1}}</view>
+		<view class="card-content">{{item.lableContent2=== '' || item.lableContent2 === null ? '无标签' : item.lableContent2}}</view>
+		<view class="card-content">{{item.lableContent3=== '' || item.lableContent3 === null ? '无标签' : item.lableContent3}}</view>
+	</view>
+
+	<view class="card-image">
+		<image mode="widthFix" src="{{ resImageUrls[i] === null ? 'http://47.111.252.78/images/exceptions/nope.png' : resImageUrls[i] }}" />
+	</view>
+</view>
+>>>>>>> ecc746de330539875bff559ed156cec37a9e0955

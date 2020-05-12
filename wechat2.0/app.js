@@ -2,6 +2,10 @@
 App({
   onLaunch: function () {},
   globalData: {
-    userInfo: null
+    userInfo: null,
+    location: {
+      longitude: 115.394633,
+      latitude: 31.795101
+    }
   }
 })

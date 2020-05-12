@@ -1,0 +1,38 @@
+<!--pages/card/card.wxml-->
+
+<!-- 预览附加图像 -->
+<addons-image id="previewAddonsImage" imageUrl="{{imageUrl}}" hidden="{{showAddons}}"></addons-image>
+
+<import src="./../../templates/errors/errors.wxml"/>
+<template is="errors" data="{{exceptions}}"></template>
+<scroll-view class="card-container" hidden="{{exceptions.isError}}" scroll-y="{{true}}">
+  <view class="card-header">
+    <view class="card-header-panel">
+      <view class="card-header-user">
+        <view class="card-header-user-name">{{rest.resTitle !== '' && rest.resTitle !== null ? rest.resTitle : '这个人没写名字'}}</view>
+      </view>
+      <view class="card-header-favor">
+        <text wx:if="{{isCollect}}" class="iconfont icon-collection-fill card-header-favor-icon" bindtap="CancelCollecting"></text>
+        <text wx:else class="iconfont icon-collection card-header-favor-icon" bindtap="Collecting"></text>
+        <text class="card-header-favor-text">{{card.cardLike !== null ? card.cardLike : '？'}}</text>
+        <text class="iconfont icon-map card-header-favor-icon" bindtap="toMap" data-item="{{rest.resAdress}}"></text>
+      </view>
+    </view>
+  </view>
+  <view class="card-detail">
+    <view class="card-label-panel">
+      <view wx:for="{{restLabel}}" wx:key="index" wx:for-index="i">
+        <view>{{item !== '' && item !== null ? item : '标签' }}</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="card-image-panel">
+    <view class="card-image-panel-item" wx:for="{{restImageUrls}}" wx:key="index" wx:for-index="i" data-url="{{item}}" bindtap="toggleAddonsImage">
+      <image src="{{item}}" mode="widthFix"></image>
+    </view>
+  </view>
+
+
+</scroll-view>

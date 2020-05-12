@@ -1,0 +1,6 @@
+<!--components/addons-image/addons-image.wxml-->
+<view class="back-panel" hidden="{{hidden}}" bindtap="toggleAddonsImage">
+  <view class="image-panel">
+    <image mode="widthFix" src="{{imageUrl}}"></image>
+  </view>
+</view>

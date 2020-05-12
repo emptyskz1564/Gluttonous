@@ -1,0 +1,75 @@
+<view class="Container">
+  <view class="Card">
+    <view class="userInfo">
+      <image src="{{resList.userUrl}}" class="userPic"></image>
+      <view class="userName">{{resList.userName}}</view>
+    </view>
+
+    <view class="cardTitle">{{resList.cardTitle}}</view>
+
+    <view class="labelContainer">
+          <view 
+          wx:for="{{resList.cardLabel}}" wx:key="index" wx:for-index="j"
+          class="cardLabel" style="background-color:{{randomColorArr[j]}}">
+            {{item}}
+          </view>
+    </view>
+
+    <view class="cardContent">{{resList.cardContent}}</view>
+
+    <view class="imgContainer">
+      <view wx:for="{{resList.picUrl}}"
+        wx:if="{{item.length!=0}}">
+        <image 
+        src="{{resList.picUrl[index]}}" 
+        class="img" 
+        bindtap="handlePreviewImg" 
+        data-url="{{resList.picUrl}}" data-index="{{index}}"
+        ></image>
+      </view>
+      <video class="video" wx:for="{{resList.videoUrl}}" wx:if="{{item.length!=0}}" src="{{resList.videoUrl[index]}}" controls ></video>
+    </view>
+
+    <view class="disContainer">
+      <view wx:for="{{disList}}" wx:key="index" class="alldis">
+        <view wx:if="{{item.parentId===0}}" class="disItem" bindtap="setInput" data-disId="{{item.disId}}" data-parentThread="{{item.disThread}}" data-parentId="{{item.parentId}}">
+          {{item.userName}}:{{item.disComment}}
+          <view wx:if="{{userLike[index]===false}}" class="likeCount">
+            <image  src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}">
+            </image>
+            <view>{{item.discussLike+1}}</view>
+          </view>
+          <view wx:else class="likeCount">
+            <image src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-disId="{{item.disId}}"  data-cardId="{{index}}"></image>
+            <view wx:if="{{item.discussLike!=null}}">{{item.discussLike}}</view>
+          </view>
+      
+        </view>
+
+        <view wx:else style="margin-left: 30rpx;" class="disItem">
+          {{item.userName}}:{{item.disComment}}
+          <view wx:if="{{userLike[index]===false}}" class="likeCount">
+            <image  src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" value="{{inputValue}}" data-disId="{{item.disId}}" data-cardId="{{index}}">
+            </image>
+            <view>{{item.discussLike+1}}</view>
+          </view>
+          <view wx:else class="likeCount">
+            <image src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></image>
+            <view wx:if="{{item.discussLike!=null}}">{{item.discussLike}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+    <view class="discuss">
+      <input value="{{inputValue}}" bindinput='inputBind' bindconfirm='huifu' focus="{{inputShowed}}"></input>
+      <view class="huifu" bindtap="huifu">回复</view>
+    </view>
+    
+  </view>
+
+  
+
+
+</view>

@@ -1,0 +1,22 @@
+.increase{
+  width: 60rpx;
+  height: 60rpx;
+  position: fixed;
+  top: 10rpx;
+  right: 20rpx;
+  
+}
+.decrease{
+  width: 60rpx;
+  height: 60rpx;
+  position: fixed;
+  top: 10rpx;
+  right: 90rpx;
+}
+.address{
+  width: 80rpx;
+  height: 80rpx;
+  position: fixed;
+  top: 10rpx;
+  left: 20rpx;
+}
