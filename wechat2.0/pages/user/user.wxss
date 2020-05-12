@@ -78,6 +78,7 @@
   width: 240rpx;
   height: 240rpx;
   overflow: hidden;
+  border-radius: 50%;
 }
 .user-header-image-frame image {
   width: 100%;
@@ -108,7 +109,7 @@
   flex-direction: row;
   align-items: center;
   align-content: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .user-body-navigator-item {
   display: flex;

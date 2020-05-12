@@ -1,9 +1,5 @@
 {
   "usingComponents": {
-<<<<<<< HEAD
-    "Tabs":"/pages/components/Tabs/Tabs"
-=======
     "Tabs":"/components/tab/tab"
->>>>>>> ecc746de330539875bff559ed156cec37a9e0955
   }
 }

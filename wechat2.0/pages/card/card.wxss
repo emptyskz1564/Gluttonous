@@ -35,6 +35,8 @@
   justify-content: center;
   overflow: hidden;
   border-radius: 50%;
+  width: 125rpx;
+  height: 125rpx;
 }
 .card-header-image image {
   width: 125rpx;
@@ -42,6 +44,9 @@
 }
 .card-header-user-name {
   margin-left: 50rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .card-header-favor {
   width: 25%;

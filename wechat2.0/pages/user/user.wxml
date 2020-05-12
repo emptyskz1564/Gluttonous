@@ -8,23 +8,20 @@
   </button>
   <view class="user-header-image">
     <view class="user-header-image-frame">
-      <image mode="widthFix" src="{{userInfo !== null && userInfo.userUrl !== null && userInfo.userUrl !== '' ? userInfo.userUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}"></image>
+      <image mode="widthFix" src="{{userInfo ? userInfo.avatarUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}"></image>
     </view>
   </view>
-  <view class="user-header-name">{{userInfo !== null && userInfo.userName !== null ? userInfo.userName : '点击头像登录'}}</view>
+  <button wx:if="{{!hasUserInfo}}" type="primary" plain bindgetuserinfo="handleGetuserinfo" open-type="getUserInfo">点我登录</button>
+  <view wx:else class="user-header-name">{{userInfo.nickName}}</view>
 </view>
 <view class="user-body-navigator">
-  <view class="user-body-navigator-item">
+  <view class="user-body-navigator-item" bindtap="toStar">
     <text class="iconfont icon-collection-fill user-body-navigator-icon icon-star"></text>
     <text class="user-body-navigator-text">收藏</text>
   </view>
-  <view class="user-body-navigator-item">
+  <view class="user-body-navigator-item" bindtap="toMyCard">
     <text class="iconfont icon-namecard-fill user-body-navigator-icon icon-card"></text>
     <text class="user-body-navigator-text">打卡</text>
-  </view>
-  <view class="user-body-navigator-item">
-    <text class="iconfont icon-falg-fill user-body-navigator-icon icon-history"></text>
-    <text class="user-body-navigator-text">足迹</text>
   </view>
 </view>
 <view class="user-label-panel">
@@ -32,12 +29,12 @@
     <text class="iconfont icon-editor user-body-navigator-icon"></text>编辑
   </view>
   <view class="user-label-item-float vip">
-    <text class="{{'iconfont user-body-navigator-icon ' + (userInfo.vip !== null && userInfo.vip > 0 ? 'icon-vip-fill icon-vip-c' : 'icon-vip')}}"></text>
-    {{userInfo.vip !== null && userInfo.vip > 0 ? userInfo.vip : 0}}
+    <text class="{{'iconfont user-body-navigator-icon ' + (userInfo ? 'icon-vip-fill icon-vip-c' : 'icon-vip')}}"></text>
+    {{userInfo ? userInfo.vip : 0}}
   </view>
-  <view class="user-label-item-float label-1" bindtap="selectLabel1">{{label1}}</view>
-  <view class="user-label-item-float label-2" bindtap="selectLabel2">{{label2}}</view>
-  <view class="user-label-item-float label-3" bindtap="selectLabel3">{{label3}}</view>
+  <view class="user-label-item-float label-1">{{label1.lableContent}}</view>
+  <view class="user-label-item-float label-2">{{label2.lableContent}}</view>
+  <view class="user-label-item-float label-3">{{label3.lableContent}}</view>
 </view>
 <view class="picker" hidden="{{!showLabels}}">
   <view class="picker-view-column-title">请依次选择三种最喜欢的口味</view>

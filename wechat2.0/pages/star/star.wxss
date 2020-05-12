@@ -50,8 +50,11 @@
   white-space: nowrap;
 }
 .card-title {
-  margin-top: 15px;
   font-size: 17pt;
+}
+.Labels{
+  display: flex;
+  justify-content: space-between;
 }
 .card-content {
   color: #353535;

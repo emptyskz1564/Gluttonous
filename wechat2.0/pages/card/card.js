@@ -9,10 +9,11 @@ Page({
   data: {
     disList:[],     //评论列表
     userLike:[],      //用来记录每个评论的点赞状态
-    paramIndex: '',
     card: null,
     cardImageUrls: [],
     cardVideoUrls: [],
+    cardLike: 0,
+    favorStatus: false,
     exceptions: {
       // 请求是否失败
       isError: false,
@@ -27,50 +28,24 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    this.setData({ paramIndex: options.id })
-    wx.request({
-      url: requestUtil.apiUrl + '/vcarduserdiscuss/card/' + that.data.paramIndex,
-      method: 'GET',
-      success: function (res) {
-        console.log(res);
-        
-        // 请求成功
-        if (res.statusCode === 200) {
-          that.setData({
-            card: res.data[0],
-            cardImageUrls: (function() {
-              return res.data[0].picUrl === null ? null : (function () {
-                let urls = res.data[0].picUrl.split('@')
-                urls.pop()
-                return urls
-              })()
-            })()
-          })
-        } else { // 其他失败情况
-          that.setData({
-            exceptions: requestUtil.requestExceptionHandler(res.statusCode)
-          })
+    let index = options.id
+    let current = (function () {
+      for (let i = 0; i < wx.getStorageSync('hotCard').length; i++) {
+        if (wx.getStorageSync('hotCard')[i].cardId + '' === index) {
+          return wx.getStorageSync('hotCard')[i]
         }
-      },
-      fail: function (err) {
       }
-    })
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1//discusses/asc/' + that.data.paramIndex,
-      success:function(res){
-        console.log(res);
-        that.setData({
-          disList:res.data
-        })
-        let userLike=[];
-        for(let i=0;i<that.data.disList.length;i++){
-          userLike.push(true);
-        }
-        that.setData({
-          userLike:userLike
-        })
-        console.log(res);
-      }
+    })()
+    that.setData({
+      card: current,
+      cardImageUrls: (function () {
+        return current.picUrl === null ? null : (function () {
+          let urls = current.picUrl.split('@')
+          urls.pop()
+          return urls
+        })()
+      })(),
+      cardLike: current.cardLike
     })
   },
   /**
@@ -94,14 +69,27 @@ Page({
   // 点赞
   favor: function () {
     let that=this;
-    let userInfo=wx.getStorageSync('userInfo');
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+that.data.card.cardId+"/"+userInfo["userId"],
-      method:'POST',
-      success:function(res){
-        console.log(res);
-      }
-    })
+    let userId = wx.getStorageSync('userId');
+    if (userId !== '' && userId !== null) {
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+that.data.card.cardId+"/" + userId,
+        method:'POST',
+        success:function(){
+          wx.showToast({
+            title: '操作成功'
+          })
+        }
+      })
+      this.setData({
+        favorStatus: !this.data.favorStatus,
+        cardLike: this.data.cardLike + (this.data.favorStatus ? -1 : 1)
+      })
+    } else {
+      wx.showToast({
+        title: '请先登录再点赞',
+        icon: 'none'
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面显示
@@ -139,6 +127,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+
   handleLike(e){
     let that=this;
     let userLike=that.data.userLike;
@@ -148,6 +137,7 @@ Page({
       userLike:userLike
     })
   },
+  
   handleDisLike(e){
     let userInfo=wx.getStorageSync('userInfo');
     let userId=userInfo["userId"];
@@ -243,6 +233,7 @@ Page({
       method:'POST',
       success:function(res){
         console.log(res);
+        
       }
     })
   }

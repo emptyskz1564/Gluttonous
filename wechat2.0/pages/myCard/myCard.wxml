@@ -1,66 +1,20 @@
-<!-- 防止页面上跳的一个占位盒子 -->
-<view class="holder"></view>
-<view class="page_rowFixed">
-    <view class="search">
-      <view class="search_arr">
-        <icon class="searchcion" size='20' type='search'></icon>
-        <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
-      </view>
-    </view>
-    <view wx:if="{{searchList.length===0}}" class='sousuo' bindtap="query">搜索</view>
-    <view wx:else class='sousuo' bindtap="clearSearch">取消</view>
-</view>
-
-<!-- <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange"> -->
-
-  <view class="List">
-
-    <view class="ListContainer">
-
-      <view wx:for="{{showList}}" wx:key="index" class="ListItem" wx:for-index="i">
-
-        <view class="userInfo">
-          <image class="userPic" src="{{item.userUrl}}"></image>
-          <view class="userName">{{item.userName}}</view>
-        </view>
-
-        <view class="cardTitle">{{item.cardTitle}}</view>
-
-        <view class="cardContent">{{item.cardContent}}</view>
-
-        <view class="labelContainer">
-          <view 
-          wx:for="{{item.cardLabel}}" wx:key="index" wx:for-index="j"
-          class="cardLabel" style="background-color:{{randomColorArr[i*3+j]}}">
-            {{item}}
-          </view>
-        </view>
-
-        <view class="imgContainer" >
-          <image src="{{item.picUrl[0]}}" class="img" bindtap="handlePreviewImg" data-url="{{item.picUrl}}"></image>
-        </view>
-        
-        <view class="bottom">
-          <view wx:if="{{userLike[i]===false}}" class="likeContainer">
-            <view>{{item.cardLike+1}}</view>
-            <image src="/pages/icons/点赞成功.png" class="like" bindtap="handleLike" data-cardId="{{i}}"></image>
-          </view>
-
-          <view wx:else class="likeContainer">
-            <view>{{item.cardLike}}</view>
-            <image  src="/pages/icons/点赞.png" class="like" bindtap="handleDisLike" data-Id="{{item.cardId}}" data-cardId="{{i}}"></image>
-          </view>
-          
-          <navigator url="/pages/cardDetail/cardDetail?cardId={{item.cardId}}" data-cardId="{{item.cardId}}"><image src="/pages/icons/评论.png" class="discuss"></image></navigator>
-        </view>
-      
-
-      </view>
-
-    </view>
-
-  </view>
-
-
-
-
+<!--index.wxml-->
+<!-- 错误提示 -->
+<import src="./../../templates/errors/errors.wxml" />
+<template is="errors" data="{{exceptions}}"></template>
+<view hidden="{{hasData}}" class="nothing">暂无打卡</view>
+<block hidden="{{!hasData}}">
+	<view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{item.cardId}}">
+		<view class="card-user">
+			<view class="card-user-image">
+				<image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
+			</view>
+			<view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
+		</view>
+		<text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
+		<view class="card-content">{{item.cardContent=== '' || item.cardContent === null ? '他什么都没写，看图吧' : item.cardContent}}</view>
+		<view class="card-image">
+			<image mode="widthFix" src="{{cardsImageUrls[i] === null || cardsImageUrls[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />
+		</view>
+	</view>
+</block>

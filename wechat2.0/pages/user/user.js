@@ -1,5 +1,6 @@
 // pages/user/user.js
 const requestUtil = require('./../../utils/request.js')
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -7,11 +8,22 @@ Page({
   data: {
     userInfo: null,
     showLabels: false,
-    label1: '口味偏好',
-    label2: '口味偏好',
-    label3: '口味偏好',
+    label1: {
+      lableId: '-1',
+      lableContent: '口味偏好'
+    },
+    label2: {
+      lableId: '-1',
+      lableContent: '口味偏好'
+    },
+    label3: {
+      lableId: '-1',
+      lableContent: '口味偏好'
+    },
     labels: [],
-    labelValue: [0, 0, 0]
+    labelValue: [0, 0, 0],
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasUserInfo: false
   },
   // 获取所有的口味标签
   getAllLabels: function () {
@@ -20,7 +32,6 @@ Page({
       url: requestUtil.apiUrl + '/userlable/first',
       method: 'GET',
       success: function (res) {
-        console.log(res.statusCode, res.data)
         if (res.statusCode === 200) {
           that.setData({
             labels: res.data
@@ -29,7 +40,7 @@ Page({
           requestUtil.requestExceptionHandler(res.statusCode)
         }
       },
-      fail: function(err) {
+      fail: function (err) {
         console.log(err)
       }
     })
@@ -42,27 +53,117 @@ Page({
   selectLabels: function (e) {
     const val = e.detail.value
     this.setData({
-      label1: this.data.labels[val[0]].lableContent,
-      label2: this.data.labels[val[1]].lableContent,
-      label3: this.data.labels[val[2]].lableContent
+      label1: {
+        lableId: this.data.labels[val[0]].lableId,
+        lableContent: this.data.labels[val[0]].lableContent
+      },
+      label2: {
+        lableId: this.data.labels[val[1]].lableId,
+        lableContent: this.data.labels[val[1]].lableContent
+      },
+      label3: {
+        lableId: this.data.labels[val[2]].lableId,
+        lableContent: this.data.labels[val[2]].lableContent
+      }
     })
   },
   labelsChosen: function () {
+    let that = this
     this.setData({
       showLabels: !this.data.showLabels
     })
+    let userId = wx.getStorageSync('userId')
+    if (userId === '') {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      })
+    } else {
+      wx.request({
+        url: requestUtil.apiUrl + '/userlable/second',
+        method: 'POST',
+        data: {
+          str: JSON.stringify({
+            userId: userId,
+            lableId1: that.data.label1.lableId,
+            lableId2: that.data.label2.lableId,
+            lableId3: that.data.label3.lableId
+          })
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" /*更改头部*/
+        },
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }
+  },
+  getWechatUserInfo: function () {
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+  },
+  handleGetuserinfo: function (e) {
+    let authStatus = e.detail.errMsg
+    this.setData({
+      canIUse: authStatus
+    })
+    if (authStatus === 'getUserInfo:ok') {
+      this.getWechatUserInfo()
+      wx.login({
+        success: (res) => {
+          wx.request({
+            url: requestUtil.apiUrl + '/login/' + res.code,
+            method: 'GET',
+            success: (res) => {
+              app.globalData.user.userId = res.data
+              wx.setStorageSync('userId', res.data)
+            }
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '授权后可以使用更多功能',
+        icon: 'none'
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getAllLabels()
+    this.getWechatUserInfo()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  },
+  onReady: function () {},
   /**
    * 生命周期函数--监听页面显示
    */
@@ -74,6 +175,16 @@ Page({
    */
   onHide: function () {
 
+  },
+  toStar: function () {
+    wx.navigateTo({
+      url: './../star/star',
+    })
+  },
+  toMyCard: function () {
+    wx.navigateTo({
+      url: './../myCard/myCard',
+    })
   },
   /**
    * 生命周期函数--监听页面卸载
@@ -100,33 +211,5 @@ Page({
     return {
       title: '饕餮食客，海吃海喝'
     }
-  },
-
-  handleGetuserinfo(e){
-    let {userInfo} = e.detail;
-    userInfo["userId"]=this.data.userId;
-    console.log(userInfo);
-    wx.setStorageSync('userInfo', userInfo);
-    wx.reLaunch({
-      url: '/pages/user2/user'
-    })
-  },
-
-  login:function () {
-    let that= this;
-    wx.login({
-      success:function(res){
-        console.log(res.code);
-        wx.request({
-          url: 'https://hailicy.xyz/wechatpro/v1/login/'+res.code,
-          success:function(res){
-            console.log(res);
-            that.setData({
-              userId:res.data
-            })
-          }
-        })
-      }
-    })
   }
 })

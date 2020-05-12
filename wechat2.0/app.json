@@ -1,14 +1,15 @@
 {
   "pages": [
-    "pages/restaurant/restaurant",
-    "pages/user/user",
     "pages/index/index",
+    "pages/user/user",
+    "pages/restaurant/restaurant",
     "pages/card/card",
     "templates/errors/errors",
     "templates/warnings/warnings",
     "pages/restDetail/restDetail",
     "pages/map/map",
-    "pages/test/test"
+    "pages/star/star",
+    "pages/myCard/myCard"
   ],
   "permission": {
     "scope.userLocation": {

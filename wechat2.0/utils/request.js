@@ -1,4 +1,5 @@
 let apiUrl = 'https://hailicy.xyz/wechatpro/v1'
+
 let requestExceptionHandler = function (code) {
   if (code === 404) {
     return {

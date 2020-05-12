@@ -15,9 +15,9 @@
 				</view>
 				<view class="card-header-user-name">{{card.userName !== '' && card.userName !== null ? card.userName : '这个人没写名字'}}</view>
 			</view>
-			<view class="card-header-favor">
-				<text class="iconfont icon-good card-header-favor-icon"></text>
-				<text class="card-header-favor-text">{{card.cardLike !== null ? card.cardLike : '？'}}</text>
+			<view class="card-header-favor" bindtap="favor">
+				<text class="{{'iconfont card-header-favor-icon' + (favorStatus ? ' icon-good-fill' : ' icon-good')}}"></text>
+				<text class="card-header-favor-text">{{card ? cardLike : '-1'}}</text>
 			</view>
 		</view>
 	</view>
@@ -53,7 +53,7 @@
 
 			</view>
 
-			<view wx:else style="margin-left: 30rpx;" class="disItem">
+			<view class="disItem">
 				{{item.userName}}:{{item.disComment}}
 				<view wx:if="{{userLike[index]===false}}" class="likeCount">
 					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></text>
@@ -68,7 +68,7 @@
 	</view>
 
 	<view class="discuss">
-		<input value="{{inputValue}}" bindinput='inputBind' bindconfirm='huifu' focus="{{inputShowed}}"></input>
+		<input value="{{inputValue}}" bindconfirm='huifu' focus="{{inputShowed}}"></input>
 		<view class="reply" bindtap="reply">回复</view>
 	</view>
 
