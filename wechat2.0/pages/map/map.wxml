@@ -1,5 +1,5 @@
 <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" circles="{{circles}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: {{view.Height}}px;">
-   <cover-image src="/pages/icons/减少.png" data-controlid="1" class="increase" bindtap="controltap"></cover-image>
-   <cover-image src="/pages/icons/增加.png" data-controlid="2" class="decrease" bindtap="controltap"></cover-image>
-   <cover-image src="/pages/icons/address.png" class="address" bindtap="moveToLocation"></cover-image>
+   <cover-image src="./../../assets/icons/减少.png" data-controlid="1" class="increase" bindtap="controltap"></cover-image>
+   <cover-image src="./../../assets/icons/增加.png" data-controlid="2" class="decrease" bindtap="controltap"></cover-image>
+   <cover-image src="./../../assets/icons/address.png" class="address" bindtap="moveToLocation"></cover-image>
 </map>

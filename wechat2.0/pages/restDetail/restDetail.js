@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    formShow: false,
     isCollect:false,
     paramIndex: '',
     rest: null,
@@ -28,7 +29,12 @@ Page({
     },
     imageUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
   },
-
+  // 打开或关闭打卡表单
+  toggleCardForm: function () {
+    this.setData({
+      formShow: !this.data.formShow
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -40,7 +46,6 @@ Page({
       url: 'https://hailicy.xyz/wechatpro/v1/restaurants/'+that.data.paramIndex,
       method:'GET',
       success:function(res){
-        console.log(res);
         // 请求成功
         if (res.statusCode === 200) {
           that.setData({
@@ -70,7 +75,6 @@ Page({
         
       }
     })
-    
   },
 
 

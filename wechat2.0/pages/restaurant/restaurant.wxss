@@ -70,3 +70,14 @@
   width: 100%;
   z-index: 999;
 }
+/* 搜索栏 */
+.search {
+  width: 95%;
+  margin: 0 auto;
+  border: solid 1rpx #888;
+  border-radius: 5rpx;
+  box-shadow: 3rpx 3rpx 3rpx #888 inset;
+  padding: 10rpx;
+  margin-top: 15rpx;
+  background-color: #fff;
+}

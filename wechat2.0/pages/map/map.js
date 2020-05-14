@@ -73,7 +73,7 @@ Page({
 
   //滑动地图事件
   regionchange(e) {
-    console.log("regiοnchange===" + e.type)
+    // console.log("regiοnchange===" + e.type)
   },
 
   //点击merkers

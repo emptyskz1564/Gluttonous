@@ -6,7 +6,7 @@
   background-color: #fff;
 }
 .card-header-panel, .card-header-image, .card-header-user, .card-header-favor,
-.card-label-panel {
+.card-label-panel, .addCard, .form-control {
   display: flex;
   display: -webkit-flex;
   align-items: center;
@@ -100,4 +100,32 @@
 }
 .card-image-panel-item image {
   width: 100%;
+}
+/* 添加打卡 */
+.addCard {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 100rpx;
+  right: 100rpx;
+  background-color: #87cefa;
+  text-align: center;
+  color: #353535;
+  justify-content: center;
+}
+.large-icon {
+  font-size: 25pt;
+}
+/* 打卡弹窗 */
+.form-bg {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.form-control {
+  justify-content: space-around;
 }

@@ -1,4 +1,7 @@
-<view wx:for="{{restaurants}}" wx:key="index" wx:for-index="i" class="card" bindtap="toRest" data-item="{{item.resId}}">
+<view>
+	<input type="text" value="{{search}}" class="search" placeholder="查找你想要的" bindinput="searchRestaurant"></input>
+</view>
+<view wx:for="{{restaurantList}}" wx:key="index" wx:for-index="i" class="card" bindtap="toRest" data-item="{{item.resId}}">
 	<view class="card-user">
 		<view class="card-title">{{item.resTitle === null ? '无名餐厅' : item.resTitle}}</view>
 	</view>
@@ -8,6 +11,6 @@
 		<view class="card-content">{{item.lableContent3=== '' || item.lableContent3 === null ? '无标签' : item.lableContent3}}</view>
 	</view>
 	<view class="card-image">
-		<image mode="widthFix" src="{{ resImageUrls[i] === null || resImageUrls[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : resImageUrls[i] }}" />
+		<image mode="widthFix" src="{{ resImageUrlList[i] === null || resImageUrlList[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : resImageUrlList[i] }}" />
 	</view>
 </view>

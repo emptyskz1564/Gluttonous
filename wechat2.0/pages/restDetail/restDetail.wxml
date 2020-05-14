@@ -34,4 +34,16 @@
     </view>
   </view>
 
+  <view class="addCard" bindtap="toggleCardForm">
+    <text class="iconfont icon-add-select large-icon"></text>
+  </view>
+
+  <view class="form-bg" hidden="{{!formShow}}">
+    <view class="form-control">
+      <button type="primary" plain>提交</button>
+      <button type="warn" plain bindtap="toggleCardForm">取消</button>
+      <button plain style="color: white; border-color: white">清空</button>
+    </view>
+  </view>
+
 </scroll-view>
