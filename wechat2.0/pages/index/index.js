@@ -88,7 +88,7 @@ Page({
   // 跳转到打卡详情
   toCard: function (e) {
     wx.navigateTo({
-      url: '../card/card?id=' + e.currentTarget.dataset.item,
+      url: '../card/card?id=' + e.currentTarget.dataset.item+'&sign='+e.currentTarget.dataset.sign,
     })
   }
 })

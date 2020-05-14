@@ -4,7 +4,7 @@ let requestUtil = require('./../../utils/request.js')
 const app = getApp()
 Page({
   data: {
-    hasData: false,
+    hasData:false,
     // 打卡内容
     cards: [],
     nearCards: [],
@@ -29,21 +29,44 @@ Page({
       longitude: app.globalData.location.longitude,
       latitude: app.globalData.location.latitude
     },
-    // 导航栏
-    tabs: [
-      { id: 0, value: "热门", isActive: true },
-      { id: 1, value: "推荐-VIP专享", isActive: false }
-    ]
   },
-  // 根据id获得打卡内容
+
+  // 获得打卡内容
   getCards: function () {
-    
+    let that = this
+    wx.request({
+      url: requestUtil.apiUrl + '/cardusers/'+wx.getStorageSync('userId'),
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          // 请求成功
+          that.setData({
+            hasData:true,
+            cards: res.data,
+            cardsImageUrls: (function () {
+              let imageUrls = []
+              for (let i = 0; i < res.data.length; i++) {
+                imageUrls.push(
+                  res.data[i].picUrl === null ? null : res.data[i].picUrl.split('@')[0]
+                )
+              }
+              return imageUrls
+            })()
+          })
+          wx.setStorageSync('myCard', that.data.cards)
+        } else {
+          that.setData({ exceptions: requestUtil.requestExceptionHandler(res.statusCode) })
+        }
+      },
+      // 其他错误
+      fail: function (err) {
+      }
+    })
   },
   onLoad: function () {
     // 加载时立即获得打卡内容
     this.getCards()
-    this.getLocations()
-    this.getNearCards()
+
   },
   onReady: function () {},
   // 切换tab
@@ -56,7 +79,7 @@ Page({
   // 跳转到打卡详情
   toCard: function (e) {
     wx.navigateTo({
-      url: '../card/card?id=' + e.currentTarget.dataset.item,
+      url: '../card/card?id=' + e.currentTarget.dataset.item+'&sign='+e.currentTarget.dataset.sign,
     })
   }
 })

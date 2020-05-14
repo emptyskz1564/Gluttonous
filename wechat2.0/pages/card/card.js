@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sign:null,
     // 回复框状态
     inputShowed: false,
     //回复内容
@@ -48,12 +49,12 @@ Page({
   onLoad: function (options) {
     let that = this
     let index = options.id;
-    this.setData({ paramIndex: options.id })
+    this.setData({ paramIndex: options.id,sign: options.sign })
     this.setData({
-      card:wx.getStorageSync('hotCard')[index],
+      card:wx.getStorageSync(that.data.sign)[index],
       cardImageUrls: (function() {
-        return wx.getStorageSync('hotCard')[index].picUrl === null ? null : (function () {
-          let urls = wx.getStorageSync('hotCard')[index].picUrl.split('@')
+        return wx.getStorageSync(that.data.sign)[index].picUrl === null ? null : (function () {
+          let urls = wx.getStorageSync(that.data.sign)[index].picUrl.split('@')
           urls.pop()
           return urls
         })()
@@ -61,7 +62,7 @@ Page({
     })
     console.log(this.data.card);
     wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1//discusses/asc/' + wx.getStorageSync('hotCard')[index].cardId,
+      url: 'https://hailicy.xyz/wechatpro/v1//discusses/asc/' + wx.getStorageSync(that.data.sign)[index].cardId,
       success:function(res){
         console.log(res);
         that.setData({
@@ -100,9 +101,9 @@ Page({
   favor: function () {
     let that=this;
     let userId = wx.getStorageSync('userId');
-    let hotCard=wx.getStorageSync('hotCard');
-    hotCard[that.data.paramIndex]["cardLike"] += 1;
-    wx.setStorageSync('hotCard', hotCard);
+    let Card=wx.getStorageSync(that.data.sign);
+    Card[that.data.paramIndex]["cardLike"] += 1;
+    wx.setStorageSync(that.data.sign, Card);
     if (userId !== '' && userId !== null) {
       wx.request({
         url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+that.data.card.cardId+"/" + userId,
@@ -268,7 +269,7 @@ Page({
       success:function(res){
         console.log(res);
         wx.redirectTo({
-          url: '../card/card?id='+that.data.paramIndex,
+          url: '../card/card?id='+that.data.paramIndex+'&sign'+that.data.sign,
         })
       }
     })
