@@ -14,7 +14,25 @@ Page({
   },
   //获取收藏餐厅
   getStarRestaurant: function () {
-    
+    let that=this;
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1/vuserrestaurant/'+wx.getStorageSync('userId'),
+      success:function(res){
+        that.setData({
+          hasData:true,
+          restaurants:res.data,
+          resImageUrls: (function () {
+            let imageUrls = []
+            for (let i = 0; i < res.data.length; i++) {
+              imageUrls.push(
+                res.data[i].picUrl === null ? null : res.data[i].resUrl.split('@')[0]
+              )
+            }
+            return imageUrls
+          })()
+        })
+      }
+    })
   },
 
 

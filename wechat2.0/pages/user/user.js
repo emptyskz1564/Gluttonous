@@ -109,6 +109,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        wx.setStorageSync('userInfo', res);
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -118,6 +119,7 @@ Page({
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
+          wx.setStorageSync('userInfo', res);
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: res.userInfo,
@@ -129,7 +131,10 @@ Page({
   },
   handleGetuserinfo: function (e) {
     let authStatus = e.detail.errMsg
+    wx.setStorageSync('userInfo', e.detail.userInfo)
     this.setData({
+      userInfo:e.detail.userInfo,
+      hasUserInfo:true,
       canIUse: authStatus
     })
     if (authStatus === 'getUserInfo:ok') {
@@ -142,6 +147,12 @@ Page({
             success: (res) => {
               app.globalData.user.userId = res.data
               wx.setStorageSync('userId', res.data)
+              wx.request({
+                url:requestUtil.apiUrl + '/vuserlable/' + wx.getStorageSync('userId'),
+                success:function(res){
+                  console.log(res);
+                }
+              })
             }
           })
         }

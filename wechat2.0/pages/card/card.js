@@ -7,13 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 回复框状态
+    inputShowed: false,
+    //回复内容
+    inputValue:"",
+    // 回复框值
+    inputVal: "",
+    //将要回复的评论id,默认为回复打卡
+    disId:0,
+    parentThread:"",
+    parentId:null,
     disList:[],     //评论列表
     userLike:[],      //用来记录每个评论的点赞状态
+    paramIndex: '',
     card: null,
     cardImageUrls: [],
     cardVideoUrls: [],
-    cardLike: 0,
-    favorStatus: false,
     exceptions: {
       // 请求是否失败
       isError: false,
@@ -21,31 +30,52 @@ Page({
       errorMessage: '',
       errorDetail: '',
     },
+    favorStatus: false,
+    cardLike:0,
     imageUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+  },
+
+  
+  inputBind: function(event) {
+    this.setData({
+        inputValue: event.detail.value
+    })
+    console.log(this.data.inputValue)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let that = this
-    let index = options.id
-    let current = (function () {
-      for (let i = 0; i < wx.getStorageSync('hotCard').length; i++) {
-        if (wx.getStorageSync('hotCard')[i].cardId + '' === index) {
-          return wx.getStorageSync('hotCard')[i]
-        }
-      }
-    })()
-    that.setData({
-      card: current,
-      cardImageUrls: (function () {
-        return current.picUrl === null ? null : (function () {
-          let urls = current.picUrl.split('@')
+    let index = options.id;
+    this.setData({ paramIndex: options.id })
+    this.setData({
+      card:wx.getStorageSync('hotCard')[index],
+      cardImageUrls: (function() {
+        return wx.getStorageSync('hotCard')[index].picUrl === null ? null : (function () {
+          let urls = wx.getStorageSync('hotCard')[index].picUrl.split('@')
           urls.pop()
           return urls
         })()
-      })(),
-      cardLike: current.cardLike
+      })()
+    })
+    console.log(this.data.card);
+    wx.request({
+      url: 'https://hailicy.xyz/wechatpro/v1//discusses/asc/' + wx.getStorageSync('hotCard')[index].cardId,
+      success:function(res){
+        console.log(res);
+        that.setData({
+          disList:res.data
+        })
+        let userLike=[];
+        for(let i=0;i<that.data.disList.length;i++){
+          userLike.push(true);
+        }
+        that.setData({
+          userLike:userLike
+        })
+        console.log(res);
+      }
     })
   },
   /**
@@ -70,11 +100,15 @@ Page({
   favor: function () {
     let that=this;
     let userId = wx.getStorageSync('userId');
+    let hotCard=wx.getStorageSync('hotCard');
+    hotCard[that.data.paramIndex]["cardLike"] += 1;
+    wx.setStorageSync('hotCard', hotCard);
     if (userId !== '' && userId !== null) {
       wx.request({
         url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+that.data.card.cardId+"/" + userId,
         method:'POST',
-        success:function(){
+        success:function(res){
+          console.log(res);
           wx.showToast({
             title: '操作成功'
           })
@@ -140,7 +174,7 @@ Page({
   
   handleDisLike(e){
     let userInfo=wx.getStorageSync('userInfo');
-    let userId=userInfo["userId"];
+    let userId=wx.getStorageSync("userId");
     let disId=e.target.dataset.disid;
     let that=this;
     let card=that.data.disList
@@ -211,10 +245,10 @@ Page({
     }
 
     let userInfo=wx.getStorageSync('userInfo');
-    let userId=userInfo.userId;
+    let userId=wx.getStorageSync("userId");
     
     let str={
-          cardId:that.data.disList[0].cardId,
+          cardId:that.data.card.cardId,
           disContent:that.data.inputValue,
           parentId:parentId,
           parentThread:disThread,
@@ -233,7 +267,9 @@ Page({
       method:'POST',
       success:function(res){
         console.log(res);
-        
+        wx.redirectTo({
+          url: '../card/card?id='+that.data.paramIndex,
+        })
       }
     })
   }
