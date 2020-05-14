@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/user/user",
     "pages/restaurant/restaurant",
     "pages/index/index",
-    "pages/user/user",
     "pages/card/card",
     "templates/errors/errors",
     "templates/warnings/warnings",
@@ -42,7 +42,7 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#00BFFF",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "饕餮食客",
     "navigationBarTextStyle": "black"
   },

@@ -8,6 +8,7 @@ Page({
   data: {
     userInfo: null,
     showLabels: false,
+    clickedIndex: 0,
     label1: {
       lableId: '-1',
       lableContent: '口味偏好'
@@ -21,7 +22,6 @@ Page({
       lableContent: '口味偏好'
     },
     labels: [],
-    labelValue: [0, 0, 0],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     hasUserInfo: false
   },
@@ -39,66 +39,90 @@ Page({
         } else {
           requestUtil.requestExceptionHandler(res.statusCode)
         }
-      },
-      fail: function (err) {
-        console.log(err)
       }
     })
   },
-  openSelection: function () {
+  openSelection: function (e) {
     this.setData({
-      showLabels: !this.data.showLabels
-    })
-  },
-  selectLabels: function (e) {
-    const val = e.detail.value
-    this.setData({
-      label1: {
-        lableId: this.data.labels[val[0]].lableId,
-        lableContent: this.data.labels[val[0]].lableContent
-      },
-      label2: {
-        lableId: this.data.labels[val[1]].lableId,
-        lableContent: this.data.labels[val[1]].lableContent
-      },
-      label3: {
-        lableId: this.data.labels[val[2]].lableId,
-        lableContent: this.data.labels[val[2]].lableContent
-      }
+      showLabels: !this.data.showLabels,
+      clickedIndex: e.currentTarget.dataset.index
     })
   },
   labelsChosen: function () {
-    let that = this
+    // 关闭选项
     this.setData({
       showLabels: !this.data.showLabels
     })
-    let userId = wx.getStorageSync('userId')
-    if (userId === '') {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      })
-    } else {
-      wx.request({
-        url: requestUtil.apiUrl + '/userlable/second',
-        method: 'POST',
-        data: {
-          str: JSON.stringify({
-            userId: userId,
-            lableId1: that.data.label1.lableId,
-            lableId2: that.data.label2.lableId,
-            lableId3: that.data.label3.lableId
+    // 如果什么都没选，就配第一个
+    switch (this.data.clickedIndex) {
+      case '1':
+        if (this.data.label1.lableId === '-1') {
+          this.setData({
+            label1: {
+              lableId: this.data.labels[0].lableId,
+              lableContent: this.data.labels[0].lableContent
+            }
           })
-        },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" /*更改头部*/
-        },
-        success: function (res) {
-          console.log(res);
         }
-      })
+        break
+      case '2':
+        if (this.data.label2.lableId === '-1') {
+          this.setData({
+            label2: {
+              lableId: this.data.labels[0].lableId,
+              lableContent: this.data.labels[0].lableContent
+            }
+          })
+        }
+        break
+      case '3':
+        if (this.data.label3.lableId === '-1') {
+          this.setData({
+            label3: {
+              lableId: this.data.labels[0].lableId,
+              lableContent: this.data.labels[0].lableContent
+            }
+          })
+        }
+        break
+    }
+    // 提交选项
+    // ============================================
+    // wx.request({
+    //   url: 'url',
+    // })
+    // ============================================
+    // 在这里完善提交口味的接口
+  },
+  selectItem: function (e) {
+    switch (e.currentTarget.dataset.item) {
+      case '1':
+        this.setData({
+          label1: {
+            lableId: this.data.labels[e.detail.value[0]].lableId,
+            lableContent: this.data.labels[e.detail.value[0]].lableContent
+          }
+        })
+        break
+      case '2':
+        this.setData({
+          label2: {
+            lableId: this.data.labels[e.detail.value[0]].lableId,
+            lableContent: this.data.labels[e.detail.value[0]].lableContent
+          }
+        })
+        break
+      case '3':
+        this.setData({
+          label3: {
+            lableId: this.data.labels[e.detail.value[0]].lableId,
+            lableContent: this.data.labels[e.detail.value[0]].lableContent
+          }
+        })
+        break
     }
   },
+
   getWechatUserInfo: function () {
     if (app.globalData.userInfo) {
       this.setData({
@@ -133,8 +157,8 @@ Page({
     let authStatus = e.detail.errMsg
     wx.setStorageSync('userInfo', e.detail.userInfo)
     this.setData({
-      userInfo:e.detail.userInfo,
-      hasUserInfo:true,
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
       canIUse: authStatus
     })
     if (authStatus === 'getUserInfo:ok') {
@@ -148,8 +172,8 @@ Page({
               app.globalData.user.userId = res.data
               wx.setStorageSync('userId', res.data)
               wx.request({
-                url:requestUtil.apiUrl + '/vuserlable/' + wx.getStorageSync('userId'),
-                success:function(res){
+                url: requestUtil.apiUrl + '/vuserlable/' + wx.getStorageSync('userId'),
+                success: function (res) {
                   console.log(res);
                 }
               })

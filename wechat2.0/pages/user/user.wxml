@@ -25,26 +25,17 @@
   </view>
 </view>
 <view class="user-label-panel">
-  <view class="user-label-item-fixed" bindtap="openSelection">
-    <text class="iconfont icon-editor user-body-navigator-icon"></text>编辑
-  </view>
   <view class="user-label-item-float vip">
     <text class="{{'iconfont user-body-navigator-icon ' + (userInfo ? 'icon-vip-fill icon-vip-c' : 'icon-vip')}}"></text>
     {{userInfo ? userInfo.vip : 0}}
   </view>
-  <view class="user-label-item-float label-1">{{label1.lableContent}}</view>
-  <view class="user-label-item-float label-2">{{label2.lableContent}}</view>
-  <view class="user-label-item-float label-3">{{label3.lableContent}}</view>
+  <view class="user-label-item-float label-1" bindtap="openSelection" data-index="1">{{label1.lableContent}}</view>
+  <view class="user-label-item-float label-2" bindtap="openSelection" data-index="2">{{label2.lableContent}}</view>
+  <view class="user-label-item-float label-3" bindtap="openSelection" data-index="3">{{label3.lableContent}}</view>
 </view>
 <view class="picker" hidden="{{!showLabels}}">
-  <view class="picker-view-column-title">请依次选择三种最喜欢的口味</view>
-  <picker-view  indicator-class="picker-view-column" class="picker-view" value="{{labelValue}}" bindchange="selectLabels">
-    <picker-view-column>
-      <view wx:for="{{labels}}" wx:key="index">{{item.lableContent}}</view>
-    </picker-view-column>
-    <picker-view-column>
-      <view wx:for="{{labels}}" wx:key="index">{{item.lableContent}}</view>
-    </picker-view-column>
+  <view class="picker-view-column-title">请选择最喜欢的口味</view>
+  <picker-view  indicator-class="picker-view-column" class="picker-view" bindchange="selectItem" data-item="{{clickedIndex}}">
     <picker-view-column>
       <view wx:for="{{labels}}" wx:key="index">{{item.lableContent}}</view>
     </picker-view-column>
