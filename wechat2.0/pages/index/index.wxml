@@ -8,7 +8,7 @@
 <Tabs show="{{!exceptions.isError}}" tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
   <!-- 普通用户 -->
   <block wx:if="{{tabs[0].isActive}}">
-    <view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{i}}">
+    <view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{i}}" data-sign="hotCard">
       <view class="card-user">
         <view class="card-user-image">
           <image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
