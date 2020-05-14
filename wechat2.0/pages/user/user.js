@@ -94,6 +94,25 @@ Page({
     // ============================================
     // 在这里完善提交口味的接口
     // 提交lable1、lable2、lable3的lableId和用户id
+    let that=this;
+    wx.request({
+      url: requestUtil.apiUrl + '/userlable/second',
+      method: 'POST',
+      data: {
+        str: JSON.stringify({
+          userId: wx.getStorageSync('userId'),
+          lableId1: that.data.label1.lableId,
+          lableId2: that.data.label2.lableId,
+          lableId3: that.data.label3.lableId
+        })
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" /*更改头部*/
+      },
+      success: function (res) {
+        console.log(res);
+      }
+    })
   },
   selectItem: function (e) {
     switch (e.currentTarget.dataset.item) {

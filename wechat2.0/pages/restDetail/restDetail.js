@@ -11,10 +11,27 @@ Page({
   data: {
     formShow: false,
     isCollect:false,
-    paramIndex: '',
+    paramIndex: '', //resId
     rest: null,
     restLabel:[],
     restImageUrls: [],
+    img_url:[],
+    cardForm:{
+      userId:null,
+      resId:null,
+      cardContent:"",
+      cardTitle:"",
+      bestFood:"",
+      selfLable1:"",
+      LabelId1:1,
+      selfLable2:"",
+      LabelId2:-1,
+      selfLable3:"",
+      LabelId3:-1,
+    },
+    labelIndex:0,
+    addLabel:[],
+    showModalStatus: false,
     // 用户位置信息
     location: {
       longitude: app.globalData.location.longitude,
@@ -76,6 +93,183 @@ Page({
       }
     })
   },
+
+  
+  powerDrawer: function (e) { 
+    console.log(e);
+    var currentStatu = e.currentTarget.dataset.statu; 
+    this.util(currentStatu) //动画处理
+   }, 
+   util: function(currentStatu){ 
+    /* 动画部分 */
+    // 第1步：创建动画实例  
+    var animation = wx.createAnimation({ 
+     duration: 200, //动画时长 
+     timingFunction: "linear", //线性 
+     delay: 0 //0则不延迟 
+    }); 
+      
+    // 第2步：这个动画实例赋给当前的动画实例 
+    this.animation = animation; 
+    
+    // 第3步：执行第一组动画 
+    animation.opacity(0).rotateX(-100).step(); 
+    
+    // 第4步：导出动画对象赋给数据对象储存 
+    this.setData({ 
+     animationData: animation.export() 
+    }) 
+      
+    // 第5步：设置定时器到指定时候后，执行第二组动画 
+    setTimeout(function () { 
+     // 执行第二组动画 
+     animation.opacity(1).rotateX(0).step(); 
+     // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象 
+     this.setData({ 
+      animationData: animation 
+     }) 
+       
+     //关闭 
+     if (currentStatu == "close") { 
+      this.setData( 
+       { 
+        showModalStatus: false
+       } 
+      ); 
+     } 
+    }.bind(this), 200) 
+     
+    // 显示 
+    if (currentStatu == "open") { 
+     this.setData( 
+      { 
+       showModalStatus: true
+      } 
+     ); 
+    } 
+   } ,
+
+     //表单提交按钮
+
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    this.setData({
+      cardForm:e.detail.value
+    })
+    this.send();
+  },
+
+   //选择本地图片
+  chooseimage:function(){
+    var that = this;
+    wx.chooseImage({
+      count: 9, // 默认9  
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+      success: function (res) {
+        if (res.tempFilePaths.length>0){
+          //图如果满了9张，不显示加图
+          if (res.tempFilePaths.length === 9){
+            that.setData({
+              hideAdd:1
+            })
+          }else{
+            that.setData({
+              hideAdd: 0
+            })
+          }
+ 
+          //把每次选择的图push进数组
+          let img_url = that.data.img_url;
+          for (let i = 0; i < res.tempFilePaths.length; i++) {
+            img_url.push(res.tempFilePaths[i])
+          }
+          that.setData({
+            img_url: img_url
+          })
+          
+        }
+        
+      }
+    })  
+  },
+  //发布按钮事件
+  send:function(){
+    let that = this;
+    let user_id = wx.getStorageSync('userId');
+    if(that.data.cardForm.cardTitle===""&&that.data.cardForm.cardContent===""){
+      console.log("没有打卡信息上传");
+      that.util("close");
+    }else{
+      that.img_upload()
+    }
+    // wx.showLoading({
+    //   title: '上传中',
+    // })
+  },
+  //图片上传
+  img_upload: function () {
+    let userId = wx.getStorageSync('userId');
+    let str=this.data.cardForm;
+    str["userId"]=userId;
+    /////////////////餐厅id如何获取
+    str["resId"]=this.data.paramIndex;
+    if(str.LabelId2!=""){
+      str.LabelId2=1
+    }
+    if(str.LabelId3!=""){
+      str.LabelId3=1
+    }
+    str=JSON.stringify(str);
+    let that = this;
+    let img_url = that.data.img_url;
+    let cardId="";
+    //let img_url_ok = [];
+    wx.uploadFile({
+      filePath: img_url[0],
+      name: 'files',
+      url: 'https://hailicy.xyz/wechatpro/v1/card/first',
+      formData:{
+        str:str
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+      },
+      success:function(res){
+        cardId=res.data
+        console.log(res);
+        if(img_url.length===0){
+          wx.showToast({
+            title: '打卡成功',
+            duration: 2000
+          });
+          that.util("close");
+        }
+      }
+    })
+    //上传剩下的图片
+    for(let i=1; i< img_url.length; i++){
+      wx.uploadFile({
+        filePath: img_url[i],
+        name: 'files',
+        url: 'https://hailicy.xyz/wechatpro/v1/card/second',
+        formData:{
+          cardId:JSON.stringify(cardId)
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+        },
+        success:function(res){
+          console.log(res);
+          wx.showToast({
+            title: '打卡成功',
+            duration: 2000
+          });
+          that.util("close"); 
+        }
+      })
+    }
+  } ,
 
 
   Collecting:function(){

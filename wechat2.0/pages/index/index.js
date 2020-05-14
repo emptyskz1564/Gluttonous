@@ -38,7 +38,32 @@ Page({
   getLocations: function () {},
   // 获得附近的打卡信息
   getNearCards: function () {
-    
+    let that = this;
+    if(wx.getStorageSync('userId')){
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/vipcards/'+wx.getStorageSync('userId'),
+        success:function(res){
+          if (res.statusCode === 200) {
+            // 请求成功
+            that.setData({
+              nearCards: res.data,
+              nearCardsImageUrls: (function () {
+                let imageUrls = []
+                for (let i = 0; i < res.data.length; i++) {
+                  imageUrls.push(
+                    res.data[i].picUrl === null ? null : res.data[i].picUrl.split('@')[0]
+                  )
+                }
+                return imageUrls
+              })()
+            })
+            wx.setStorageSync('nearCard', that.data.nearCards)
+          } else {
+            that.setData({ exceptions: requestUtil.requestExceptionHandler(res.statusCode) })
+          }
+        }
+      })
+    }
   },
   // 获得打卡内容
   getCards: function () {
