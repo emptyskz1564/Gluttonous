@@ -17,7 +17,7 @@
 			</view>
 			<view class="card-header-favor" bindtap="favor">
 				<text class="{{'iconfont card-header-favor-icon' + (favorStatus ? ' icon-good-fill' : ' icon-good')}}"></text>
-				<text class="card-header-favor-text">{{card ? card.cardLike : '-1'}}</text>
+				<text class="card-header-favor-text">{{favorStatus ? card.cardLike+1 : card.cardLike}}</text>
 			</view>
 		</view>
 	</view>

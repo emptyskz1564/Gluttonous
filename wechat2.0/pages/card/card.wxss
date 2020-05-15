@@ -169,3 +169,8 @@ input{
   height: 60rpx;
   border: #f2f2f2 2rpx solid;
 }
+
+.label{
+
+  height: 60rpx;
+}

@@ -181,6 +181,7 @@ Page({
       hasUserInfo: true,
       canIUse: authStatus
     })
+    let that= this;
     if (authStatus === 'getUserInfo:ok') {
       this.getWechatUserInfo()
       wx.login({
@@ -194,7 +195,11 @@ Page({
               wx.request({
                 url: requestUtil.apiUrl + '/vuserlable/' + wx.getStorageSync('userId'),
                 success: function (res) {
-                  console.log(res);
+                  that.setData({
+                    label1:res.data[0],
+                    label2:res.data[1],
+                    label2:res.data[2],
+                  })
                 }
               })
             }
