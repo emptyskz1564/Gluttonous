@@ -1,0 +1,15 @@
+server
+{
+    listen       70;
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Headers X-Requested-With;
+    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+    location /resource {
+        rewrite  ^/resource/?(.*)$ /$1 break;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass https://hailicy.xyz/wechatpro/; # 转发地址
+    }
+}
