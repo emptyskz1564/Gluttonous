@@ -24,9 +24,9 @@
 	<view class="card-detail">
 		<view class="card-title">{{card.cardTitle !== '' && card.cardTitle !== null ? card.cardTitle : '无题'}}</view>
 		<view class="card-label-panel">
-			<view>{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
-			<view>{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
-			<view>{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
+			<view style="background-color: {{randomColorArr[0]}}" class="label">{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
+			<view style="background-color: {{randomColorArr[1]}}" class="label">{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
+			<view style="background-color: {{randomColorArr[2]}}" class="label">{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
 		</view>
 		<view class="card-content">{{card.cardContent !== '' && card.cardContent !== null ? card.cardContent : '这个人什么都没写，直接看图吧'}}</view>
 	</view>
@@ -39,7 +39,7 @@
 	<!-- 评论部分 -->
 	<view class="disContainer">
 		<view wx:for="{{disList}}" wx:key="index" class="alldis">
-			<view wx:if="{{item.parentId===0}}" class="disItem" bindtap="setInput" data-disId="{{item.disId}}" data-parentThread="{{item.disThread}}" data-parentId="{{item.parentId}}">
+			<view wx:if="{{item.parentId===0}}" style="color: #666666" class="disItem" bindtap="setInput" data-disId="{{item.disId}}" data-parentThread="{{item.disThread}}" data-parentId="{{item.parentId}}">
 				{{item.userName}}:{{item.disComment}}
 				<view wx:if="{{userLike[index]===false}}" class="likeCount">
 					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}">
@@ -53,7 +53,7 @@
 
 			</view>
 
-			<view wx:else style="margin-left: 30rpx;" class="disItem">
+			<view wx:else style="margin-left: 30rpx;color: #999999" class="disItem">
 				{{item.userName}}:{{item.disComment}}
 				<view wx:if="{{userLike[index]===false}}" class="likeCount">
 					<text class="iconfont icon-good card-header-favor-icon" bindtap="handleLike" data-disId="{{item.disId}}" data-cardId="{{index}}"></text>

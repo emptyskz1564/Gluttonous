@@ -8,13 +8,13 @@ Page({
    */
   data: {
          // 自定义自己喜欢的颜色
-         colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+    colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
          "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
          "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
          "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
          "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"],
        // 存储随机颜色
-     randomColorArr: [],
+    randomColorArr: [],
     sign:null,
     // 回复框状态
     inputShowed: false,
@@ -54,11 +54,12 @@ Page({
   },
 
   getRandomColor:function(){
-    let that=this,
-    labelLen = 3;
+    let that=this;
+    let labLen = 3;
+    let randomColorArr=[];
     //判断执行
     do{
-      let random = colorArr[Math.floor(Math.random() * colorLen)];
+      let random = that.data.colorArr[Math.floor(Math.random() * that.data.colorArr.length)];
       randomColorArr.push(random);
       labLen--;
     } while (labLen > 0)
@@ -75,6 +76,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+    that.getRandomColor();
     let index = options.id;
     this.setData({ paramIndex: options.id,sign: options.sign })
     this.setData({

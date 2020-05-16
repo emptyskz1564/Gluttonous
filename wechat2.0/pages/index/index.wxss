@@ -67,3 +67,14 @@
   width: 100%;
   z-index: 999;
 }
+
+.card-header-favor{
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  align-content: center;
+}

@@ -64,7 +64,7 @@
 .card-label-panel {
   margin-top: 40rpx;
   font-size: 14pt;
-  color: #353535;
+  color: #fff;
   justify-content: space-around;
 }
 .card-label-item {
@@ -171,6 +171,6 @@ input{
 }
 
 .label{
-
-  height: 60rpx;
+  padding: 0rpx 10rpx;
+  border-radius: 10rpx;
 }

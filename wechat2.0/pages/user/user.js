@@ -190,6 +190,8 @@ Page({
             url: requestUtil.apiUrl + '/login/' + res.code,
             method: 'GET',
             success: (res) => {
+              console.log(res);
+              
               app.globalData.user.userId = res.data
               wx.setStorageSync('userId', res.data)
               wx.request({
