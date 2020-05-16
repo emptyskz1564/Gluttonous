@@ -365,8 +365,8 @@ Page({
   },
   toMap:function(e) {
     wx.navigateTo({
-    url: '../map/map?resAdress=' + e.currentTarget.dataset.item,
-  })
+      url: '../map/map?resAdress=' + e.currentTarget.dataset.item,
+    })
   }
   
 })

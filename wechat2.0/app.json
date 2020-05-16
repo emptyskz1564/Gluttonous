@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/user/user",
     "pages/restaurant/restaurant",
+    "pages/user/user",
     "pages/index/index",
     "pages/card/card",
     "templates/errors/errors",

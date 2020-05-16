@@ -2,7 +2,6 @@
 @import '/assets/icons/iconfont.wxss';
 page, html, body {
   position: relative;
-  background-color: antiquewhite;
   padding: 0;
   margin: 0;
   height: 100%;

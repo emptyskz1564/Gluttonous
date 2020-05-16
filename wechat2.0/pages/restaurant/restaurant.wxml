@@ -1,16 +1,44 @@
-<view>
-	<input type="text" value="{{search}}" class="search" placeholder="查找你想要的" bindinput="searchRestaurant"></input>
+<!-- 预览图像 -->
+<addons-image id="previewRestImage" imageUrl="{{imageUrl}}" hidden="{{showAddons}}"></addons-image>
+
+<view class="restaurant-header" style="background-color: {{color.page}}">
+	<input type="text" value="{{search}}" class="search" style="background-color: {{color.card}}" placeholder="查找你想要的" bindinput="searchRestaurant"></input>
 </view>
-<view wx:for="{{restaurantList}}" wx:key="index" wx:for-index="i" class="card" bindtap="toRest" data-item="{{item.resId}}">
-	<view class="card-user">
-		<view class="card-title">{{item.resTitle === null ? '无名餐厅' : item.resTitle}}</view>
+<scroll-view scroll-y class="restaurant-body" style="background-color: {{color.page}}">
+	<view wx:for="{{restaurantList}}" wx:key="index" wx:for-index="i" class="card" style="background-color: {{color.card}}" data-item="{{item.resId}}">
+		<view class="card-user">
+			<view class="card-title">
+				{{item.resTitle === null ? '无名餐厅' : item.resTitle}}
+			</view>
+			<view class="card-user-name">
+				<view class="card-user-name-item" bindtap="star" data-index="{{i}}">
+					<text class="{{'iconfont card-header-large-icon ' + (stars[i] ? 'icon-collection-fill collected' : 'icon-collection')}}"></text>
+					<text>收藏</text>
+				</view>
+				<view class="card-user-name-item" bindtap="toMap" data-index="{{i}}">
+					<text class="iconfont icon-map card-header-large-icon"></text>
+					<text>位置</text>
+				</view>
+			</view>
+		</view>
+		<view class="Labels">
+			<view class="card-content" style="background-color: {{color.label}};">
+				<view class="card-title-head" style="border-right: {{'27rpx solid ' + color.label}};"></view>
+				{{item.lableContent1=== '' || item.lableContent1 === null ? '无标签' : item.lableContent1}}
+			</view>
+			<view class="card-content" style="background-color: {{color.label}};">
+				<view class="card-title-head" style="border-right: {{'21rpx solid ' + color.label}};"></view>
+				{{item.lableContent2=== '' || item.lableContent2 === null ? '无标签' : item.lableContent2}}
+			</view>
+			<view class="card-content" style="background-color: {{color.label}};">
+				<view class="card-title-head" style="border-right: {{'21rpx solid ' + color.label}};"></view>
+				{{item.lableContent3=== '' || item.lableContent3 === null ? '无标签' : item.lableContent3}}
+			</view>
+		</view>
+		<view class="card-image-container">
+			<view class="card-image" wx:for="{{resImageUrlList[i]}}" wx:key="index">
+				<image src="{{item}}" data-url="{{item}}" bindtap="togglePreviewRestImage"></image>
+			</view>
+		</view>
 	</view>
-	<view class="Labels">
-		<view class="card-content">{{item.lableContent1=== '' || item.lableContent1 === null ? '无标签' : item.lableContent1}}</view>
-		<view class="card-content">{{item.lableContent2=== '' || item.lableContent2 === null ? '无标签' : item.lableContent2}}</view>
-		<view class="card-content">{{item.lableContent3=== '' || item.lableContent3 === null ? '无标签' : item.lableContent3}}</view>
-	</view>
-	<view class="card-image">
-		<image mode="widthFix" src="{{ resImageUrlList[i] === null || resImageUrlList[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : resImageUrlList[i] }}" />
-	</view>
-</view>
+</scroll-view>
