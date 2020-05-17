@@ -1,10 +1,10 @@
 <!-- 预览图像 -->
 <addons-image id="previewRestImage" imageUrl="{{imageUrl}}" hidden="{{showAddons}}"></addons-image>
 
-<view class="restaurant-header" style="background-color: {{color.page}}">
+<view class="restaurant-header">
 	<input type="text" value="{{search}}" class="search" style="background-color: {{color.card}}" placeholder="查找你想要的" bindinput="searchRestaurant"></input>
 </view>
-<scroll-view scroll-y class="restaurant-body" style="background-color: {{color.page}}">
+<scroll-view scroll-y class="restaurant-body">
 	<view wx:for="{{restaurantList}}" wx:key="index" wx:for-index="i" class="card" style="background-color: {{color.card}}" data-item="{{item.resId}}">
 		<view class="card-user">
 			<view class="card-title">
