@@ -6,12 +6,11 @@
   display: none;
 }
 /* 标题 */
-.tabsTitle { 
-  background-color: #fff;
+.tabsTitle {
   display: flex;
 }
 .titleItem {
-  color: rgb(98, 169, 175);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,14 +22,14 @@
 /* 是否选中 */
 .active {
   position: relative;
-  color: #00cefa;
+  color: rgba(225, 66, 93, 1);
 }
 /* 选中特效 */
 .active:before {
   top: 100%;
   position: absolute;
   content: '';
-  border-bottom: 5rpx solid #00cefa;
+  border-bottom: 5rpx solid rgba(225, 66, 93, 1);
   animation: expand;
   animation-timing-function: ease-in-out;
   animation-duration: 0.45s;

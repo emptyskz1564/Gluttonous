@@ -2,10 +2,13 @@
 @import '/assets/icons/iconfont.wxss';
 page, html, body {
   position: relative;
-  background-color: antiquewhite;
   padding: 0;
   margin: 0;
   height: 100%;
+  background-image: linear-gradient(225deg, #62b1ff, #ffb4f2);
+  /* background: url(http://47.111.252.78/images/background/gradient.png) no-repeat;
+  background-position: center;
+  background-size: cover; */
 }
 /* 错误信息 */
 .error-frame {

@@ -18,7 +18,7 @@
   height: 100%;
   z-index: 99;
 }
-.image-panel > image {
+.image-panel image {
   width: 100%;
   z-index: 99;
   margin: 0 auto;

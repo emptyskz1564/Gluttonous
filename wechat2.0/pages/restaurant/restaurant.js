@@ -8,18 +8,34 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imageUrl: '',
+    showAddons: false,
     restaurants: [],
     resImageUrls: [],
     restaurantList: [],
     resImageUrlList: [],
+    stars: [],
     // 用户位置信息
     location: {
       longitude: app.globalData.location.longitude,
       latitude: app.globalData.location.latitude
     },
-    search: ''
+    lightStar: false,
+    search: '',
+    color: {
+      page: '#ffe0ac',
+      card: '#f9f9f9',
+      label: '#82c4c3'
+    }
   },
-
+  // 图片预览
+  togglePreviewRestImage: function (e) {
+    this.setData({
+      showAddons: !this.data.showAddons,
+      imageUrl: e.currentTarget.dataset.url
+    })
+    this.previewRestImage.toggleAddonsImage()
+  },
   // 查找餐厅
   searchRestaurant: function (e) {
     this.setData({
@@ -37,20 +53,23 @@ Page({
             return String(data[key]).toLowerCase().indexOf(that.data.search) > -1
           })
         })
-      })(),
-      resImageUrlList: (function () {
-        let imageUrls = []
-        for (let i = 0; i < that.data.restaurants.length; i++) {
-          imageUrls.push(
-            that.data.restaurants[i].picUrl === null ? null :  that.data.restaurants[i].resUrl.split('@')[0]
-          )
-        }
-        return imageUrls
       })()
     })
   },
-
-  //https://hailicy.xyz/wechatpro/v1/nearrestaurants/location/'+that.data.location.longitude+'/'+that.data.location.latitude
+  // 解析url
+  decodeUrl: function (raw) {
+    let urls = []
+    for (let i = 0; i < raw.length; i++) {
+      if (raw[i].resUrl) {
+        let items = raw[i].resUrl.split('@')
+        items.pop()
+        urls.push(items)
+      } else {
+        urls.push(['http://47.111.252.78/images/exceptions/404.png'])
+      }
+    }
+    return urls
+  },
   //获取附近餐厅
   getNearRestaurant: function () {
     let that = this;
@@ -60,38 +79,42 @@ Page({
         if (res.statusCode === 200) {
           that.setData({
             restaurants: res.data,
-            resImageUrls: (function () {
-              let imageUrls = []
-              for (let i = 0; i < res.data.length; i++) {
-                imageUrls.push(
-                  res.data[i].picUrl === null ? null : res.data[i].resUrl.split('@')[0]
-                )
-              }
-              return imageUrls
-            })(),
             restaurantList: res.data,
-            resImageUrlList: (function () {
-              let imageUrls = []
+            resImageUrls: that.decodeUrl(res.data),
+            resImageUrlList: that.decodeUrl(res.data),
+            stars: (function () {
+              let status = []
               for (let i = 0; i < res.data.length; i++) {
-                imageUrls.push(
-                  res.data[i].picUrl === null ? null : res.data[i].resUrl.split('@')[0]
+                status.push(
+                  false // 暂时规定全部为false，后期会修正
                 )
               }
-              return imageUrls
+              return status
             })()
           })
         }
       }
     })
   },
-
-
+  // 点击收藏/取消收藏
+  star: function (e) {
+    let name = 'stars[' + e.currentTarget.dataset.index + ']'
+    this.setData({
+      [name]: !this.data.stars[e.currentTarget.dataset.index]
+    })
+  },
+  // 点击跳转地图
+  toMap: function (e) {
+    wx.navigateTo({
+      url: './../map/map?resAdress=' + e.currentTarget.dataset.item,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
-    that.getNearRestaurant();
+    this.previewRestImage = this.selectComponent('#previewRestImage');
+    this.getNearRestaurant();
   },
 
   /**
@@ -141,13 +164,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  // 跳转到餐厅详情
-  toRest: function (e) {
-    wx.navigateTo({
-      url: '../restDetail/restDetail?id=' + e.currentTarget.dataset.item,
-    })
   }
-
 })
