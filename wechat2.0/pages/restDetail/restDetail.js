@@ -16,6 +16,7 @@ Page({
     restLabel:[],
     restImageUrls: [],
     img_url:[],
+    cardFormResId:null,
     cardForm:{
       userId:null,
       resId:null,
@@ -99,6 +100,9 @@ Page({
     console.log(e);
     var currentStatu = e.currentTarget.dataset.statu; 
     this.util(currentStatu) //动画处理
+    this.setData({
+      cardFormResId:e.currentTarget.dataset.resid
+    })
    }, 
    util: function(currentStatu){ 
     /* 动画部分 */
@@ -213,7 +217,7 @@ Page({
     let str=this.data.cardForm;
     str["userId"]=userId;
     /////////////////餐厅id如何获取
-    str["resId"]=this.data.paramIndex;
+    str["resId"]=this.data.cardFormResId;
     if(str.LabelId2!=""){
       str.LabelId2=1
     }

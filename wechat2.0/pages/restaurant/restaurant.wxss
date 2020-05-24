@@ -131,3 +131,155 @@
 .collected {
   color: #f6d743;
 }
+/* 打卡弹窗 */
+.form-bg {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.form-control {
+  justify-content: space-around;
+}
+
+ 
+ /*mask*/
+ .drawer_screen { 
+  width: 100%; 
+  height: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  z-index: 1000; 
+  background: #000; 
+  opacity: 0.5; 
+  overflow: hidden; 
+ } 
+   
+ /*content*/
+ .drawer_box { 
+   display: flex;
+   flex-direction: column;
+  width: 650rpx; 
+  overflow: hidden; 
+  position: fixed; 
+  top: 50%; 
+  left: 0; 
+  z-index: 1001; 
+  background: #FAFAFA; 
+  margin: -150px 50rpx 0 50rpx; 
+  border-radius: 3px; 
+ } 
+   
+ .drawer_title{ 
+  padding:15px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+ } 
+ .drawer_content { 
+  height: 210px; 
+  overflow-y: scroll; /*超出父盒子高度可滚动*/
+ } 
+   
+ .btn_ok{ 
+  padding: 10px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+  /* border-top: 1px solid #E8E8EA;  */
+  color: #3CC51F; 
+ } 
+   
+ .top{ 
+   /* padding-top:8rpx;  */
+   display: flex;
+   margin-top: 20rpx;
+ } 
+ .bottom { 
+   padding-bottom:8px; 
+ } 
+ .title { 
+   height: 30px; 
+   line-height: 30px; 
+   width: 160rpx; 
+   text-align: center; 
+   display: inline-block; 
+   font: 300 28rpx/30px "microsoft yahei"; 
+ } 
+
+ .grid1{
+   display: flex;
+   
+ }
+ .top input {
+  width: 50%;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+ }
+
+ .addLabel{
+   height: 60rpx;
+   width: 60rpx;
+ }
+   
+ .input_base { 
+   /* border: 1rpx solid #ccc;  */
+   padding-left: 10rpx; 
+   margin-right: 50rpx; 
+ } 
+ .input_h30{ 
+   height: 30px; 
+   line-height: 30px; 
+ } 
+ .input_h60{ 
+   height: 60px; 
+ } 
+ .input_view{ 
+   font: 12px "microsoft yahei"; 
+   background: #fff; 
+   color:#000; 
+   line-height: 30px; 
+ } 
+
+.image{
+  width:31%;
+  height: 100px;
+  padding: 2px
+}
+ 
+.moment_img{
+  width: 98px;
+  height: 98px;
+}
+ 
+.image_content{
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-left: 40rpx; 
+  margin-top: 20rpx;
+}
+
+ textarea{
+  width: 65%;
+  height: 170rpx;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+  /* border: 1rpx solid #ccc; */
+  padding-left: 10rpx; 
+  margin-right: 50rpx; 
+  padding-top: 15rpx;
+ }
+
+ .addCard{
+   margin-left: 550rpx;
+   padding-bottom: 20rpx;
+ }
+ .addCardImg{
+   width: 80rpx;
+   height: 80rpx;
+ }
