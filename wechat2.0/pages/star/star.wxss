@@ -1,15 +1,32 @@
-/**index.wxss**/
-/* 什么都没有 */
-.nothing {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 20pt;
-  color: #353535;
+/* restaurant.wxss */
+/* 搜索栏 */
+.restaurant-header {
+  height: 10%;
+  display: flex;
+  display:-webkit-flex;
+  align-items: center;
+  align-content: center;
 }
+.search {
+  width: 90%;
+  margin: 0 auto;
+  border: solid 1rpx #888;
+  border-radius: 5rpx;
+  box-shadow: 3rpx 3rpx 3rpx #888 inset;
+  padding: 10rpx;
+  background-color: #fff;
+}
+
+/* 主体 */
+.restaurant-body {
+  height: 90%;
+}
+
+/**index.wxss**/
 /* 打卡 */
 .card {
   width: 94%;
-  margin: 20px auto 20px auto;
+  margin: 0 auto 20px auto;
   border-radius: 15rpx;
   text-align: center;
   animation: roll-card-x;
@@ -26,6 +43,7 @@
   flex-direction: row;
   align-items: center;
   align-content: center;
+  justify-content: space-between;
 }
 .card-user-image {
   border: solid 5rpx #00bfff;
@@ -49,31 +67,219 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.card-user-name-item, .card-user-name {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 .card-title {
   font-size: 17pt;
 }
 .Labels{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .card-content {
   color: #353535;
-  /* 仅显示部分，多余内容省略 */
-  text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
   text-align: left;
-  padding: 0 25rpx;
+  position: relative;
+  color: white;
+  line-height: 42rpx;
+  height: 42rpx;
+  padding: 0 15rpx;
+  border-radius: 2rpx 6rpx 6rpx 2rpx;
+}
+.card-title-head {
+  font-size: 14pt;
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 0;
+  border-top: 21rpx solid transparent;
+  border-bottom: 21rpx solid transparent;
+}
+.card-image-container {
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 8rpx;
+  padding-bottom: 20rpx;
 }
 .card-image {
-  width: 60%;
-  margin: 8px auto 0 auto;
+  width: 45%;
+  text-align: center;
+  margin-top: 15rpx;
+  padding: 15rpx 15rpx;
+  height: 300rpx;
 }
 .card-image image {
   width: 100%;
   z-index: 999;
+  height: 300rpx;
 }
+.card-header-large-icon {
+  font-size: 17pt;
+}
+.collected {
+  color: #f6d743;
+}
+/* 打卡弹窗 */
+.form-bg {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.form-control {
+  justify-content: space-around;
+}
+
+ 
+ /*mask*/
+ .drawer_screen { 
+  width: 100%; 
+  height: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  z-index: 1000; 
+  background: #000; 
+  opacity: 0.5; 
+  overflow: hidden; 
+ } 
+   
+ /*content*/
+ .drawer_box { 
+   display: flex;
+   flex-direction: column;
+  width: 650rpx; 
+  overflow: hidden; 
+  position: fixed; 
+  top: 50%; 
+  left: 0; 
+  z-index: 1001; 
+  background: #FAFAFA; 
+  margin: -150px 50rpx 0 50rpx; 
+  border-radius: 3px; 
+ } 
+   
+ .drawer_title{ 
+  padding:15px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+ } 
+ .drawer_content { 
+  height: 210px; 
+  overflow-y: scroll; /*超出父盒子高度可滚动*/
+ } 
+   
+ .btn_ok{ 
+  padding: 10px; 
+  font: 20px "microsoft yahei"; 
+  text-align: center; 
+  /* border-top: 1px solid #E8E8EA;  */
+  color: #3CC51F; 
+ } 
+   
+ .top{ 
+   /* padding-top:8rpx;  */
+   display: flex;
+   margin-top: 20rpx;
+ } 
+ .bottom { 
+   padding-bottom:8px; 
+ } 
+ .title { 
+   height: 30px; 
+   line-height: 30px; 
+   width: 160rpx; 
+   text-align: center; 
+   display: inline-block; 
+   font: 300 28rpx/30px "microsoft yahei"; 
+ } 
+
+ .grid1{
+   display: flex;
+   
+ }
+ .top input {
+  width: 50%;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+ }
+
+ .addLabel{
+   height: 60rpx;
+   width: 60rpx;
+ }
+   
+ .input_base { 
+   /* border: 1rpx solid #ccc;  */
+   padding-left: 10rpx; 
+   margin-right: 50rpx; 
+ } 
+ .input_h30{ 
+   height: 30px; 
+   line-height: 30px; 
+ } 
+ .input_h60{ 
+   height: 60px; 
+ } 
+ .input_view{ 
+   font: 12px "microsoft yahei"; 
+   background: #fff; 
+   color:#000; 
+   line-height: 30px; 
+ } 
+
+.image{
+  width:31%;
+  height: 100px;
+  padding: 2px
+}
+ 
+.moment_img{
+  width: 98px;
+  height: 98px;
+}
+ 
+.image_content{
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  margin-left: 40rpx; 
+  margin-top: 20rpx;
+}
+
+ textarea{
+  width: 65%;
+  height: 170rpx;
+  font: 12px "microsoft yahei"; 
+  background: #fff; 
+  color:#000 ;
+  /* border: 1rpx solid #ccc; */
+  padding-left: 10rpx; 
+  margin-right: 50rpx; 
+  padding-top: 15rpx;
+ }
+
+ .addCard{
+   margin-left: 550rpx;
+   padding-bottom: 20rpx;
+ }
+ .addCardImg{
+   width: 80rpx;
+   height: 80rpx;
+ }
