@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user-image": "./../../components/user-image/user-image",
+    "addons-image": "./../../components/addons-image/addons-image"
+  }
+}

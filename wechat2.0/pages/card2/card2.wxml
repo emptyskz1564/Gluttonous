@@ -1,4 +1,4 @@
-<!--pages/card/card.wxml-->
+
 <!-- 预览用户头像 -->
 <user-image id="previewUserImage" imageUrl="{{card !== null && card.userUrl !== null ? card.userUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}" hidden="{{showPreview}}"></user-image>
 <!-- 预览附加图像 -->
@@ -6,7 +6,7 @@
 
 <import src="./../../templates/errors/errors.wxml" />
 <template is="errors" data="{{exceptions}}"></template>
-<scroll-view class="card-container" hidden="{{exceptions.isError}}" scroll-y="{{true}}">
+<view class="card-container" hidden="{{exceptions.isError}}">
 	<view class="card-header">
 		<view class="card-header-panel">
 			<view class="card-header-user">
@@ -21,15 +21,12 @@
 			</view>
 		</view>
 	</view>
-
-	<view class="card">
+</view>
+<view class="block"></view>
+<view class="card">
+<view class="cardin">
 	<view class="card-detail">
 		<view class="card-title">{{card.cardTitle !== '' && card.cardTitle !== null ? card.cardTitle : '无题'}}</view>
-		<view class="card-label-panel">
-			<view style="background-color: {{randomColorArr[0]}}" class="label">{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
-			<view style="background-color: {{randomColorArr[1]}}" class="label">{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
-			<view style="background-color: {{randomColorArr[2]}}" class="label">{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
-		</view>
 		<view class="card-content">{{card.cardContent !== '' && card.cardContent !== null ? card.cardContent : '这个人什么都没写，直接看图吧'}}</view>
 	</view>
 	<view class="card-image-panel">
@@ -37,7 +34,11 @@
 			<image src="{{item}}" mode="widthFix"></image>
 		</view>
 	</view>
-
+  <view class="card-label-panel">
+			<view style="background-color: {{randomColorArr[0]}}" class="label">{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
+			<view style="background-color: {{randomColorArr[1]}}" class="label">{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
+			<view style="background-color: {{randomColorArr[2]}}" class="label">{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
+		</view>
 	<!-- 评论部分 -->
 	<view class="disContainer">
 		<view wx:for="{{disList}}" wx:key="index" class="alldis">
@@ -73,5 +74,5 @@
 		<input value="{{inputValue}}" bindinput='inputBind' bindconfirm='huifu' focus="{{inputShowed}}"></input>
 		<view class="reply" bindtap="reply">回复</view>
 	</view>
-	</view>
-</scroll-view>
+</view>
+</view>

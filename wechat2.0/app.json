@@ -9,7 +9,8 @@
     "pages/restDetail/restDetail",
     "pages/map/map",
     "pages/star/star",
-    "pages/myCard/myCard"
+    "pages/myCard/myCard",
+    "pages/card2/card2"
   ],
   "permission": {
     "scope.userLocation": {
