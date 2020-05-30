@@ -4,11 +4,12 @@
 <template is="errors" data="{{exceptions}}"></template>
 <view hidden="{{hasData}}" class="nothing">暂无打卡</view>
 <block hidden="{{!hasData}}">
-	<view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" bindtap="toCard" data-item="{{i}}" data-sign="myCard">
-		<view class="card-user">
-			<view class="card-user-image">
-				<image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
-			</view>
+	<view wx:for="{{cards}}" wx:key="index" wx:for-index="i" class="card" data-sign="myCard">
+		<view  bindtap="toCard" data-sign="myCard" data-item="{{i}}">
+			<view class="card-user">
+				<view class="card-user-image">
+					<image src="{{item.userUrl === null ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' : item.userUrl}}"></image>
+				</view>
 			<view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
 		</view>
 		<text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
@@ -16,5 +17,10 @@
 		<view class="card-image">
 			<image mode="widthFix" src="{{cardsImageUrls[i] === null || cardsImageUrls[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />
 		</view>
+		</view>
+			<view class="card-header-favor" bindtap="favor" data-cardId="{{i}}" data-sign="myCard">
+			  <text class="{{'iconfont card-header-favor-icon' + (myCardsfavorStatus[i] ? ' icon-good-fill' : ' icon-good')}}"></text>
+			  <text class="card-header-favor-text">{{myCardsfavorStatus[i] ? cards[i].cardLike+1 : cards[i].cardLike}}</text>
+			</view>
 	</view>
 </block>

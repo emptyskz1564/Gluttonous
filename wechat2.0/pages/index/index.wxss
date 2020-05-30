@@ -21,7 +21,6 @@
   align-content: center;
 }
 .card-user-image {
-  border: solid 5rpx #00bfff;
   display: flex;
   display: -webkit-flex;
   justify-content: center;

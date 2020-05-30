@@ -17,6 +17,7 @@
   border-radius: 20rpx;
   background-color: #fff;
   margin-left: 40rpx;
+  box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
 }
 .card-header-panel, .card-header-image, .card-header-user, .card-header-favor
  {
@@ -56,7 +57,6 @@
 }
 .card-header-image {
   overflow: hidden;
-  border: solid 5rpx #00bfff;
   justify-content: center;
   overflow: hidden;
   border-radius: 50%;

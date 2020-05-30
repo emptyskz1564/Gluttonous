@@ -1,11 +1,4 @@
 /**index.wxss**/
-/* 什么都没有 */
-.nothing {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 20pt;
-  color: #353535;
-}
 /* 打卡 */
 .card {
   width: 94%;
@@ -28,7 +21,6 @@
   align-content: center;
 }
 .card-user-image {
-  border: solid 5rpx #00bfff;
   display: flex;
   display: -webkit-flex;
   justify-content: center;
@@ -73,4 +65,15 @@
 .card-image image {
   width: 100%;
   z-index: 999;
+}
+
+.card-header-favor{
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  align-content: center;
 }

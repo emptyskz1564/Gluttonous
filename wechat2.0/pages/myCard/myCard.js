@@ -4,6 +4,7 @@ let requestUtil = require('./../../utils/request.js')
 const app = getApp()
 Page({
   data: {
+    myCardsfavorStatus: [],
     hasData:false,
     // 打卡内容
     cards: [],
@@ -40,7 +41,12 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           // 请求成功
+          let myCardsfavorStatus = [];
+          for(let i = 0 ; i < res.data.length; i ++){
+            myCardsfavorStatus.push(false);
+          }
           that.setData({
+            myCardsfavorStatus:myCardsfavorStatus,
             hasData:true,
             cards: res.data,
             cardsImageUrls: (function () {
@@ -76,10 +82,40 @@ Page({
     tabs.forEach((item, i) => item.isActive = i === index)
     this.setData({ tabs })
   },
+  // 点赞
+  favor: function (e) {
+    console.log(e);
+    let that=this;
+    let userId = wx.getStorageSync('userId');
+    let cardId=null;
+    cardId=wx.getStorageSync('myCard')[e.currentTarget.dataset.cardid].cardId;
+    if (userId !== '' && userId !== null) {
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/carduserlike/'+cardId+"/" + userId,
+        method:'POST',
+        success:function(res){
+          console.log(res);
+          wx.showToast({
+            title: '操作成功'
+          })
+          let myCardsfavorStatus = that.data.myCardsfavorStatus;
+          myCardsfavorStatus[e.currentTarget.dataset.cardid]=true;
+          that.setData({
+            myCardsfavorStatus:myCardsfavorStatus
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '请先登录再点赞',
+        icon: 'none'
+      })
+    }
+  },
   // 跳转到打卡详情
   toCard: function (e) {
     wx.navigateTo({
-      url: '../card/card?id=' + e.currentTarget.dataset.item+'&sign='+e.currentTarget.dataset.sign,
+      url: '../card2/card2?id=' + e.currentTarget.dataset.item+'&sign='+e.currentTarget.dataset.sign,
     })
   }
 })
