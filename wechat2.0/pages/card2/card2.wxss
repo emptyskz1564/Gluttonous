@@ -1,4 +1,12 @@
 /* pages/card/card.wxss */
+/* 背景色 */
+.scroll {
+  background-image: linear-gradient(225deg, #62b1ff, #ffb4f2);
+}
+.discuss input, .discuss view {
+  border: solid 1rpx #353535;
+  border-radius: 5rpx;
+}
 /* 打卡页眉 */
 .card-container {
   width: 100%;
@@ -10,7 +18,7 @@
   margin-bottom: 50rpx;
 }
 .block{
-  height: 290rpx;
+  height: 220rpx;
 }
 .cardin{
   width: 90%;
@@ -19,13 +27,18 @@
   margin-left: 40rpx;
   box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
 }
+.cardin-title {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 17pt;
+  color: #353535;
+}
 .card-header-panel, .card-header-image, .card-header-user, .card-header-favor
  {
   display: flex;
   display: -webkit-flex;
   align-items: center;
   align-content: center;
-  padding-bottom: 20rpx;
 }
 .card-label-panel{
   width: 95%;
