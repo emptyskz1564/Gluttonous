@@ -1,33 +1,57 @@
 /* pages/card/card.wxss */
+/* 背景色 */
+.scroll {
+  background-image: linear-gradient(225deg, #62b1ff, #ffb4f2);
+}
+
+.discuss input,
+.discuss view {
+  border: solid 1rpx #353535;
+  border-radius: 5rpx;
+}
+
 /* 打卡页眉 */
 .card-container {
   width: 100%;
   background-color: #fff;
 }
-.card{
+
+.card {
   width: 100%;
   display: flex;
   margin-bottom: 50rpx;
 }
-.block{
-  height: 290rpx;
+
+.block {
+  height: 220rpx;
 }
-.cardin{
+
+.cardin {
   width: 90%;
   border-radius: 20rpx;
   background-color: #fff;
   margin-left: 40rpx;
   box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
 }
-.card-header-panel, .card-header-image, .card-header-user, .card-header-favor
- {
+
+.cardin-title {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 17pt;
+  color: #353535;
+}
+
+.card-header-panel,
+.card-header-image,
+.card-header-user,
+.card-header-favor {
   display: flex;
   display: -webkit-flex;
   align-items: center;
   align-content: center;
-  padding-bottom: 20rpx;
 }
-.card-label-panel{
+
+.card-label-panel {
   width: 95%;
   margin-left: 20rpx;
   display: flex;
@@ -38,6 +62,7 @@
   padding-bottom: 40rpx;
   border-bottom: solid 2rpx #dddddd;
 }
+
 .card-header {
   position: fixed;
   top: 0;
@@ -47,37 +72,46 @@
   box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
   background-color: #fff;
 }
+
 .card-header-panel {
   width: 80%;
   margin: 0 auto;
   justify-content: space-between;
 }
+
 .card-header-user {
   width: 70%;
 }
+
 .card-header-image {
   overflow: hidden;
   justify-content: center;
   overflow: hidden;
   border-radius: 50%;
 }
+
 .card-header-image image {
   width: 125rpx;
   height: 125rpx;
 }
+
 .card-header-user-name {
   margin-left: 50rpx;
 }
+
 .card-header-favor {
   width: 25%;
   justify-content: space-around;
 }
+
 .card-header-favor-icon {
   font-size: 17pt;
 }
+
 .card-header-favor-text {
   color: #353535;
 }
+
 .card-title {
   width: 95%;
   margin-left: 20rpx;
@@ -85,13 +119,16 @@
   font-size: 23pt;
   color: #353535;
 }
+
 .card-content {
   width: 95%;
   margin: 25rpx auto 0 auto;
   font-size: 14pt;
   color: #353535;
 }
-.card-image-panel, .card-video-panel {
+
+.card-image-panel,
+.card-video-panel {
   width: 95%;
   margin-left: 20rpx;
   display: flex;
@@ -101,42 +138,45 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .card-image-panel {
   margin-top: 40rpx;
 }
+
 .card-image-panel-item {
   width: 49%;
   margin-top: 5rpx;
 }
+
 .card-image-panel-item image {
   width: 100%;
 }
 
 /* 评论 */
-.disContainer{
+.disContainer {
   margin-top: 20rpx;
   margin-left: 20rpx;
   margin-bottom: 20rpx;
 }
 
-.video{
+.video {
   height: 300rpx;
   width: 300rpx;
   margin-left: 10rpx;
 }
 
-.discuss{
+.discuss {
   margin-top: 40rpx;
   margin-bottom: 40rpx;
   display: flex;
   margin-left: 20rpx;
 }
 
-.alldis{
+.alldis {
   margin-top: 15rpx;
 }
 
-input{
+input {
   width: 80%;
   height: 60rpx;
   border-radius: 5px;
@@ -144,17 +184,17 @@ input{
   margin-bottom: 20rpx;
 }
 
-.disItem{
+.disItem {
   display: flex;
   justify-content: space-between;
 }
 
-.likeCount{
+.likeCount {
   width: 90rpx;
   display: flex;
 }
 
-.discuss{
+.discuss {
   margin-top: 40rpx;
   margin-bottom: 40rpx;
   display: flex;
@@ -162,7 +202,7 @@ input{
 }
 
 
-input{
+input {
   width: 80%;
   height: 60rpx;
   border-radius: 5px;
@@ -170,7 +210,7 @@ input{
   margin-bottom: 20rpx;
 }
 
-.reply{
+.reply {
   margin-left: 20rpx;
   padding-left: 10rpx;
   padding-right: 10rpx;
@@ -179,9 +219,21 @@ input{
   border: #f2f2f2 2rpx solid;
 }
 
-.label{
-  font-size: 30rpx;
+.label {
+  margin-top: 10rpx;
+  font-size: 14pt;
   color: #fff;
   padding: 0rpx 10rpx;
-  border-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  position: relative;
+}
+
+.label-head {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 0;
+  border-top: 30rpx solid transparent;
+  border-bottom: 30rpx solid transparent;
 }

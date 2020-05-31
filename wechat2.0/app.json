@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/restaurant/restaurant",
-    "pages/user/user",
     "pages/index/index",
+    "pages/user/user",
+    "pages/restaurant/restaurant",
     "pages/card/card",
     "templates/errors/errors",
     "templates/warnings/warnings",

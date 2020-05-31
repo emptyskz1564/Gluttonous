@@ -86,14 +86,6 @@ Page({
         }
         break
     }
-    // 提交选项
-    // ============================================
-    // wx.request({
-    //   url: 'url',
-    // })
-    // ============================================
-    // 在这里完善提交口味的接口
-    // 提交lable1、lable2、lable3的lableId和用户id
     let that=this;
     wx.request({
       url: requestUtil.apiUrl + '/userlable/second',

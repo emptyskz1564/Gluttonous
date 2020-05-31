@@ -1,4 +1,8 @@
 /* pages/user/user.wxss */
+/* 总背景 */
+.scroll {
+  background-image: linear-gradient(225deg, #62b1ff, #ffb4f2);
+}
 /* 用户信息部分 */
 .share, .service {
   position: absolute;
@@ -45,35 +49,6 @@
   border-radius: 50%;
   margin: 0 auto;
 }
-/* .user-header-image:before {
-  width: 230rpx;
-  height: 230rpx;
-  content: '';
-  border-radius: 50%;
-  border: solid 10rpx rgba(92, 167, 186, 1);
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: image-border-expand;
-  animation-timing-function: ease-in-out;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-delay: 1.5s;
-}
-.user-header-image:after {
-  width: 230rpx;
-  height: 230rpx;
-  content: '';
-  border-radius: 50%;
-  border: solid 10rpx rgba(175, 215, 237, 1);
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: image-border-expand;
-  animation-timing-function: ease-in-out;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-} */
 .user-header-image-frame {
   width: 240rpx;
   height: 240rpx;
@@ -127,58 +102,40 @@
 .icon-star {
   color: rgba(250, 227, 113, 1);
 }
-.icon-card {
-  color: rgba(137, 157, 192, 1);
-}
-.icon-history {
-  color: rgba(98, 65, 24, 1);
-}
 .icon-vip-c {
   color: rgba(255, 66, 93, 1);
 }
 /* 用户牌牌 */
-.user-label-panel {
-  margin: 20px auto 0 auto;
-  position: relative;
-  height: 400rpx;
-}
-.user-label-item-fixed, .user-label-item-float {
-  padding: 20rpx;
-  border-radius: 7rpx;
-  box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.3);
-  position: absolute;
+.user-label-panel, .user-label-items, .user-label-item {
   display: flex;
   display: -webkit-flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   align-content: center;
 }
-.user-label-item-fixed {
-  background-color: rgba(119, 237, 233, 0.5);
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+.user-label-panel {
+  padding: 20rpx 10rpx;
+  margin: 20px auto 20px auto;
+  flex-direction: column;
 }
-.user-label-item-float {
-  width: 160rpx;
-  height: 50rpx;
-  background-color: rgba(119, 237, 233, 0.5);
+.user-label-items {
+  margin: 10rpx 20rpx;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.vip {
-  top: 5%;
-  right: 5%;
+.user-label-items-title {
+  font-size: 17pt;
 }
-.label-1 {
-  top: 5%;
-  left: 5%;
+.user-label-items-sub-title {
+  font-size: 13pt;
+  color: #888;
 }
-.label-2 {
-  bottom: 5%;
-  left: 5%;
-}
-.label-3 {
-  bottom: 5%;
-  right: 5%;
+.user-label-item {
+  margin: 15rpx 0;
+  padding: 20rpx;
+  border-radius: 15rpx;
+  background-color: #ede;
+  /* background-image: linear-gradient(45deg, #62b1ff, #ffb4f2); */
 }
 /* 口味选择器 */
 .picker {

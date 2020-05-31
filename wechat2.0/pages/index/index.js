@@ -11,6 +11,7 @@ Page({
     nearCards: [],
     cardsImageUrls: [],
     nearCardsImageUrls: [],
+    doNotBother: false,
     exceptions: {
       // 请求是否失败
       isError: false,
@@ -118,9 +119,25 @@ Page({
   onReady: function () {},
   // 切换tab
   handleTabsItemChange(e) {
+    let that = this
     const {index} = e.detail
     let {tabs} = this.data
     tabs.forEach((item, i) => item.isActive = i === index)
+    if (index === 1 && !this.data.doNotBother) {
+      wx.showModal({
+        title: '提示',
+        confirmText: '我明白了',
+        cancelText: '别再烦我',
+        content: '本栏目由用户的餐厅收藏、口味选择和点赞打卡进行推荐',
+        success: function (res) {
+          if (!res.confirm) {  
+            that.setData({
+              doNotBother: true
+            })
+          }
+        }
+      })
+    }
     this.setData({ tabs })
   },
   // 点赞

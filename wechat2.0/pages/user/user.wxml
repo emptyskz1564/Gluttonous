@@ -1,46 +1,52 @@
 <!--pages/user/user.wxml-->
-<view class="user-header-panel">
-  <view class="service">
-    <text class="iconfont icon-warning"></text>
-  </view>
-  <button style="width: 30pt;" class="share" bindtap="onShareMessage" open-type="share">
-    <text class="iconfont icon-resonserate"></text>
-  </button>
-  <view class="user-header-image">
-    <view class="user-header-image-frame">
-      <image mode="widthFix" src="{{userInfo ? userInfo.avatarUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}"></image>
-    </view>
-  </view>
-  <button wx:if="{{!hasUserInfo}}" type="primary" plain bindgetuserinfo="handleGetuserinfo" open-type="getUserInfo">点我登录</button>
-  <view wx:else class="user-header-name">{{userInfo.nickName}}</view>
-</view>
-<view class="user-body-navigator">
-  <view class="user-body-navigator-item" bindtap="toStar">
-    <text class="iconfont icon-collection-fill user-body-navigator-icon icon-star"></text>
-    <text class="user-body-navigator-text">收藏</text>
-  </view>
-  <view class="user-body-navigator-item" bindtap="toMyCard">
-    <text class="iconfont icon-namecard-fill user-body-navigator-icon icon-card"></text>
-    <text class="user-body-navigator-text">打卡</text>
-  </view>
-</view>
-<view class="user-label-panel">
-  <view class="user-label-item-float vip">
-    <text class="{{'iconfont user-body-navigator-icon ' + (userInfo ? 'icon-vip-fill icon-vip-c' : 'icon-vip')}}"></text>
-    {{userInfo ? userInfo.vip : 0}}
-  </view>
-  <view class="user-label-item-float label-1" bindtap="openSelection" data-index="1">{{label1.lableContent}}</view>
-  <view class="user-label-item-float label-2" bindtap="openSelection" data-index="2">{{label2.lableContent}}</view>
-  <view class="user-label-item-float label-3" bindtap="openSelection" data-index="3">{{label3.lableContent}}</view>
-</view>
-<view class="picker" hidden="{{!showLabels}}">
-  <view class="picker-view-column-title">请选择最喜欢的口味</view>
-  <picker-view  indicator-class="picker-view-column" class="picker-view" bindchange="selectItem" data-item="{{clickedIndex}}">
-    <picker-view-column>
-      <view wx:for="{{labels}}" wx:key="index">{{item.lableContent}}</view>
-    </picker-view-column>
-  </picker-view>
-  <button class="confirm" bindtap="labelsChosen">选好啦！</button>
-</view>
-
-
+<scroll-view scroll-y class="scroll">
+	<view class="user-header-panel">
+		<view class="service">
+			<text class="iconfont icon-warning"></text>
+		</view>
+		<button style="width: 30pt;" class="share" bindtap="onShareMessage" open-type="share">
+			<text class="iconfont icon-resonserate"></text>
+		</button>
+		<view class="user-header-image">
+			<view class="user-header-image-frame">
+				<image mode="widthFix" src="{{userInfo ? userInfo.avatarUrl : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'}}"></image>
+			</view>
+		</view>
+		<button wx:if="{{!hasUserInfo}}" type="primary" plain bindgetuserinfo="handleGetuserinfo" open-type="getUserInfo">点我登录</button>
+		<view wx:else class="user-header-name">{{userInfo.nickName}}</view>
+	</view>
+	<view class="user-body-navigator">
+		<view class="user-body-navigator-item" bindtap="toStar">
+			<text class="iconfont icon-collection-fill user-body-navigator-icon icon-star"></text>
+			<text class="user-body-navigator-text">收藏</text>
+		</view>
+		<view class="user-body-navigator-item">
+			<text class="{{'iconfont user-body-navigator-icon ' + (userInfo ? 'icon-vip-fill icon-vip-c' : 'icon-vip')}}"></text>
+			<text class="user-body-navigator-text">会员：{{userInfo ? userInfo.vip : 0}}</text>
+		</view>
+		<view class="user-body-navigator-item" bindtap="toMyCard">
+			<text class="iconfont icon-namecard-fill user-body-navigator-icon icon-card"></text>
+			<text class="user-body-navigator-text">打卡</text>
+		</view>
+	</view>
+	<view class="user-label-panel">
+		<view class="user-label-items user-label-items-title">
+			请选择你的口味
+		</view>
+    <view class="user-label-items-sub-title">您随时可以修改口味</view>
+		<view class="user-label-items">
+			<view class="user-label-item" bindtap="openSelection" data-index="1">{{label1.lableContent}}</view>
+			<view class="user-label-item" bindtap="openSelection" data-index="2">{{label2.lableContent}}</view>
+			<view class="user-label-item" bindtap="openSelection" data-index="3">{{label3.lableContent}}</view>
+		</view>
+	</view>
+	<view class="picker" hidden="{{!showLabels}}">
+		<view class="picker-view-column-title">请选择最喜欢的口味</view>
+		<picker-view indicator-class="picker-view-column" class="picker-view" bindchange="selectItem" data-item="{{clickedIndex}}">
+			<picker-view-column>
+				<view wx:for="{{labels}}" wx:key="index">{{item.lableContent}}</view>
+			</picker-view-column>
+		</picker-view>
+		<button class="confirm" bindtap="labelsChosen">选好啦！</button>
+	</view>
+</scroll-view>

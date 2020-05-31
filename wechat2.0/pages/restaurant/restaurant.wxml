@@ -41,72 +41,63 @@
 			</view>
 		</view>
 
-		
-  <view class="addCard" bindtap="powerDrawer" data-statu="open" data-resId="{{item.resId}}">
-    <!-- <text class="iconfont icon-add-select large-icon"></text> -->
-    <image class="addCardImg" src="../icons/增加.png"></image>
-  </view>
 
-  <!-- <view class="form-bg" hidden="{{!formShow}}">
-    <view class="form-control">
-      <button type="primary" plain>提交</button>
-      <button type="warn" plain bindtap="toggleCardForm">取消</button>
-      <button plain style="color: white; border-color: white">清空</button>
-    </view>
-  </view> -->
-
+		<view class="addCard" bindtap="powerDrawer" data-statu="open" data-resId="{{item.resId}}">
+			<text style="color: #4386fa; font-weight: bold; font-size: 13pt">添加打卡</text>
+			<image class="addCardImg" src="../icons/增加.png"></image>
+		</view>
 
 	</view>
 
 	<!--mask-->
-<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view> 
-<!--content-->
-<!--使用animation属性指定需要执行的动画-->
-<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}"> 
-  <form bindsubmit="formSubmit">
- <!--drawer content-->
- <view class="drawer_title">打卡</view> 
- <view class="drawer_content"> 
-  <view class="top grid"> 
-   <label class="title col-0">打卡标题</label> 
-   <input class="input_base input_h30 col-1" name="cardTitle"></input> 
-  </view> 
-  <view class="top grid"> 
-   <label class="title col-0">打卡内容</label> 
-   <textarea fixed name="cardContent"></textarea>
-  </view> 
-  <view class="top grid"> 
-   <label class="title col-0">最好的菜</label> 
-   <input class="input_base input_h30 col-1" name="bestFood"></input> 
-  </view> 
-  <view class="top grid1"> 
-    <label class="title col-0">标签一</label> 
-    <input class="input_base input_h30 col-1" name="selfLable1"></input> 
-    <image class="addLabel" bindtap="addLabel" src="/pages/icons/增加.png"></image>
-  </view> 
-  <view class="top grid"> 
-    <label wx:if="{{addLabel[0]}}" class="title col-0">标签二</label> 
-    <input wx:if="{{addLabel[0]}}" class="input_base input_h30 col-1" name="selfLable2"></input> 
-  </view> 
-  <view class="top grid"> 
-    <label wx:if="{{addLabel[1]}}" class="title col-0" >标签三</label> 
-    <input wx:if="{{addLabel[1]}}" class="input_base input_h30 col-1" name="selfLable3"></input> 
-  </view> 
+	<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+	<!--content-->
+	<!--使用animation属性指定需要执行的动画-->
+	<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+		<form bindsubmit="formSubmit">
+			<!--drawer content-->
+			<view class="drawer_title">打卡</view>
+			<view class="drawer_content">
+				<view class="top grid">
+					<label class="title col-0">打卡标题</label>
+					<input class="input_base input_h30 col-1" name="cardTitle"></input>
+				</view>
+				<view class="top grid">
+					<label class="title col-0">打卡内容</label>
+					<textarea fixed name="cardContent"></textarea>
+				</view>
+				<view class="top grid">
+					<label class="title col-0">最好的菜</label>
+					<input class="input_base input_h30 col-1" name="bestFood"></input>
+				</view>
+				<view class="top grid1">
+					<label class="title col-0">标签一</label>
+					<input class="input_base input_h30 col-1" name="selfLable1"></input>
+					<image class="addLabel" bindtap="addLabel" src="/pages/icons/增加.png"></image>
+				</view>
+				<view class="top grid">
+					<label wx:if="{{addLabel[0]}}" class="title col-0">标签二</label>
+					<input wx:if="{{addLabel[0]}}" class="input_base input_h30 col-1" name="selfLable2"></input>
+				</view>
+				<view class="top grid">
+					<label wx:if="{{addLabel[1]}}" class="title col-0">标签三</label>
+					<input wx:if="{{addLabel[1]}}" class="input_base input_h30 col-1" name="selfLable3"></input>
+				</view>
 
-  <view class="image_content">
-    <view class='image' wx:for="{{img_url}}" wx:key="index">
-      <image class="moment_img" src="{{item}}"></image>
-    </view>
-    <view class='image' style='display:{{hideAdd?"none":"block"}}'>
-      <image bindtap="chooseimage" class="moment_img" src="../icons/add.png"></image>
-    </view>
-  </view>
-  
- </view> 
+				<view class="image_content">
+					<view class='image' wx:for="{{img_url}}" wx:key="index">
+						<image class="moment_img" src="{{item}}"></image>
+					</view>
+					<view class='image' style='display:{{hideAdd?"none":"block"}}'>
+						<image bindtap="chooseimage" class="moment_img" src="../icons/add.png"></image>
+					</view>
+				</view>
 
- <button class="btn_ok" bindtap="powerDrawer" data-statu="close" form-type="submit">确定</button> 
+			</view>
 
-  </form>
-  </view>
-	
+			<button class="btn_ok" bindtap="powerDrawer" data-statu="close" form-type="submit">确定</button>
+
+		</form>
+	</view>
+
 </scroll-view>
