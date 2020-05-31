@@ -285,22 +285,28 @@ Page({
           disuserId:userId
         };
     console.log(str);
-    
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/discuss',
-      data:{
-        str:JSON.stringify(str)
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
-      },
-      method:'POST',
-      success:function(res){
-        console.log(res);
-        wx.redirectTo({
-          url: '../card/card?id='+that.data.paramIndex+'&sign'+that.data.sign,
-        })
-      }
-    })
+    if(str.disContent === "" || str.disContent === null){
+      wx.showToast({
+        title: '请输入回复内容！',
+        icon: 'none'
+      })
+    }else{
+      wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/discuss',
+        data:{
+          str:JSON.stringify(str)
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+        },
+        method:'POST',
+        success:function(res){
+          console.log(res);
+          wx.redirectTo({
+            url: '../card/card?id='+that.data.paramIndex+'&sign'+that.data.sign,
+          })
+        }
+      })
+    }
   }
 })

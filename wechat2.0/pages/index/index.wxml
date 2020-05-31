@@ -16,7 +16,7 @@
         </view>
         <view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
       </view>
-      <text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
+      <view class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</view>
       <view class="card-content">{{item.cardContent=== '' || item.cardContent === null ? '他什么都没写，看图吧' : item.cardContent}}</view>
       <view class="card-image">
         <image mode="widthFix" src="{{cardsImageUrls[i] === null || cardsImageUrls[i] === '' ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />
@@ -39,7 +39,7 @@
           </view>
           <view>{{item.userName === null ? '这个人没写名字' : item.userName}}</view>
         </view>
-        <text class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</text>
+        <view class="card-title">{{item.cardTitle === '' || item.cardTitle === null ? '无题' : item.cardTitle}}</view>
         <view class="card-content">{{item.cardContent=== '' || item.cardContent === null ? '他什么都没写，看图吧' : item.cardContent}}</view>
         <view class="card-image">
           <image mode="widthFix" src="{{ nearCardsImageUrls[i] === null ? 'http://47.111.252.78/images/exceptions/nope.png' : cardsImageUrls[i] }}" />

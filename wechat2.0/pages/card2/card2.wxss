@@ -89,7 +89,7 @@
   width: 95%;
   margin: 25rpx auto 0 auto;
   font-size: 14pt;
-  color: #888;
+  color: #353535;
 }
 .card-image-panel, .card-video-panel {
   width: 95%;
