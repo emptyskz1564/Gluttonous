@@ -3,10 +3,11 @@
 .restaurant-header {
   height: 10%;
   display: flex;
-  display:-webkit-flex;
+  display: -webkit-flex;
   align-items: center;
   align-content: center;
 }
+
 .search {
   width: 90%;
   margin: 0 auto;
@@ -36,6 +37,7 @@
   background-color: #fff;
   box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
 }
+
 .card-user {
   padding: 8px;
   display: flex;
@@ -45,6 +47,7 @@
   align-content: center;
   justify-content: space-between;
 }
+
 .card-user-image {
   border: solid 5rpx #00bfff;
   display: flex;
@@ -56,10 +59,12 @@
   border-radius: 50%;
   margin-right: 60rpx;
 }
+
 .card-user-image image {
   width: 75rpx;
   height: 75rpx;
 }
+
 .card-user-name {
   margin-left: 60rpx;
   color: #353535;
@@ -67,20 +72,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.card-user-name-item, .card-user-name {
+
+.card-user-name-item,
+.card-user-name {
   display: flex;
   display: -webkit-flex;
   justify-content: center;
   align-items: center;
   align-content: center;
 }
+
 .card-title {
   font-size: 17pt;
 }
-.Labels{
+
+.Labels {
   display: flex;
   justify-content: space-around;
 }
+
 .card-content {
   color: #353535;
   display: -webkit-box;
@@ -92,6 +102,7 @@
   padding: 0 15rpx;
   border-radius: 2rpx 6rpx 6rpx 2rpx;
 }
+
 .card-title-head {
   font-size: 14pt;
   content: '';
@@ -101,6 +112,7 @@
   border-top: 21rpx solid transparent;
   border-bottom: 21rpx solid transparent;
 }
+
 .card-image-container {
   width: 100%;
   display: flex;
@@ -113,6 +125,7 @@
   margin-top: 8rpx;
   padding-bottom: 20rpx;
 }
+
 .card-image {
   width: 45%;
   text-align: center;
@@ -120,166 +133,181 @@
   padding: 15rpx 15rpx;
   height: 300rpx;
 }
+
 .card-image image {
   width: 100%;
   z-index: 999;
   height: 300rpx;
 }
+
 .card-header-large-icon {
   font-size: 17pt;
 }
+
 .collected {
   color: #f6d743;
 }
-/* 打卡弹窗 */
-.form-bg {
-  background-color: rgba(0, 0, 0, 0.75);
-  position: absolute;
-  top: 0;
-  left: 0;
+
+
+/*mask*/
+.drawer_screen {
   width: 100%;
   height: 100%;
-}
-.form-control {
-  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
 }
 
- 
- /*mask*/
- .drawer_screen { 
-  width: 100%; 
-  height: 100%; 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  z-index: 1000; 
-  background: #000; 
-  opacity: 0.5; 
-  overflow: hidden; 
- } 
-   
- /*content*/
- .drawer_box { 
-   display: flex;
-   flex-direction: column;
-  width: 650rpx; 
-  overflow: hidden; 
-  position: fixed; 
-  top: 50%; 
-  left: 0; 
-  z-index: 1001; 
-  background: #FAFAFA; 
-  margin: -150px 50rpx 0 50rpx; 
-  border-radius: 3px; 
- } 
-   
- .drawer_title{ 
-  padding:15px; 
-  font: 20px "microsoft yahei"; 
-  text-align: center; 
- } 
- .drawer_content { 
-  height: 210px; 
-  overflow-y: scroll; /*超出父盒子高度可滚动*/
- } 
-   
- .btn_ok{ 
-  padding: 10px; 
-  font: 20px "microsoft yahei"; 
-  text-align: center; 
+/*content*/
+.drawer_box {
+  display: flex;
+  flex-direction: column;
+  width: 650rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 1001;
+  background: #FAFAFA;
+  margin: -150px 50rpx 0 50rpx;
+  border-radius: 3px;
+}
+
+.drawer_title {
+  padding: 15px;
+  font: 20px "microsoft yahei";
+  text-align: center;
+}
+
+.drawer_content {
+  height: 210px;
+  overflow-y: scroll;
+  /*超出父盒子高度可滚动*/
+}
+
+.btn_ok {
+  padding: 10px;
+  font: 20px "microsoft yahei";
+  text-align: center;
   /* border-top: 1px solid #E8E8EA;  */
-  color: #3CC51F; 
- } 
-   
- .top{ 
-   /* padding-top:8rpx;  */
-   display: flex;
-   margin-top: 20rpx;
- } 
- .bottom { 
-   padding-bottom:8px; 
- } 
- .title { 
-   height: 30px; 
-   line-height: 30px; 
-   width: 160rpx; 
-   text-align: center; 
-   display: inline-block; 
-   font: 300 28rpx/30px "microsoft yahei"; 
- } 
+  color: #3CC51F;
+}
 
- .grid1{
-   display: flex;
-   
- }
- .top input {
+.top {
+  /* padding-top:8rpx;  */
+  display: flex;
+  margin-top: 20rpx;
+}
+.top label {
+  font-size: 10pt;
+}
+.top input {
+  border: solid 1rpx #888;
+  border-radius: 5rpx;
+}
+
+.bottom {
+  padding-bottom: 8px;
+}
+
+.title {
+  height: 30px;
+  line-height: 30px;
+  width: 160rpx;
+  text-align: center;
+  display: inline-block;
+  font: 300 28rpx/30px "microsoft yahei";
+}
+
+.grid1 {
+  display: flex;
+
+}
+
+.top input {
   width: 50%;
-  font: 12px "microsoft yahei"; 
-  background: #fff; 
-  color:#000 ;
- }
+  font: 12px "microsoft yahei";
+  background: #fff;
+  color: #000;
+}
 
- .addLabel{
-   height: 60rpx;
-   width: 60rpx;
- }
-   
- .input_base { 
-   /* border: 1rpx solid #ccc;  */
-   padding-left: 10rpx; 
-   margin-right: 50rpx; 
- } 
- .input_h30{ 
-   height: 30px; 
-   line-height: 30px; 
- } 
- .input_h60{ 
-   height: 60px; 
- } 
- .input_view{ 
-   font: 12px "microsoft yahei"; 
-   background: #fff; 
-   color:#000; 
-   line-height: 30px; 
- } 
+.addLabel {
+  height: 60rpx;
+  width: 60rpx;
+}
 
-.image{
-  width:31%;
+.input_base {
+  /* border: 1rpx solid #ccc;  */
+  padding-left: 10rpx;
+  margin-right: 50rpx;
+}
+
+.input_h30 {
+  height: 30px;
+  line-height: 30px;
+}
+
+.input_h60 {
+  height: 60px;
+}
+
+.input_view {
+  font: 12px "microsoft yahei";
+  background: #fff;
+  color: #000;
+  line-height: 30px;
+}
+
+.image {
+  width: 31%;
   height: 100px;
   padding: 2px
 }
- 
-.moment_img{
+
+.moment_img {
   width: 98px;
   height: 98px;
 }
- 
-.image_content{
+
+.image_content {
   width: 90%;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  margin-left: 40rpx; 
+  margin-left: 40rpx;
   margin-top: 20rpx;
 }
 
- textarea{
+textarea {
   width: 65%;
   height: 170rpx;
-  font: 12px "microsoft yahei"; 
-  background: #fff; 
-  color:#000 ;
+  font: 12px "microsoft yahei";
+  background: #fff;
+  color: #000;
   /* border: 1rpx solid #ccc; */
-  padding-left: 10rpx; 
-  margin-right: 50rpx; 
+  padding-left: 10rpx;
+  margin-right: 50rpx;
   padding-top: 15rpx;
- }
+  border: solid 1rpx #888;
+  border-radius: 5rpx;
+}
 
- .addCard{
-   margin-left: 550rpx;
-   padding-bottom: 20rpx;
- }
- .addCardImg{
-   width: 80rpx;
-   height: 80rpx;
- }
+.addCard {
+  margin-left: 450rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+
+.addCardImg {
+  width: 80rpx;
+  height: 80rpx;
+}
