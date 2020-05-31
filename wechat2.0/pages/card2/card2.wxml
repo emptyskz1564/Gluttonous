@@ -35,9 +35,18 @@
 				</view>
 			</view>
 			<view class="card-label-panel">
-				<view style="background-color: {{randomColorArr[0]}}" class="label">{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}</view>
-				<view style="background-color: {{randomColorArr[1]}}" class="label">{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}</view>
-				<view style="background-color: {{randomColorArr[2]}}" class="label">{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}</view>
+				<view style="background-color: {{randomColorArr[0]}}" class="label">
+					<view class="label-head" style="border-right: {{'27rpx solid ' + randomColorArr[0]}}"></view>
+					{{card.selfLable1 !== '' && card.selfLable1 !== null ? card.selfLable1 : '标签1'}}
+				</view>
+				<view style="background-color: {{randomColorArr[1]}}" class="label">
+					<view class="label-head" style="border-right: {{'14pt solid ' + randomColorArr[1]}}"></view>
+					{{card.selfLable2 !== '' && card.selfLable2 !== null ? card.selfLable2 : '标签2'}}
+				</view>
+				<view style="background-color: {{randomColorArr[2]}}" class="label">
+					<view class="label-head" style="border-right: {{'27rpx solid ' + randomColorArr[2]}}"></view>
+					{{card.selfLable2 !== '' && card.selfLable3 !== null ? card.selfLable3 : '标签3'}}
+				</view>
 			</view>
 			<!-- 评论部分 -->
 			<view class="disContainer">
