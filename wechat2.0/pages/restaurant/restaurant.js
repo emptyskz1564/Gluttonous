@@ -307,6 +307,14 @@ Page({
     this.setData({
       [name]: !this.data.stars[e.currentTarget.dataset.index]
     })
+    let that= this;
+    wx.request({
+      method:'POST',
+      url: 'https://hailicy.xyz/wechatpro/v1/userrestaurant/like/'+wx.getStorageSync('userId')+'/'+e.currentTarget.dataset.restid,
+      success:function(res){
+        console.log(res);
+      }
+    })
   },
   // 点击跳转地图
   toMap: function (e) {

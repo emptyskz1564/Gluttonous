@@ -11,7 +11,7 @@
 				{{item.resTitle === null ? '无名餐厅' : item.resTitle}}
 			</view>
 			<view class="card-user-name">
-				<view class="card-user-name-item" bindtap="star" data-index="{{i}}">
+				<view class="card-user-name-item" bindtap="star" data-index="{{i}}" data-restid="{{item.resId}}">
 					<text class="{{'iconfont card-header-large-icon ' + (stars[i] ? 'icon-collection-fill collected' : 'icon-collection')}}"></text>
 					<text>收藏</text>
 				</view>
