@@ -220,12 +220,13 @@ input {
 }
 
 .label {
-  margin-top: 10rpx;
-  font-size: 14pt;
+  margin-top: 20rpx;
+  font-size: 10pt;
   color: #fff;
   padding: 0rpx 10rpx;
-  border-top-right-radius: 10rpx;
-  border-bottom-right-radius: 10rpx;
+  
+  border-top-right-radius: 5rpx;
+  border-bottom-right-radius: 5rpx;
   position: relative;
 }
 
@@ -234,6 +235,6 @@ input {
   position: absolute;
   right: 100%;
   top: 0;
-  border-top: 30rpx solid transparent;
-  border-bottom: 30rpx solid transparent;
+  border-top: 22rpx solid transparent;
+  border-bottom: 22rpx solid transparent;
 }

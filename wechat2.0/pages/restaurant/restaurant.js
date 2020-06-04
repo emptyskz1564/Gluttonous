@@ -206,30 +206,42 @@ Page({
           });
           that.util("close");
         }
+        if(img_url.length===1){
+          that.setData({
+            img_url:[]    //重置img_url
+          })
+        }
+
+        //上传剩下的图片
+        for(let i=1; i< img_url.length; i++){
+          wx.uploadFile({
+            filePath: img_url[i],
+            name: 'files',
+            url: 'https://hailicy.xyz/wechatpro/v1/card/second',
+            formData:{
+              cardId:JSON.stringify(cardId)
+            },
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
+            },
+            success:function(res){
+              console.log(res);
+              wx.showToast({
+                title: '打卡成功',
+                duration: 2000
+              });
+              that.util("close"); 
+              if(i===img_url.length-1){
+                that.setData({
+                  img_url:[]    //重置img_url
+                })
+              }
+            }
+          })
+        }
       }
     })
-    //上传剩下的图片
-    for(let i=1; i< img_url.length; i++){
-      wx.uploadFile({
-        filePath: img_url[i],
-        name: 'files',
-        url: 'https://hailicy.xyz/wechatpro/v1/card/second',
-        formData:{
-          cardId:JSON.stringify(cardId)
-        },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
-        },
-        success:function(res){
-          console.log(res);
-          wx.showToast({
-            title: '打卡成功',
-            duration: 2000
-          });
-          that.util("close"); 
-        }
-      })
-    }
+    
   } ,
 
 
