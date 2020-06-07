@@ -211,7 +211,7 @@ Page({
             img_url:[]    //重置img_url
           })
         }
-
+        str={"cardId":cardId};
         //上传剩下的图片
         for(let i=1; i< img_url.length; i++){
           wx.uploadFile({
@@ -219,7 +219,7 @@ Page({
             name: 'files',
             url: 'https://hailicy.xyz/wechatpro/v1/card/second',
             formData:{
-              cardId:JSON.stringify(cardId)
+              str:JSON.stringify(str)
             },
             header: {
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"     /*更改头部*/
@@ -290,28 +290,36 @@ Page({
   //获取附近餐厅
   getNearRestaurant: function () {
     let that = this;
-    wx.request({
-      url: 'https://hailicy.xyz/wechatpro/v1/nearrestaurants/location/115.394633/31.795101',
+    wx.getLocation({
+      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
       success: function (res) {
-        if (res.statusCode === 200) {
-          that.setData({
-            restaurants: res.data,
-            restaurantList: res.data,
-            resImageUrls: that.decodeUrl(res.data),
-            resImageUrlList: that.decodeUrl(res.data),
-            stars: (function () {
-              let status = []
-              for (let i = 0; i < res.data.length; i++) {
-                status.push(
-                  false // 暂时规定全部为false，后期会修正
-                )
-              }
-              return status
-            })()
-          })
+        //console.log(res);
+        wx.request({
+        url: 'https://hailicy.xyz/wechatpro/v1/nearrestaurants/location/'+res.longitude+'/'+res.latitude,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            that.setData({
+              restaurants: res.data,
+              restaurantList: res.data,
+              resImageUrls: that.decodeUrl(res.data),
+              resImageUrlList: that.decodeUrl(res.data),
+              stars: (function () {
+                let status = []
+                for (let i = 0; i < res.data.length; i++) {
+                  status.push(
+                    false // 暂时规定全部为false，后期会修正
+                  )
+                }
+                return status
+              })()
+            })
+          }
         }
+      })
       }
+
     })
+   
   },
   // 点击收藏/取消收藏
   star: function (e) {
@@ -330,8 +338,10 @@ Page({
   },
   // 点击跳转地图
   toMap: function (e) {
+    console.log(e);
+    
     wx.navigateTo({
-      url: './../map/map?resAdress=' + e.currentTarget.dataset.item,
+      url: './../map/map?resAdress=' + e.currentTarget.dataset.index,
     })
   },
   /**

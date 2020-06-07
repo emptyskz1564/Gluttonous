@@ -189,10 +189,12 @@ Page({
               wx.request({
                 url: requestUtil.apiUrl + '/vuserlable/' + wx.getStorageSync('userId'),
                 success: function (res) {
+                  console.log(res);
+                  
                   that.setData({
                     label1:res.data[0],
                     label2:res.data[1],
-                    label2:res.data[2],
+                    label3:res.data[2],
                   })
                 }
               })

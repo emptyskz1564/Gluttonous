@@ -11,6 +11,8 @@ Page({
   },
 
   onLoad: function (e) {
+    console.log(e);
+    
     var _this = this;
     _this.setData({
       restlongitude:e.resAdress.split(",")[0],
@@ -38,31 +40,21 @@ Page({
             id: "1",
             latitude: res.latitude,
             longitude: res.longitude,
-            width: 50,
-            height: 50,
+            width: 30,
+            height: 30,
             iconPath: "/pages/icons/marker_red.png",
             title: "你在这里"
-
           },
           {
             id: "2",
             latitude: _this.data.restlatitude,
             longitude: _this.data.restlongitude,
-            width: 50,
-            height: 50,
+            width: 30,
+            height: 30,
             iconPath: "/pages/icons/marker_red.png",
             title: "餐厅在这"
-
           }
         ],
-          circles: [{
-            latitude: res.latitude,
-            longitude: res.longitude,
-            color: '#FF0000DD',
-            fillColor: '#7cb5ec88',
-            radius: 3000,
-            strokeWidth: 1
-          }]
 
         })
       }
