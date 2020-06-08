@@ -343,12 +343,7 @@ Page({
       }
     })
   },
-  // 点击跳转地图
-  toMap: function (e) {
-    wx.navigateTo({
-      url: './../map/map?resAdress=' + e.currentTarget.dataset.item,
-    })
-  },
+
 
 
   /**
@@ -409,6 +404,15 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+    // 点击跳转地图
+    toMap: function (e) {
+      console.log(e);
+      
+      wx.navigateTo({
+        url: './../map/map?resAdress=' + e.currentTarget.dataset.index,
+      })
+    },
 
   // 跳转到餐厅详情
   toRest: function (e) {

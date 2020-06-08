@@ -15,7 +15,7 @@
 					<text class="{{'iconfont card-header-large-icon ' + (stars[i] ? 'icon-collection-fill collected' : 'icon-collection')}}"></text>
 					<text>收藏</text>
 				</view>
-				<view class="card-user-name-item" bindtap="toMap" data-index="{{i}}">
+				<view class="card-user-name-item" bindtap="toMap" data-index="{{item.resAdress}}">
 					<text class="iconfont icon-map card-header-large-icon"></text>
 					<text>位置</text>
 				</view>
