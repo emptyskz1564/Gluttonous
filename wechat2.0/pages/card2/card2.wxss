@@ -71,6 +71,7 @@
   padding: 40rpx 0 20rpx 0;
   box-shadow: 5rpx 5rpx 15rpx rgba(0, 0, 0, 0.25);
   background-color: #fff;
+  z-index: 99999;
 }
 
 .card-header-panel {
